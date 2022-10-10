@@ -1,0 +1,7 @@
+export const HOST_URL = 'http://192.168.104.91:3000/api/v1/';
+export const PAGINATION_CNT = 'PAGINATION_CNT';
+
+export const CHART_DATA = 'CHART_DATA';
+
+export const SIDEBAR_TAG_DASHBOARD = 'SIDEBAR_TAG_DASHBOARD';
+export const SIDEBAR_TAG_LEADERBOARD = 'SIDEBAR_TAG_LEADERBOARD';
