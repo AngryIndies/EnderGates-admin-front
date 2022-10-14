@@ -76,10 +76,7 @@ const ApexLine4 = ({chartData}) => {
     useEffect(() => {
         data.series = chartData.data ? chartData.data : [];
 		data.options.xaxis.categories = chartData.category;
-
-        console.log("data : ", data.series);
-        console.log("category : ", chartData.category);
-
+        
         var temp = <div id="chart">
             <ReactApexChart
                 options={data.options}

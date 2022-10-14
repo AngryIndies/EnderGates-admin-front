@@ -10,7 +10,7 @@ const Header = () => {
         <header className="topnavbar-wrapper">
             <nav className="navbar topnavbar">
                 <div className="navbar-header">
-                    <Link className="navbar-brand" to="#/">
+                    <Link className="navbar-brand" to="/">
                         <div className="brand-logo">
                             <img className="img-fluid" src={Logo} alt="App Logo"  style={{ 'width' : '50%'}}/>
                         </div>

@@ -3,5 +3,12 @@ export const PAGINATION_CNT = 'PAGINATION_CNT';
 
 export const CHART_DATA = 'CHART_DATA';
 
-export const SIDEBAR_TAG_DASHBOARD = 'SIDEBAR_TAG_DASHBOARD';
-export const SIDEBAR_TAG_LEADERBOARD = 'SIDEBAR_TAG_LEADERBOARD';
+// Sidebar Section
+export const SIDEBAR_TAG_DASHBOARD      = 'SIDEBAR_TAG_DASHBOARD';
+export const SIDEBAR_TAG_LEADERBOARD    = 'SIDEBAR_TAG_LEADERBOARD';
+export const SIDEBAR_TAG_PLAYERS        = 'SIDEBAR_TAG_PLAYERS';
+export const SIDEBAR_TAG_DECKS          = "SIDEBAR_TAG_DECKS";
+export const SIDEBAR_TAG_CONFIG         = 'SIDEBAR_TAG_CONFIG';
+
+// Players Section
+export const PLAYER_DEX_ID              = "PLAYER_DEX_ID";

@@ -4,7 +4,6 @@ import {
 
 const initialState = {
     pagination_cnt: 10,
-    param_increase : 0,
 };
 
 const leaderboardReducer = (state = initialState, action) => {

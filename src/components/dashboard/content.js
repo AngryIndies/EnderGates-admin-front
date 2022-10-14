@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Chart from "./chart";
 
 
-const DashboardMainContent = ({ totalUsers, totalCards, totalGames, totalPacks, chartData }) => {
+const DashboardMainContent = ({ data, chartData }) => {
     return (
         <div className="col-lg-9">
             <div className="row">
@@ -19,7 +19,7 @@ const DashboardMainContent = ({ totalUsers, totalCards, totalGames, totalPacks, 
                         </Card.Header>
                         <Card.Body>
                             <Card.Text className="font-25 font-bold">
-                                {totalUsers}
+                                {!data.totalCards ? 0 : data.totalPlayers}
                             </Card.Text>
                         </Card.Body>
                         {/* <Card.Footer className=" bg-transparent border-0 text-white">
@@ -31,16 +31,14 @@ const DashboardMainContent = ({ totalUsers, totalCards, totalGames, totalPacks, 
                         <Card.Header>
                             <Card.Title className="text-white font-13rem">Total Cards</Card.Title>
                             <Card.Text className="d-flex align-items-center">
-                                <div className="ml-auto"><em className="fa-2x mr-2 fas fa-bars"></em></div>
+                                <div className="ml-auto"><em className="fa-2x mr-2 fas fa-ticket-alt"></em></div>
                             </Card.Text>
                         </Card.Header>
                         <Card.Body>
                             <Card.Text className="font-25 font-bold">
-                                {totalCards}
+                                { !data.totalCards ? 0 : data.totalCards.actionCards + data.totalCards.guardianCards + data.totalCards.reactionCards}
                             </Card.Text>
                         </Card.Body>
-                        {/* <Card.Footer className=" bg-transparent border-0 text-white">
-                        </Card.Footer> */}
                     </Card>
                 </Col>
                 <Col xl={3}>
@@ -53,28 +51,24 @@ const DashboardMainContent = ({ totalUsers, totalCards, totalGames, totalPacks, 
                         </Card.Header>
                         <Card.Body>
                             <Card.Text className="font-25 font-bold">
-                                {totalGames}
+                                {!data.totalCards ? 0 : data.totalGames}
                             </Card.Text>
                         </Card.Body>
-                        {/* <Card.Footer className=" bg-transparent border-0 text-white">
-                        </Card.Footer> */}
                     </Card>
                 </Col>
                 <Col xl={3}>
                     <Card className="text-white bg-info">
                         <Card.Header>
-                            <Card.Title className="text-white font-13rem">Total Packs</Card.Title>
+                            <Card.Title className="text-white font-13rem">Total Decks</Card.Title>
                             <Card.Text className="d-flex align-items-center">
-                                <div className="ml-auto"><em className="fa-2x mr-2 fas fa-ticket-alt"></em></div>
+                                <div className="ml-auto"><em className="fa-2x mr-2 fas fa-bars"></em></div>
                             </Card.Text>
                         </Card.Header>
                         <Card.Body>
                             <Card.Text className="font-25 font-bold">
-                                {totalPacks}
+                                {!data.totalCards ? 0 : data.totalDecks}
                             </Card.Text>
                         </Card.Body>
-                        {/* <Card.Footer className=" bg-transparent border-0 text-white">
-                        </Card.Footer> */}
                     </Card>
                 </Col>
             </div>
@@ -87,7 +81,7 @@ const DashboardMainContent = ({ totalUsers, totalCards, totalGames, totalPacks, 
                         <div className="card-body">
                             <div className="text-right text-muted"><em className="fa fa-users fa-2x"></em></div>
                             <h3 className="mt0">20</h3>
-                            <p className="text-muted">New followers this month</p>
+                            {/* <p className="text-muted">New followers this month</p> */}
                             <div className="progress progress-striped progress-xs">
                                 <div className="progress-bar bg-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style={{ "width": "80%" }}><span className="sr-only">80% Complete</span></div>
                             </div>
@@ -99,7 +93,7 @@ const DashboardMainContent = ({ totalUsers, totalCards, totalGames, totalPacks, 
                         <div className="card-body">
                             <div className="text-right text-muted"><em className="fas fa-chart-bar fa-2x"></em></div>
                             <h3 className="mt0">$ 1250</h3>
-                            <p className="text-muted">Average Monthly Income</p>
+                            {/* <p className="text-muted">Average Monthly Income</p> */}
                             <div className="progress progress-striped progress-xs">
                                 <div className="progress-bar bg-info" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style={{ "width": "40%" }}><span className="sr-only">40% Complete</span></div>
                             </div>
@@ -111,7 +105,7 @@ const DashboardMainContent = ({ totalUsers, totalCards, totalGames, totalPacks, 
                         <div className="card-body">
                             <div className="text-right text-muted"><em className="fa fa-trophy fa-2x"></em></div>
                             <h3 className="mt0">$ 13865</h3>
-                            <p className="text-muted">Yearly Income Goal</p>
+                            {/* <p className="text-muted">Yearly Income Goal</p> */}
                             <div className="progress progress-striped progress-xs">
                                 <div className="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style={{ "width": "60%" }}><span className="sr-only">60% Complete</span></div>
                             </div>
