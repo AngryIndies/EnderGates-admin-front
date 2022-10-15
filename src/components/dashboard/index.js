@@ -3,19 +3,21 @@ import { connect } from 'react-redux' ;
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 
-import RightSidebar from "./sidebar";
+import DashboardActiviy from "./activity";
 import DashboardHeader from "./header";
 import DashboardMainContent from "./content";
-import {HOST_URL} from '../../actions/types';
+import { HOST_URL } from '../../actions/types';
 
 const DashboardIndex = () => {
     
     const [dashboardInfo, setDashboardInfo] = useState({});
     const [chartData, setChartData]  = useState({});
+    const [lastActivities, setLastActivities] = useState([]);
 
     useEffect(() => {
         getDashboardInfos();
         getChartData();
+        getLastActivities();
     }, []);
 
     const getDashboardInfos = () => {
@@ -30,6 +32,13 @@ const DashboardIndex = () => {
         });
     }
 
+    const getLastActivities = () => {
+        axios.get( HOST_URL + `getLastActivities`).then((res) => {
+            console.log(res.data);
+            setLastActivities(res.data);
+        });
+    }
+
     return (
         <section className="section-container">
             <div className="content-wrapper">
@@ -39,7 +48,9 @@ const DashboardIndex = () => {
                         data = {dashboardInfo}
                         chartData  = {chartData}
                     />
-                    <RightSidebar/>
+                    <DashboardActiviy
+                        data={lastActivities}
+                    />
                 </div>
             </div>
         </section>
