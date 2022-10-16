@@ -12,7 +12,7 @@ const LastActivities = ({data}) => {
 
     useEffect(() => {
         timestampToDate();
-        
+
     }, []);
 
     return (
@@ -38,7 +38,8 @@ const LastActivities = ({data}) => {
                                             </div>
                                             <div className="media-body clearfix">
                                                 <div className="media-heading text-green m0"></div>
-                                                <p className="m0"><small>New file<Link to="#">entities.xls</Link>uploaded to the cloud</small></p><small>5 minutes ago</small>
+                                                {/* <p className="m0"><small>New file<Link to="#">entities.xls</Link>uploaded to the cloud</small></p><small>5 minutes ago</small> */}
+                                                <p>{activity.event}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -93,7 +94,11 @@ const LastActivities = ({data}) => {
                         </div>
                     </div> */}
                 </div>
-                <div className="card-footer clearfix"><a className="pull-left" href="#"><small>Load more</small></a></div>
+                <div className="card-footer clearfix">
+                    {/* <a className="pull-left" href="#">
+                        <small>Load more</small>
+                    </a> */}
+                </div>
             </div>
         </div>
     );

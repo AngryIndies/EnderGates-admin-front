@@ -110,10 +110,16 @@ const Sidebar = ({ onSetSidebarTag }) => {
                                 <span>Decks</span>
                             </Link>
                         </li>
-                        <li className={ location.pathname === '/config' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_CONFIG, GLOBAL.CONFIG)}>
-                            <Link to="/config" title="Configure">
+                        <li className={ location.pathname === '/game-config' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_CONFIG, GLOBAL.CONFIG)}>
+                            <Link to="/game-config" title="Configure">
                                 <em className="fas fa-cogs"></em>
                                 <span>Game Configure</span>
+                            </Link>
+                        </li>
+                        <li className={ location.pathname === '/game-result' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_CONFIG, GLOBAL.CONFIG)}>
+                            <Link to="/game-result" title="news">
+                                <em className="fas fa-list-ol"></em>
+                                <span>Game</span>
                             </Link>
                         </li>
                         {/* <li className=" "><Link to="#tables" title="Tables" data-toggle="collapse"><em className="fas fa-table"></em><span>Tables</span></Link>

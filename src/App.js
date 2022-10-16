@@ -14,6 +14,8 @@ import Decks        from "./components/decks/index";
 import DecksDetail  from "./components/decks/detail";
 import DeckImageDetail from './components/decks/deck-detail';
 import GameConfigure from './components/config/index';
+import GameResult from './components/result/index';
+
 
 const App = () => {
     return (
@@ -29,7 +31,8 @@ const App = () => {
                     <Route exact path = "/decks"            element = {<Decks />} />
                     <Route exact path = "/decks/:id"        element = {<DecksDetail />} />
                     <Route exact path = "/deck-detail/:id"  element = {<DeckImageDetail />} />
-                    <Route exact path = "/config"           element = {<GameConfigure />} />
+                    <Route exact path = "/game-config"           element = {<GameConfigure />} />
+                    <Route exact path = "/game-result"           element = {<GameResult />} />
                 </Routes>
             </Router>
         </Provider>
