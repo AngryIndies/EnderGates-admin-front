@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Spinner from 'react-bootstrap/Spinner'
-
+import ago from 's-ago';
 import { Link } from "react-router-dom";
 
 const timestampToDate = (timestamp) => {
     const date = Date.now();
-    console.log(date);
 }
 
 const LastActivities = ({data}) => {
@@ -38,8 +37,12 @@ const LastActivities = ({data}) => {
                                             </div>
                                             <div className="media-body clearfix">
                                                 <div className="media-heading text-green m0"></div>
-                                                {/* <p className="m0"><small>New file<Link to="#">entities.xls</Link>uploaded to the cloud</small></p><small>5 minutes ago</small> */}
-                                                <p>{activity.event}</p>
+                                                <b>{activity.event}</b>
+                                                <p className="m0">
+                                                    <small>{activity.event_data}</small>
+                                                </p>
+                                                <small>{activity.event_timestamp}</small>
+                                                
                                             </div>
                                         </div>
                                     </div>

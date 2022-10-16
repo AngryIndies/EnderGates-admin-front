@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import Paginator from 'react-hooks-paginator';
 import { connect } from "react-redux";
-
+import prettyMilliseconds from 'pretty-ms';
 
 import { HOST_URL } from '../../actions/types';
 import { } from '../../actions/'
-import { onSetPlayerDexID } from "../../actions/playersAction";
 import { PLAYER_DEX_ID } from '../../actions/types';
 
-const GameResultIndex = ({ onSetPlayerDexID }) => {
+const GameResultIndex = () => {
 
     const [totalCount, setTotalDataCount] = useState(0);
     const [paginationCnt, setPaginationCnt] = useState(10);
@@ -20,12 +19,14 @@ const GameResultIndex = ({ onSetPlayerDexID }) => {
     const [searchKey, setSearchKey] = useState('');
 
     useEffect(() => {
-        
+        axios.get( HOST_URL + `getDashboardInfos`).then( res => {
+            setTotalDataCount(res.data.totalGames);
+        });
     }, []);
 
     useEffect(() => {
-        axios.get( HOST_URL + 'getGameHistory').then( res => {
-            console.log(res);
+        axios.get( HOST_URL + 'getGameHistory?from=' + paginationFrom + '&limit=' + paginationCnt).then( res => {
+            setGameResult(res.data);
         });
     }, [paginationFrom, paginationCnt, searchKey]);
 
@@ -37,18 +38,14 @@ const GameResultIndex = ({ onSetPlayerDexID }) => {
         setCurrentPage(i);
     };
 
-    var dot = '...';
-    const modString = (str) => {
-        if (str.indexOf('0x') !== -1) {
-            let first = '';
-            let last = '';
-
-            first = str.slice(0, 4);
-            last = str.slice(str.length - 4, str.length);
-            return first + dot + last;
-        } else {
-            return str;
-        }
+    const modifyDateFormat = (start, finish) => {
+        let s = new Date(start);
+        let s_m = s.getTime();
+        let f = new Date(finish);
+        let f_m = f.getTime();
+        let d = f_m - s_m;
+        let result = prettyMilliseconds(d);
+        return result;
     }
 
     const searchData = (key) => {
@@ -100,23 +97,19 @@ const GameResultIndex = ({ onSetPlayerDexID }) => {
                                 <tbody>
                                     {
                                         gameResult.map((result, index) => {
-
                                             return (
                                                 <tr className="text-center" key={index}>
                                                     <td className="vertical-middle">{result.id}</td>
-                                                    <td className="vertical-middle">
-                                                        <img className="img-fluid rounded-circle thumb50" src={process.env.PUBLIC_URL + 'img/ProfileImages/' + result.pfp + '.png'} alt="Image" />
-                                                    </td>
-                                                    <td className="vertical-middle">{modString(result.username)}</td>
-                                                    <td className="vertical-middle">{modString(result.address)}</td>
-                                                    <td className="vertical-middle">{result.level}</td>
-                                                    <td className="vertical-middle">{result.point}</td>
-                                                    <td className="vertical-middle">{result.exp}</td>
-                                                    <td className="vertical-middle">{result.wins}</td>
-                                                    <td className="vertical-middle">{result.losses}</td>
-                                                    <td className="vertical-middle">
-                                                        <Link to={"/decks/" + `${result.id}`}>{result.deck_count}</Link>
-                                                    </td>
+                                                    <td className="vertical-middle">{result.player1}</td>
+                                                    <td className="vertical-middle">{result.player2}</td>
+                                                    <td className="vertical-middle">{result.game_data}</td>
+                                                    <td className="vertical-middle">{result.game_result}</td>
+                                                    <td className="vertical-middle">{modifyDateFormat(result.start_time, result.finish_time)}</td>
+                                                    <td className="vertical-middle">{result.turns}</td>
+                                                    <td className="vertical-middle">{result.kills}</td>
+                                                    <td className="vertical-middle">{result.retires}</td>
+                                                    <td className="vertical-middle">{result.td_player1}</td>
+                                                    <td className="vertical-middle">{result.td_player2}</td>
                                                 </tr>
                                             );
                                         })
@@ -163,4 +156,4 @@ const mapStateToProps = (state) => ({
 
 });
 
-export default connect(mapStateToProps, { onSetPlayerDexID })(GameResultIndex);
+export default connect(mapStateToProps, {})(GameResultIndex);

@@ -34,7 +34,6 @@ const DashboardIndex = () => {
 
     const getLastActivities = () => {
         axios.get( HOST_URL + `getLastActivities`).then((res) => {
-            console.log(res.data);
             setLastActivities(res.data);
         });
     }
