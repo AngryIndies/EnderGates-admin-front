@@ -9,10 +9,13 @@ import DashboardMainContent from "./content";
 import { HOST_URL } from '../../actions/types';
 
 const DashboardIndex = () => {
-    
+
+    const loadCnt = 4;
     const [dashboardInfo, setDashboardInfo] = useState({});
     const [chartData, setChartData]  = useState({});
     const [lastActivities, setLastActivities] = useState([]);
+    const [loadMoreCnt, setLoadMoreCnt] = useState(loadCnt);
+    const [clickTimeLoadMore, setClickTimeLoadMore] = useState(1);
 
     useEffect(() => {
         getDashboardInfos();
@@ -33,9 +36,24 @@ const DashboardIndex = () => {
     }
 
     const getLastActivities = () => {
-        axios.get( HOST_URL + `getLastActivities`).then((res) => {
+        axios.get( HOST_URL + `getLastActivities?from=0&limit=` + loadMoreCnt).then((res) => {
             setLastActivities(res.data);
         });
+    }
+
+    useEffect(() => {
+        getLastActivities();
+    }, [loadMoreCnt])
+
+    var loadClickCnt = 1;
+    const onLoaddMore = () => {
+        loadClickCnt++;
+        setClickTimeLoadMore(loadClickCnt);
+        setLoadMoreCnt(loadMoreCnt * loadClickCnt);
+    }
+
+    const onLoadLess = () => {
+        setLoadMoreCnt(loadCnt);
     }
 
     return (
@@ -49,6 +67,9 @@ const DashboardIndex = () => {
                     />
                     <DashboardActiviy
                         data={lastActivities}
+                        onLoadMore = {onLoaddMore}
+                        onLoadLess = {onLoadLess}
+                        clickTime = {clickTimeLoadMore}
                     />
                 </div>
             </div>

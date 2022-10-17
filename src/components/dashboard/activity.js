@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Spinner from 'react-bootstrap/Spinner'
-import ago from 's-ago';
+
 import { Link } from "react-router-dom";
 
 const timestampToDate = (timestamp) => {
     const date = Date.now();
 }
 
-const LastActivities = ({data}) => {
-
-    useEffect(() => {
-        timestampToDate();
-
-    }, []);
-
+const LastActivities = ({data, onLoadMore, onLoadLess, clickTime}) => {
+    console.log(clickTime);
     return (
         <div className="col-lg-3">
             <div className="card card-default">
@@ -50,57 +45,17 @@ const LastActivities = ({data}) => {
                             })
                         )
                     }
-                    {/* <div className="list-group-item">
-                        <div className="media">
-                            <div className="mr-3">
-                                <span className="fa-stack fa-lg">
-                                    <em className="fas fa-circle fa-stack-2x text-green"></em>
-                                    <em className="fas fa-cloud-upload-alt fa-stack-1x fa-inverse text-white"></em>
-                                </span>
-                            </div>
-                            <div className="media-body clearfix">
-                                <div className="media-heading text-green m0">NEW UPLOAD</div>
-                                <p className="m0"><small>New file<a href="#">entities.xls</a>uploaded to the cloud</small></p><small>5 minutes ago</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="list-group-item">
-                        <div className="media">
-                            <div className="mr-3">
-                                <span className="fa-stack fa-lg">
-                                    <em className="fas fa-circle fa-stack-2x text-info"></em>
-                                    <em className="fa fa-file fa-stack-1x fa-inverse text-white"></em>
-                                </span>
-                            </div>
-                            <div className="media-body clearfix">
-                                <div className="media-heading text-info m0">NEW DOCUMENT</div>
-                                <p className="m0"><small>New document<a href="#">Lorem ipsum</a>created</small></p><small>1 hour ago</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="list-group-item">
-                        <div className="media">
-                            <div className="mr-3"><span className="fa-stack fa-lg"><em className="fas fa-circle fa-stack-2x text-danger"></em><em className="fa fa-exclamation fa-stack-1x fa-inverse text-white"></em></span></div>
-                            <div className="media-body clearfix">
-                                <div className="media-heading text-danger m0">IMPORTANT MESSAGE</div>
-                                <p className="m0"><small>Sammy Sam sent you an important messsage.<a href="#">Read now</a></small></p><small>3 hours ago</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="list-group-item">
-                        <div className="media">
-                            <div className="mr-3"><span className="fa-stack fa-lg"><em className="fas fa-circle fa-stack-2x text-warning"></em><em className="fa fa-clock fa-stack-1x fa-inverse text-white"></em></span></div>
-                            <div className="media-body clearfix">
-                                <div className="media-heading text-warning m0">MEETING</div>
-                                <p className="m0"><small>Rich Reynods added a new meeting.<a className="label label-info" href="#">JOIN</a></small></p><small>yesterday</small>
-                            </div>
-                        </div>
-                    </div> */}
+                    
                 </div>
                 <div className="card-footer clearfix">
-                    {/* <a className="pull-left" href="#">
-                        <small>Load more</small>
-                    </a> */}
+                    <Link className="pull-left" onClick={() => onLoadMore()}>Load more</Link>
+                    {
+                        clickTime > 1 ? (
+                            <Link className="mgl-15" onClick={() => onLoadLess()}>Load less</Link>
+                        ) : (
+                            <></>
+                        )
+                    }
                 </div>
             </div>
         </div>

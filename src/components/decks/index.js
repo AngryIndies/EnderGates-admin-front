@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import Paginator from 'react-hooks-paginator';
 import { Link } from "react-router-dom";
+import { Row, Col, Card } from "react-bootstrap";
 import { connect } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -16,7 +17,7 @@ const DeckIndex = () => {
     const [decksData, setDecksData] = useState([]);
 
     useEffect(() => {
-        axios.get( HOST_URL + `getDashboardInfos`).then( res => {
+        axios.get(HOST_URL + `getDashboardInfos`).then(res => {
             setTotalDecks(res.data.totalDecks);
         });
 
@@ -33,21 +34,21 @@ const DeckIndex = () => {
         setCurrentPage(i);
     };
 
-    const toDecksStringToArray = (str) =>{
+    const toDecksStringToArray = (str) => {
         const cnt = 3;
         const array = str.split(',');
         const dots = '...';
         var exp = '';
 
-        if(array.length < cnt){
-            for(var i = 0; i < cnt; i++){
-                i != cnt -1 ? (exp += array[i] + ', ') : ( exp += array[i]);
+        if (array.length < cnt) {
+            for (var i = 0; i < cnt; i++) {
+                i != cnt - 1 ? (exp += array[i] + ', ') : (exp += array[i]);
             }
             return exp;
 
         } else {
-            for(var i = 0; i < cnt; i++){
-                i != cnt -1 ? (exp += array[i] + ', ') : ( exp += array[i]);
+            for (var i = 0; i < cnt; i++) {
+                i != cnt - 1 ? (exp += array[i] + ', ') : (exp += array[i]);
             }
             exp += ' ' + dots;
             return exp;
@@ -58,6 +59,70 @@ const DeckIndex = () => {
     return (
         <section className="section-container">
             <div className="content-wrapper" style={{ 'padding': '20px', 'borderTop': '0px' }}>
+                <Row>
+                    <Col xl={3}>
+                        <Card className="text-white bg-primary">
+                            <Card.Header>
+                                <Card.Title className="text-white font-13rem">Total Users</Card.Title>
+                                <Card.Text className="d-flex align-items-center">
+                                    <div className="ml-auto"><em className="fa fa-users fa-2x"></em></div>
+                                </Card.Text>
+                            </Card.Header>
+                            <Card.Body>
+                                <Card.Text className="font-25 font-bold">
+                                    {}
+                                </Card.Text>
+                            </Card.Body>
+                            {/* <Card.Footer className=" bg-transparent border-0 text-white">
+                        </Card.Footer> */}
+                        </Card>
+                    </Col>
+                    <Col xl={3}>
+                        <Card className="text-white bg-success">
+                            <Card.Header>
+                                <Card.Title className="text-white font-13rem">Total Cards</Card.Title>
+                                <Card.Text className="d-flex align-items-center">
+                                    <div className="ml-auto"><em className="fa-2x mr-2 fas fa-ticket-alt"></em></div>
+                                </Card.Text>
+                            </Card.Header>
+                            <Card.Body>
+                                <Card.Text className="font-25 font-bold">
+                                    {}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col xl={3}>
+                        <Card className="text-white bg-warning">
+                            <Card.Header>
+                                <Card.Title className="text-white font-13rem">Total Games</Card.Title>
+                                <Card.Text className="d-flex align-items-center">
+                                    <div className="ml-auto"><em className="fa-2x mr-2 fas fa-gamepad"></em></div>
+                                </Card.Text>
+                            </Card.Header>
+                            <Card.Body>
+                                <Card.Text className="font-25 font-bold">
+                                    {}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col xl={3}>
+                        <Card className="text-white bg-info">
+                            <Card.Header>
+                                <Card.Title className="text-white font-13rem">Total Decks</Card.Title>
+                                <Card.Text className="d-flex align-items-center">
+                                    <div className="ml-auto"><em className="fa-2x mr-2 fas fa-bars"></em></div>
+                                </Card.Text>
+                            </Card.Header>
+                            <Card.Body>
+                                <Card.Text className="font-25 font-bold">
+                                    {}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
                 <div className="card card-default">
                     <div className="card-header d-flex">
                         <div className="input-group">
@@ -127,7 +192,7 @@ const DeckIndex = () => {
                                     </div>
                                     <div className="ml-auto">
                                         <div className="dataTables_paginate paging_simple_numbers" id="datatable1_paginate">
-                                            <Paginator 
+                                            <Paginator
                                                 totalRecords={totalDecks}
                                                 pageLimit={paginationCnt}
                                                 pageNeighbours={2}

@@ -93,8 +93,15 @@ const GameConfigureIndex = () => {
             StartGoldAmount: parseFloat(startGoldAmount),
             StartHP: parseFloat(startHP),
             MaxHP: parseFloat(maxHP),
+        }).then(res => {
+            console.log(res.status);
+            if(res.status == 200){
+                toast.success("Successfully Set the Player Settings!");
+            } else {
+                toast.error("There is issues in your action!");
+            }
         });
-        toast.success("Successfully Set the Player Settings!");
+        
     }
 
     const onResetPlayerSetting = () => {
@@ -102,8 +109,13 @@ const GameConfigureIndex = () => {
             setStartGoldAmount(parseFloat(res.data.StartGoldAmount));
             setStartHP(res.data.StartHP);
             setMaxHP(res.data.MaxHP);
+
+            if(res.status == 200){
+                toast.success("Successfully Reset the Player Settings!");
+            } else {
+                toast.error("There is issues in your action!");
+            }
         })
-        toast.success("Successfully Reset the Player Settings!");
     }
 
     const onSetGameSetting = () => {
@@ -117,9 +129,13 @@ const GameConfigureIndex = () => {
             DuelPointDecrease: parseFloat(decreaseDuelPointBy),
             DuelExpWon: parseFloat(increaseDuelExpBy),
             DuelExpLost: parseFloat(decreaseDuelExpBy),
+        }).then(res => {
+            if(res.status == 200){
+                toast.success("Successfully Set the Game Settings!");
+            } else {
+                toast.error("There is any issues in your action!");
+            }
         });
-
-        toast.success("Successfully Set the Game Settings!");
     }
 
     const onResetGameSetting = () => {
@@ -133,8 +149,14 @@ const GameConfigureIndex = () => {
             setIncreaseDuelExpBy(res.data.DuelExpWon);
             setDecreaseDuelPointBy(res.data.DuelPointDecrease);
             setDecreaseDuelExpBy(res.data.DuelExpLost);
+
+            if(res.status == 200){
+                toast.success("Successfully Reset the Game Settings!");
+            } else {
+                toast.error("There is any issues in your action!");
+            }
         })
-        toast.success("Successfully Reset the Game Settings!");
+        
     }
 
 
