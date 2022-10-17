@@ -106,7 +106,7 @@ const Sidebar = ({ onSetSidebarTag }) => {
                         </li>
                         <li className={ location.pathname === '/decks' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_DECKS, GLOBAL.DECKS)}>
                             <Link to="/decks" title="Decks">
-                                <em className=" fas fa-bars"></em>
+                                <em className=" fas fa-window-restore"></em>
                                 <span>Decks</span>
                             </Link>
                         </li>

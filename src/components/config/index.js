@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
 import axios from "axios";
-import { HOST_URL } from "../../actions/types";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+
+import { HOST_URL } from "../../actions/types";
 const GameConfigureIndex = () => {
 
     const [startGoldAmount, setStartGoldAmount] = useState(0);
@@ -91,6 +94,7 @@ const GameConfigureIndex = () => {
             StartHP: parseFloat(startHP),
             MaxHP: parseFloat(maxHP),
         });
+        toast.success("Successfully Set the Player Settings!");
     }
 
     const onResetPlayerSetting = () => {
@@ -99,20 +103,7 @@ const GameConfigureIndex = () => {
             setStartHP(res.data.StartHP);
             setMaxHP(res.data.MaxHP);
         })
-    }
-
-    const onResetGameSetting = () => {
-        axios.put( HOST_URL + 'resetGameSetting').then(res => {
-            setTurnTime(res.data.TurnTime);
-            setGoldBonusForKill(res.data.GoldBonusForKill);
-            setGoldBonusForRetire(res.data.GoldBonusForRetire);
-            setElementalAttackBonusDamageOccurance(res.data.ElementalBonusOccurancePercent);
-            setElementalAttackBonusDamage(res.data.ElementalBonusDamage);
-            setIncreaseDuelPointBy(res.data.DuelPointIncrease);
-            setIncreaseDuelExpBy(res.data.DuelExpWon);
-            setDecreaseDuelPointBy(res.data.DuelPointDecrease);
-            setDecreaseDuelExpBy(res.data.DuelExpLost);
-        })
+        toast.success("Successfully Reset the Player Settings!");
     }
 
     const onSetGameSetting = () => {
@@ -127,7 +118,25 @@ const GameConfigureIndex = () => {
             DuelExpWon: parseFloat(increaseDuelExpBy),
             DuelExpLost: parseFloat(decreaseDuelExpBy),
         });
+
+        toast.success("Successfully Set the Game Settings!");
     }
+
+    const onResetGameSetting = () => {
+        axios.put( HOST_URL + 'resetGameSetting').then(res => {
+            setTurnTime(res.data.TurnTime);
+            setGoldBonusForKill(res.data.GoldBonusForKill);
+            setGoldBonusForRetire(res.data.GoldBonusForRetire);
+            setElementalAttackBonusDamageOccurance(res.data.ElementalBonusOccurancePercent);
+            setElementalAttackBonusDamage(res.data.ElementalBonusDamage);
+            setIncreaseDuelPointBy(res.data.DuelPointIncrease);
+            setIncreaseDuelExpBy(res.data.DuelExpWon);
+            setDecreaseDuelPointBy(res.data.DuelPointDecrease);
+            setDecreaseDuelExpBy(res.data.DuelExpLost);
+        })
+        toast.success("Successfully Reset the Game Settings!");
+    }
+
 
     return (
         <section className="section-container">
@@ -329,6 +338,12 @@ const GameConfigureIndex = () => {
                     </div>
 
                 </Row>
+                <ToastContainer
+                    autoClose={3000}
+                    hideProgressBar={true}
+                    theme="colored"
+                    position="bottom-right" 
+                />
             </div>
         </section>
     );
