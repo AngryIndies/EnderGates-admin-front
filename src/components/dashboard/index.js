@@ -7,42 +7,29 @@ import DashboardActiviy from "./activity";
 import DashboardHeader from "./header";
 import DashboardMainContent from "./content";
 import { HOST_URL } from '../../actions/types';
+import { onGetDashboardMainData, onGetDashboardChartData, onGetDashboardActivityData } from "../../actions/dashboardAction";
 
-const DashboardIndex = () => {
+const DashboardIndex = ({
+    onGetDashboardMainData,
+    onGetDashboardChartData,
+    onGetDashboardActivityData,
+    dashboardReducer_main,
+    dashboardReducer_chart,
+    dashboardReducer_activity
+}) => {
 
     const loadCnt = 4;
-    const [dashboardInfo, setDashboardInfo] = useState({});
-    const [chartData, setChartData]  = useState({});
-    const [lastActivities, setLastActivities] = useState([]);
     const [loadMoreCnt, setLoadMoreCnt] = useState(loadCnt);
     const [clickTimeLoadMore, setClickTimeLoadMore] = useState(1);
 
     useEffect(() => {
-        getDashboardInfos();
-        getChartData();
-        getLastActivities();
+        onGetDashboardMainData();
+        onGetDashboardChartData();
+        onGetDashboardActivityData(loadMoreCnt);
     }, []);
 
-    const getDashboardInfos = () => {
-        axios.get( HOST_URL + `getDashboardInfos`).then( res => {
-            setDashboardInfo(res.data);
-        });
-    }
-
-    const getChartData = () => {
-        axios.get(HOST_URL + 'getGameCountsByDate').then((res) => {
-            setChartData(res.data);
-        });
-    }
-
-    const getLastActivities = () => {
-        axios.get( HOST_URL + `getLastActivities?from=0&limit=` + loadMoreCnt).then((res) => {
-            setLastActivities(res.data);
-        });
-    }
-
     useEffect(() => {
-        getLastActivities();
+        onGetDashboardActivityData(loadMoreCnt);
     }, [loadMoreCnt])
 
     var loadClickCnt = 1;
@@ -62,11 +49,11 @@ const DashboardIndex = () => {
                 <DashboardHeader/>
                 <div className="row">
                     <DashboardMainContent
-                        data = {dashboardInfo}
-                        chartData  = {chartData}
+                        data = {dashboardReducer_main}
+                        chartData  = {dashboardReducer_chart}
                     />
                     <DashboardActiviy
-                        data={lastActivities}
+                        data={dashboardReducer_activity}
                         onLoadMore = {onLoaddMore}
                         onLoadLess = {onLoadLess}
                         clickTime = {clickTimeLoadMore}
@@ -78,7 +65,13 @@ const DashboardIndex = () => {
 }
 
 const mapStateToProps = (state) => ({
-
+    dashboardReducer_main    : state.dashboardReducer.all_info,
+    dashboardReducer_chart  : state.dashboardReducer.chart_data,
+    dashboardReducer_activity : state.dashboardReducer.activity_data,
 });
 
-export default connect(mapStateToProps, {})(DashboardIndex);
+export default connect(mapStateToProps, {
+    onGetDashboardMainData,
+    onGetDashboardChartData,
+    onGetDashboardActivityData,
+})(DashboardIndex);

@@ -19,6 +19,13 @@ const LeaderboardIndex = ({ onSetPlayerDexID }) => {
    const [playerInfo, setPlayerInfo] = useState([]);
    const [searchKey, setSearchKey] = useState('');
 
+   const chain = { 
+         '137'    : 'Polygon',
+         '1'      : 'Ethereum',
+         '97'     : 'Binance',
+         '1666600000' : 'Harmony'
+      }
+
    useEffect(() => {
       axios.get(HOST_URL + 'getPlayerCount').then(res => {
          setTotalUsers(res.data.count);
@@ -94,6 +101,7 @@ const LeaderboardIndex = ({ onSetPlayerDexID }) => {
                               <th>PFP</th>
                               <th>Username</th>
                               <th>Address</th>
+                              <th>Chain</th>
                               <th>level</th>
                               <th>Point</th>
                               <th>Experience</th>
@@ -116,6 +124,7 @@ const LeaderboardIndex = ({ onSetPlayerDexID }) => {
                                        </td>
                                        <td className="vertical-middle">{modString(player.username)}</td>
                                        <td className="vertical-middle">{modString(player.address)}</td>
+                                       <td className="vertical-middle">{chain[player.chainId]}</td>
                                        <td className="vertical-middle">{player.level}</td>
                                        <td className="vertical-middle">{player.point}</td>
                                        <td className="vertical-middle">{player.exp}</td>

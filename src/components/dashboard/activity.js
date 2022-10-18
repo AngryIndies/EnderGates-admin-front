@@ -8,7 +8,7 @@ const timestampToDate = (timestamp) => {
 }
 
 const LastActivities = ({data, onLoadMore, onLoadLess, clickTime}) => {
-    console.log(clickTime);
+    // console.log(data);
     return (
         <div className="col-lg-3">
             <div className="card card-default">

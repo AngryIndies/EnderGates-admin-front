@@ -1,19 +1,32 @@
 import {
-    CHART_DATA,
+    DASHBOARD_MAIN_DATA,
+    DASHBOARD_CHART_DATA, 
+    DASHBOARD_ACTIVITY_DATA,
 } from '../actions/types';
 
 const initialState = {
-    chart_data: {},
+    all_info    : {},
+    chart_data  : {},
 };
 
 const DashboardReducer = (state = initialState, action) => {
     const {type, payload} = action;
     switch (type) {
-        case CHART_DATA:
+        case DASHBOARD_MAIN_DATA : 
             return {
                 ...state,
-                chart_data: {...payload}
+                all_info : payload
             };
+        case DASHBOARD_CHART_DATA:
+            return {
+                ...state,
+                chart_data: payload
+            };
+        case DASHBOARD_ACTIVITY_DATA:
+            return {
+                ...state,
+                activity_data : payload
+            }
         default:
             return state;
     }
