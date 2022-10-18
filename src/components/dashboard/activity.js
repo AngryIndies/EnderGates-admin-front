@@ -7,8 +7,7 @@ const timestampToDate = (timestamp) => {
     const date = Date.now();
 }
 
-const LastActivities = ({data, onLoadMore, onLoadLess, clickTime}) => {
-    // console.log(data);
+const LastActivities = ({onLoadMore, onLoadLess, data, clickTime}) => {
     return (
         <div className="col-lg-3">
             <div className="card card-default">
@@ -18,7 +17,8 @@ const LastActivities = ({data, onLoadMore, onLoadLess, clickTime}) => {
                 <div className="list-group">
                     {
                         data == null ? (
-                            <Spinner></Spinner>
+                            // <Spinner></Spinner>
+                            <></>
                         ) : (
                             data.map((activity, item) => {
                                 return (

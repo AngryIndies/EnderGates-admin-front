@@ -53,9 +53,9 @@ const DashboardIndex = ({
                         chartData  = {dashboardReducer_chart}
                     />
                     <DashboardActiviy
-                        data={dashboardReducer_activity}
                         onLoadMore = {onLoaddMore}
                         onLoadLess = {onLoadLess}
+                        data={dashboardReducer_activity}
                         clickTime = {clickTimeLoadMore}
                     />
                 </div>
@@ -65,7 +65,7 @@ const DashboardIndex = ({
 }
 
 const mapStateToProps = (state) => ({
-    dashboardReducer_main    : state.dashboardReducer.all_info,
+    dashboardReducer_main    : state.dashboardReducer.main_data,
     dashboardReducer_chart  : state.dashboardReducer.chart_data,
     dashboardReducer_activity : state.dashboardReducer.activity_data,
 });

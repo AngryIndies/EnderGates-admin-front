@@ -1,4 +1,4 @@
-export const HOST_URL = 'http://192.168.104.94:3000/api/v1/';
+export const HOST_URL = 'http://192.168.104.94:3001/api/v1/';
 export const PAGINATION_CNT = 'PAGINATION_CNT';
 
 export const CHART_DATA = 'CHART_DATA';
@@ -16,5 +16,12 @@ export const DASHBOARD_CHART_DATA       = "DASHBOARD_CHART_DATA";
 export const DASHBOARD_ACTIVITY_DATA    = "DASHBOARD_ACTIVITY_DATA";
 
 
+// Decks Section
+export const DECKS_ALL_DATA             = "DECKS_ALL_DATA";
+
+
+
 // Players Section
 export const PLAYER_DEX_ID              = "PLAYER_DEX_ID";
+
+

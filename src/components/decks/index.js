@@ -4,27 +4,33 @@ import Paginator from 'react-hooks-paginator';
 import { Link } from "react-router-dom";
 import { Row, Col, Card } from "react-bootstrap";
 import { connect } from "react-redux";
-import { useSelector } from "react-redux";
+import DecksChart from './decks_chart';
 
 import { HOST_URL } from '../../actions/types';
+import { onGetDashboardMainData } from "../../actions/dashboardAction";
+import { onGetAllDecks } from "../../actions/decksAction";
 
-const DeckIndex = () => {
+const DeckIndex = ({
+    onGetDashboardMainData,
+    onGetAllDecks,
+    totalDecks,
+    decksData
+}) => {
 
-    const [totalDecks, setTotalDecks] = useState(0);
     const [paginationCnt, setPaginationCnt] = useState(10);
     const [paginationFrom, setPaginationFrom] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
-    const [decksData, setDecksData] = useState([]);
 
     useEffect(() => {
-        axios.get(HOST_URL + `getDashboardInfos`).then(res => {
-            setTotalDecks(res.data.totalDecks);
-        });
-
-        axios.get(HOST_URL + 'getAllDecks?from=' + paginationFrom + '&limit=' + paginationCnt).then(res => {
-            setDecksData(res.data);
-        })
+        onGetDashboardMainData();
+        onGetAllDecks(paginationFrom, paginationCnt)
     }, [paginationFrom, paginationCnt]);
+
+    useEffect(() => {
+        for(let i = 0; i < decksData.length; i++){
+            
+        }
+    }, [decksData]);
 
     const selectPaginationCnt = (cnt) => {
         setPaginationCnt(cnt);
@@ -70,7 +76,7 @@ const DeckIndex = () => {
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text className="font-25 font-bold">
-                                    {}
+                                    { }
                                 </Card.Text>
                             </Card.Body>
                             {/* <Card.Footer className=" bg-transparent border-0 text-white">
@@ -87,25 +93,13 @@ const DeckIndex = () => {
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text className="font-25 font-bold">
-                                    {}
+                                    { }
                                 </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
                     <Col xl={3}>
-                        <Card className="text-white bg-warning">
-                            <Card.Header>
-                                <Card.Title className="text-white font-13rem">Total Games</Card.Title>
-                                <Card.Text className="d-flex align-items-center">
-                                    <div className="ml-auto"><em className="fa-2x mr-2 fas fa-gamepad"></em></div>
-                                </Card.Text>
-                            </Card.Header>
-                            <Card.Body>
-                                <Card.Text className="font-25 font-bold">
-                                    {}
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        <DecksChart />
                     </Col>
                     <Col xl={3}>
                         <Card className="text-white bg-info">
@@ -117,12 +111,13 @@ const DeckIndex = () => {
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text className="font-25 font-bold">
-                                    {}
+                                    { }
                                 </Card.Text>
                             </Card.Body>
                         </Card>
                     </Col>
                 </Row>
+                
                 <div className="card card-default">
                     <div className="card-header d-flex">
                         <div className="input-group">
@@ -178,12 +173,6 @@ const DeckIndex = () => {
                             </table>
                             <div className="card-footer">
                                 <div className="d-flex">
-                                    <div className="d-flex align-center">
-                                        {/* <div className="input-group">
-                                            <input className="form-control form-control-sm" type="text" placeholder="Search" onChange={(e) => searchData(e.target.value)}/>
-                                            <div className="input-group-append"><button className="btn btn-secondary btn-sm" type="button">Search</button></div>
-                                        </div> */}
-                                    </div>
                                     <div className="d-flex dt-buttons btn-group mgl-15 align-center">
                                         <button className="btn btn-default buttons-copy buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>Copy</span></button>
                                         <button className="btn btn-default buttons-csv buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>CSV</span></button> <button className="btn btn-default buttons-excel buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>Excel</span></button>
@@ -213,7 +202,11 @@ const DeckIndex = () => {
 }
 
 const mapStateToProps = (state) => ({
-
+    totalDecks  : state.dashboardReducer.main_data.totalDecks,
+    decksData   : state.decksReducer.decks_data,
 });
 
-export default connect(mapStateToProps, {})(DeckIndex);
+export default connect(mapStateToProps, {
+    onGetDashboardMainData,
+    onGetAllDecks,
+})(DeckIndex);

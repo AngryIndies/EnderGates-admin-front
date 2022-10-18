@@ -2,11 +2,13 @@ import {
     DASHBOARD_MAIN_DATA,
     DASHBOARD_CHART_DATA, 
     DASHBOARD_ACTIVITY_DATA,
+    DECKS_ALL_DATA,
 } from '../actions/types';
 
 const initialState = {
-    all_info    : {},
-    chart_data  : {},
+    main_data       : {},
+    chart_data      : {},
+    activity_data   : [],
 };
 
 const DashboardReducer = (state = initialState, action) => {
@@ -15,7 +17,7 @@ const DashboardReducer = (state = initialState, action) => {
         case DASHBOARD_MAIN_DATA : 
             return {
                 ...state,
-                all_info : payload
+                main_data : payload
             };
         case DASHBOARD_CHART_DATA:
             return {
