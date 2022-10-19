@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { connect } from "react-redux";
+import { SpinnerCircular } from 'spinners-react';
 
-const ApexPie = ({cards}) => {
+const ApexPie = ({action, reaction, guardian}) => {
 
     var data = {
         render: false,
@@ -56,18 +57,26 @@ const ApexPie = ({cards}) => {
 
     useEffect(() => {
         data.options.labels = ['Action Cards', 'Guardian Cards', 'Reaction Cards'];
-        data.series = cards ? [cards.actionCards, cards.guardianCards, cards.reactionCards] : [];
-        var temp =  <div id="chart">
-                        <ReactApexChart
-                            options={data.options}
-                            series={data.series}
-                            type="donut"
-                            height={350}
-                        />
-                    </div>
+        data.series = action ? [action, reaction, guardian] : [];
+        var temp =  action ? (
+                                <div id="chart">
+                                    <ReactApexChart
+                                        options={data.options}
+                                        series={data.series}
+                                        type="donut"
+                                        height={350}
+                                    />
+                                </div>
+                            ) : (
+                                <SpinnerCircular 
+                                    size={90} 
+                                    thickness={180} 
+                                    speed={180}
+                                />
+                            )
         
         setRenderContainer(temp);
-    }, [cards]);
+    }, [action]);
 
     return (
         renderContainer

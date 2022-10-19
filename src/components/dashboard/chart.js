@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
+import { SpinnerInfinity } from 'spinners-react';
 
 const ApexLine4 = ({chartData}) => {
 
@@ -91,7 +92,17 @@ const ApexLine4 = ({chartData}) => {
 
 
     return (
-        renderContainer //Render the dom elements, or, when this.state == false, nothing.
+        <>
+        {
+            chartData ? (
+                renderContainer
+            ) : (
+                <SpinnerInfinity 
+                    size={100}
+                />
+            )
+        }
+        </>
     );
 }
 

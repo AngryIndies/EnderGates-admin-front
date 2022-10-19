@@ -1,36 +1,92 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import Paginator from 'react-hooks-paginator';
-import { Link } from "react-router-dom";
+import { json, Link } from "react-router-dom";
 import { Row, Col, Card } from "react-bootstrap";
 import { connect } from "react-redux";
+import { SpinnerRoundFilled } from 'spinners-react';
+
+
 import DecksChart from './decks_chart';
 
-import { HOST_URL } from '../../actions/types';
 import { onGetDashboardMainData } from "../../actions/dashboardAction";
-import { onGetAllDecks } from "../../actions/decksAction";
+import { onGetDecks, onGetAllDecks } from "../../actions/decksAction";
 
 const DeckIndex = ({
     onGetDashboardMainData,
     onGetAllDecks,
-    totalDecks,
-    decksData
+    onGetDecks,
+    totalDecksCount,
+    decksData,
+    allDecks
 }) => {
 
     const [paginationCnt, setPaginationCnt] = useState(10);
     const [paginationFrom, setPaginationFrom] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
 
-    useEffect(() => {
-        onGetDashboardMainData();
-        onGetAllDecks(paginationFrom, paginationCnt)
-    }, [paginationFrom, paginationCnt]);
+    const [actionCard, setActionCard] = useState(0);
+    const [reactionCard, setReactionCard] = useState(0);
+    const [guardianCard, setGuardianCard] = useState(0);
 
     useEffect(() => {
-        for(let i = 0; i < decksData.length; i++){
-            
+        onGetAllDecks();
+    }, [])
+
+    useEffect(() => {
+        onGetDecks(paginationFrom, paginationCnt);
+    }, [paginationFrom, paginationCnt]);
+
+
+    const stringToArray = (str) => {
+        let array = str.split(',');
+        return array;
+    }
+
+    useEffect(() => {
+        var array = [];
+        var arr = [];
+        for (let i = 0; i < allDecks.length; i++) {
+            arr[i] = stringToArray(allDecks[i].deck_cards)
+            array = array.concat(arr[i]);
         }
-    }, [decksData]);
+
+        array.sort();
+        var result = [];
+        var current = null;
+        var cnt = 0;
+        for (var i = 0; i < array.length; i++) {
+            if (array[i] !== current) {
+                if (cnt > 0) {
+                    var str = '{"index":' + current + ', "cnt" :' + cnt +'}';
+                    result.push(JSON.parse(str));
+                }
+                current = array[i];
+                cnt = 1;
+            } else {
+                cnt++;
+            }
+        }
+
+        var action = 0;
+        var reaction = 0;
+        var guardian = 0;
+
+        for(var i = 0; i < result.length; i++){
+            if(result[i]['index'] <= 45){
+                action += result[i]['cnt'];
+            } else if(result[i]['index'] > 45 && result[i]['index'] <= 86){
+                reaction += result[i]['cnt'];
+            } else {
+                guardian += result[i]['cnt'];
+            }
+        }
+
+        setActionCard(action);
+        setReactionCard(reaction);
+        setGuardianCard(guardian);
+
+    }, [allDecks]);
 
     const selectPaginationCnt = (cnt) => {
         setPaginationCnt(cnt);
@@ -40,7 +96,7 @@ const DeckIndex = ({
         setCurrentPage(i);
     };
 
-    const toDecksStringToArray = (str) => {
+    const toDecksStringtoShort = (str) => {
         const cnt = 3;
         const array = str.split(',');
         const dots = '...';
@@ -98,8 +154,12 @@ const DeckIndex = ({
                             </Card.Body>
                         </Card>
                     </Col>
-                    <Col xl={3}>
-                        <DecksChart />
+                    <Col xl={3} style={{ 'textAlign': 'center'}}>
+                        <DecksChart 
+                            action = {actionCard}
+                            reaction = {reactionCard}
+                            guardian = {guardianCard}
+                        />
                     </Col>
                     <Col xl={3}>
                         <Card className="text-white bg-info">
@@ -117,7 +177,7 @@ const DeckIndex = ({
                         </Card>
                     </Col>
                 </Row>
-                
+
                 <div className="card card-default">
                     <div className="card-header d-flex">
                         <div className="input-group">
@@ -160,7 +220,7 @@ const DeckIndex = ({
                                                     <td className="vertical-middle">{deck.username}</td>
                                                     <td className="vertical-middle">{deck.deck_name}</td>
                                                     <td className="vertical-middle">
-                                                        <Link to={"/deck-detail/" + `${deck.id}`}>{toDecksStringToArray(deck.deck_cards)}</Link>
+                                                        <Link to={"/deck-detail/" + `${deck.id}`}>{toDecksStringtoShort(deck.deck_cards)}</Link>
                                                     </td>
                                                     <td className="vertical-middle">
                                                         {deck.selected === 1 ? (<em className="fa fa-check green-color"></em>) : (<></>)}
@@ -181,14 +241,23 @@ const DeckIndex = ({
                                     </div>
                                     <div className="ml-auto">
                                         <div className="dataTables_paginate paging_simple_numbers" id="datatable1_paginate">
-                                            <Paginator
-                                                totalRecords={totalDecks}
-                                                pageLimit={paginationCnt}
-                                                pageNeighbours={2}
-                                                setOffset={setPaginationFrom}
-                                                currentPage={currentPage}
-                                                setCurrentPage={onClick}
-                                            />
+                                            {
+                                                totalDecksCount ? (
+                                                    <Paginator
+                                                        totalRecords={totalDecksCount}
+                                                        pageLimit={paginationCnt}
+                                                        pageNeighbours={2}
+                                                        setOffset={setPaginationFrom}
+                                                        currentPage={currentPage}
+                                                        setCurrentPage={onClick}
+                                                    />
+                                                ) : (
+                                                    <SpinnerRoundFilled
+                                                        size={30}
+                                                    />
+                                                )
+                                            }
+
                                         </div>
                                     </div>
                                 </div>
@@ -202,11 +271,13 @@ const DeckIndex = ({
 }
 
 const mapStateToProps = (state) => ({
-    totalDecks  : state.dashboardReducer.main_data.totalDecks,
-    decksData   : state.decksReducer.decks_data,
+    totalDecksCount: state.dashboardReducer.main_data.totalDecks,
+    allDecks: state.decksReducer.decks_all_data,
+    decksData: state.decksReducer.decks_data,
 });
 
 export default connect(mapStateToProps, {
     onGetDashboardMainData,
     onGetAllDecks,
+    onGetDecks,
 })(DeckIndex);

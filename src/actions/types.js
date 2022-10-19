@@ -18,7 +18,7 @@ export const DASHBOARD_ACTIVITY_DATA    = "DASHBOARD_ACTIVITY_DATA";
 
 // Decks Section
 export const DECKS_ALL_DATA             = "DECKS_ALL_DATA";
-
+export const DECKS_DATA                 = "DECKS_DATA";
 
 
 // Players Section

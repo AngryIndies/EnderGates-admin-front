@@ -24,6 +24,7 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
     "s-ago": "^2.2.0",
+    "spinners-react": "^1.0.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
