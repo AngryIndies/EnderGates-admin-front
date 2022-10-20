@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { SpinnerDiamond  } from 'spinners-react';
+import { connect } from "react-redux";
+
 
 import Chart from "./chart";
-
 
 const DashboardMainContent = ({ data, chartData }) => {
     return (
@@ -72,8 +74,21 @@ const DashboardMainContent = ({ data, chartData }) => {
                     </Card>
                 </Col>
             </div>
-
-            <Chart chartData= {chartData}/>
+            {
+                Object.keys(chartData).length ? (
+                    <Chart chartData= {chartData}/>
+                ) : (
+                    <Row className="text-center justify-center" style={{'height' : '150px'}}>
+                        <SpinnerDiamond 
+                            size={90}
+                            thickness={180}
+                            speed={142}
+                        />
+                    </Row>
+                    
+                )
+            }
+            
 
             <div className="row">
                 <div className="col-md-4">
@@ -208,4 +223,9 @@ const DashboardMainContent = ({ data, chartData }) => {
     );
 }
 
-export default DashboardMainContent;
+const mapStateToProps = (state) => ({
+    dashboardReducer_main    : state.dashboardReducer.main_data,
+});
+
+export default connect(mapStateToProps, {
+})(DashboardMainContent);

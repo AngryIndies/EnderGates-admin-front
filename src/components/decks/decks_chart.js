@@ -56,7 +56,7 @@ const ApexPie = ({action, reaction, guardian}) => {
     const [renderContainer, setRenderContainer] = useState(false);
 
     useEffect(() => {
-        data.options.labels = ['Action Cards', 'Guardian Cards', 'Reaction Cards'];
+        data.options.labels = ['Action Cards', 'Reaction Cards', 'Guardian Cards'];
         data.series = action ? [action, reaction, guardian] : [];
         var temp =  action ? (
                                 <div id="chart">
@@ -71,7 +71,7 @@ const ApexPie = ({action, reaction, guardian}) => {
                                 <SpinnerCircular 
                                     size={90} 
                                     thickness={180} 
-                                    speed={180}
+                                    speed={140}
                                 />
                             )
         

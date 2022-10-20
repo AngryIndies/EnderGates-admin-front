@@ -4,7 +4,7 @@ import Paginator from 'react-hooks-paginator';
 import { json, Link } from "react-router-dom";
 import { Row, Col, Card } from "react-bootstrap";
 import { connect } from "react-redux";
-import { SpinnerRoundFilled } from 'spinners-react';
+import { SpinnerRoundFilled, SpinnerDotted } from 'spinners-react';
 
 
 import DecksChart from './decks_chart';
@@ -13,7 +13,6 @@ import { onGetDashboardMainData } from "../../actions/dashboardAction";
 import { onGetDecks, onGetAllDecks } from "../../actions/decksAction";
 
 const DeckIndex = ({
-    onGetDashboardMainData,
     onGetAllDecks,
     onGetDecks,
     totalDecksCount,
@@ -28,6 +27,8 @@ const DeckIndex = ({
     const [actionCard, setActionCard] = useState(0);
     const [reactionCard, setReactionCard] = useState(0);
     const [guardianCard, setGuardianCard] = useState(0);
+
+    const [totalCardsInDecks, setTotalCardsinDecks] = useState(0);
 
     useEffect(() => {
         onGetAllDecks();
@@ -50,6 +51,8 @@ const DeckIndex = ({
             arr[i] = stringToArray(allDecks[i].deck_cards)
             array = array.concat(arr[i]);
         }
+
+        setTotalCardsinDecks(array.length);
 
         array.sort();
         var result = [];
@@ -117,30 +120,42 @@ const DeckIndex = ({
         }
     }
 
-
     return (
         <section className="section-container">
             <div className="content-wrapper" style={{ 'padding': '20px', 'borderTop': '0px' }}>
                 <Row>
-                    <Col xl={3}>
+                    <Col xl={4}>
+                        <Card className="text-white bg-info">
+                            <Card.Header>
+                                <Card.Title className="text-white font-13rem">Total Decks</Card.Title>
+                                <Card.Text className="d-flex align-items-center">
+                                    <div className="ml-auto"><em className="fa-2x mr-2 fas fa-bars"></em></div>
+                                </Card.Text>
+                            </Card.Header>
+                            <Card.Body>
+                                <Card.Text className="font-25 font-bold">
+                                    { totalDecksCount }
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
                         <Card className="text-white bg-primary">
                             <Card.Header>
-                                <Card.Title className="text-white font-13rem">Total Users</Card.Title>
+                                <Card.Title className="text-white font-13rem">Average Rate</Card.Title>
                                 <Card.Text className="d-flex align-items-center">
                                     <div className="ml-auto"><em className="fa fa-users fa-2x"></em></div>
                                 </Card.Text>
                             </Card.Header>
                             <Card.Body>
                                 <Card.Text className="font-25 font-bold">
-                                    { }
+                                    { Math.ceil( totalCardsInDecks / totalDecksCount )}
                                 </Card.Text>
                             </Card.Body>
                             {/* <Card.Footer className=" bg-transparent border-0 text-white">
                         </Card.Footer> */}
                         </Card>
                     </Col>
-                    <Col xl={3}>
-                        <Card className="text-white bg-success">
+                    <Col xl={4}>
+                        {/* <Card className="text-white bg-success">
                             <Card.Header>
                                 <Card.Title className="text-white font-13rem">Total Cards</Card.Title>
                                 <Card.Text className="d-flex align-items-center">
@@ -152,9 +167,9 @@ const DeckIndex = ({
                                     { }
                                 </Card.Text>
                             </Card.Body>
-                        </Card>
+                        </Card> */}
                     </Col>
-                    <Col xl={3} style={{ 'textAlign': 'center'}}>
+                    <Col xl={4} style={{ 'textAlign': 'center'}}>
                         <DecksChart 
                             action = {actionCard}
                             reaction = {reactionCard}
@@ -162,19 +177,7 @@ const DeckIndex = ({
                         />
                     </Col>
                     <Col xl={3}>
-                        <Card className="text-white bg-info">
-                            <Card.Header>
-                                <Card.Title className="text-white font-13rem">Total Decks</Card.Title>
-                                <Card.Text className="d-flex align-items-center">
-                                    <div className="ml-auto"><em className="fa-2x mr-2 fas fa-bars"></em></div>
-                                </Card.Text>
-                            </Card.Header>
-                            <Card.Body>
-                                <Card.Text className="font-25 font-bold">
-                                    { }
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        
                     </Col>
                 </Row>
 
@@ -211,23 +214,42 @@ const DeckIndex = ({
                                         <th>State</th>
                                     </tr>
                                 </thead>
+                                {
+                                    decksData.length === 0? (
+                                        <td colspan='5' style={{'textAlign':'center'}}>
+                                            <SpinnerDotted
+                                                size={90}
+                                                speed={140}
+                                                thickness={180}
+                                            />
+                                        </td>
+                                        
+                                    ) : (
+                                        <></>
+                                    )
+                                }
                                 <tbody>
                                     {
-                                        decksData.map((deck, index) => {
-                                            return (
-                                                <tr className="text-center" key={index}>
-                                                    <td className="vertical-middle">{deck.userid}</td>
-                                                    <td className="vertical-middle">{deck.username}</td>
-                                                    <td className="vertical-middle">{deck.deck_name}</td>
-                                                    <td className="vertical-middle">
-                                                        <Link to={"/deck-detail/" + `${deck.id}`}>{toDecksStringtoShort(deck.deck_cards)}</Link>
-                                                    </td>
-                                                    <td className="vertical-middle">
-                                                        {deck.selected === 1 ? (<em className="fa fa-check green-color"></em>) : (<></>)}
-                                                    </td>
-                                                </tr>
-                                            );
-                                        })
+                                        decksData ? (
+                                            decksData.map((deck, index) => {
+                                                return (
+                                                    <tr className="text-center" key={index}>
+                                                        <td className="vertical-middle">{deck.userid}</td>
+                                                        <td className="vertical-middle">{deck.username}</td>
+                                                        <td className="vertical-middle">{deck.deck_name}</td>
+                                                        <td className="vertical-middle">
+                                                            <Link to={"/deck-detail/" + `${deck.id}`}>{toDecksStringtoShort(deck.deck_cards)}</Link>
+                                                        </td>
+                                                        <td className="vertical-middle">
+                                                            {deck.selected === 1 ? (<em className="fa fa-check green-color"></em>) : (<></>)}
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })
+                                        ) : (
+                                            <></>
+                                        )
+                                        
                                     }
                                 </tbody>
                             </table>
