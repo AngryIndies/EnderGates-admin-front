@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { MetamaskStateProvider } from 'use-metamask';
 
 import store        from './store';
 import Header       from './components/layout/header';

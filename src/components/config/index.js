@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Row } from "react-bootstrap";
-import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { useMetaMask } from "metamask-react";
+import { Row } from "react-bootstrap";
+import axios from "axios";
 
 import { HOST_URL } from "../../actions/types";
+
 const GameConfigureIndex = () => {
+
+    const { status, connect, account, chainId, ethereum } = useMetaMask();
+    const [metamaskAccount, setMetamaskAccount] = useState('');
 
     const [startGoldAmount, setStartGoldAmount] = useState(0);
     const [startHP, setStartHP] = useState(0);
@@ -79,7 +83,6 @@ const GameConfigureIndex = () => {
     }
 
     const onDecreaseDuelPointBy = (num) => {
-        console.log(parseFloat(num));
         setDecreaseDuelPointBy(parseFloat(num));
     }
 
@@ -88,11 +91,15 @@ const GameConfigureIndex = () => {
     }
 
     const onSetPlayerSetting = () => {
+        connect();
+        
+
         console.log(startGoldAmount, startHP, maxHP);
         axios.put(HOST_URL + 'updatePlayerSetting', {
             StartGoldAmount: parseFloat(startGoldAmount),
             StartHP: parseFloat(startHP),
             MaxHP: parseFloat(maxHP),
+            address : account
         }).then(res => {
             console.log(res.status);
             if(res.status == 200){
@@ -101,16 +108,16 @@ const GameConfigureIndex = () => {
                 toast.error("There is issues in your action!");
             }
         });
-        
+
     }
 
     const onResetPlayerSetting = () => {
-        axios.put( HOST_URL + 'resetPlayerSetting').then(res => {
+        axios.put(HOST_URL + 'resetPlayerSetting').then(res => {
             setStartGoldAmount(parseFloat(res.data.StartGoldAmount));
             setStartHP(res.data.StartHP);
             setMaxHP(res.data.MaxHP);
 
-            if(res.status == 200){
+            if (res.status == 200) {
                 toast.success("Successfully Reset the Player Settings!");
             } else {
                 toast.error("There is issues in your action!");
@@ -130,7 +137,7 @@ const GameConfigureIndex = () => {
             DuelExpWon: parseFloat(increaseDuelExpBy),
             DuelExpLost: parseFloat(decreaseDuelExpBy),
         }).then(res => {
-            if(res.status == 200){
+            if (res.status == 200) {
                 toast.success("Successfully Set the Game Settings!");
             } else {
                 toast.error("There is any issues in your action!");
@@ -139,7 +146,7 @@ const GameConfigureIndex = () => {
     }
 
     const onResetGameSetting = () => {
-        axios.put( HOST_URL + 'resetGameSetting').then(res => {
+        axios.put(HOST_URL + 'resetGameSetting').then(res => {
             setTurnTime(res.data.TurnTime);
             setGoldBonusForKill(res.data.GoldBonusForKill);
             setGoldBonusForRetire(res.data.GoldBonusForRetire);
@@ -150,13 +157,13 @@ const GameConfigureIndex = () => {
             setDecreaseDuelPointBy(res.data.DuelPointDecrease);
             setDecreaseDuelExpBy(res.data.DuelExpLost);
 
-            if(res.status == 200){
+            if (res.status == 200) {
                 toast.success("Successfully Reset the Game Settings!");
             } else {
                 toast.error("There is any issues in your action!");
             }
         })
-        
+
     }
 
 
@@ -214,13 +221,13 @@ const GameConfigureIndex = () => {
                                             <button
                                                 className="btn btn-oval btn-outline-info mgr-15"
                                                 type="button"
-                                                onClick={() => onSetPlayerSetting()}
+                                                onClick={() => connect()}
                                             >Apply</button>
-                                            <button 
-                                                className="btn btn-oval btn-outline-danger" 
+                                            <button
+                                                className="btn btn-oval btn-outline-danger"
                                                 type="button"
                                                 onClick={() => onResetPlayerSetting()}
-                                            >Reset</button>
+                                            >{account}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -347,8 +354,8 @@ const GameConfigureIndex = () => {
                                                 type="button"
                                                 onClick={() => onSetGameSetting()}
                                             >Apply</button>
-                                            <button 
-                                                className="btn btn-oval btn-outline-danger" 
+                                            <button
+                                                className="btn btn-oval btn-outline-danger"
                                                 type="button"
                                                 onClick={() => onResetGameSetting()}
                                             >Reset</button>
@@ -364,7 +371,7 @@ const GameConfigureIndex = () => {
                     autoClose={3000}
                     hideProgressBar={true}
                     theme="colored"
-                    position="bottom-right" 
+                    position="bottom-right"
                 />
             </div>
         </section>
