@@ -10,7 +10,6 @@ import { HOST_URL } from "../../actions/types";
 const GameConfigureIndex = () => {
 
     const { status, connect, account, chainId, ethereum } = useMetaMask();
-    const [metamaskAccount, setMetamaskAccount] = useState('');
 
     const [startGoldAmount, setStartGoldAmount] = useState(0);
     const [startHP, setStartHP] = useState(0);
@@ -91,24 +90,26 @@ const GameConfigureIndex = () => {
     }
 
     const onSetPlayerSetting = () => {
-        connect();
-        
+        if(status === 'notConnected'){
+            connect();
+        } else if(status === 'connected'){
+            alert(account);
 
-        console.log(startGoldAmount, startHP, maxHP);
-        axios.put(HOST_URL + 'updatePlayerSetting', {
-            StartGoldAmount: parseFloat(startGoldAmount),
-            StartHP: parseFloat(startHP),
-            MaxHP: parseFloat(maxHP),
-            address : account
-        }).then(res => {
-            console.log(res.status);
-            if(res.status == 200){
-                toast.success("Successfully Set the Player Settings!");
-            } else {
-                toast.error("There is issues in your action!");
-            }
-        });
-
+            // console.log(startGoldAmount, startHP, maxHP);
+            // axios.put(HOST_URL + 'updatePlayerSetting', {
+            //     StartGoldAmount: parseFloat(startGoldAmount),
+            //     StartHP: parseFloat(startHP),
+            //     MaxHP: parseFloat(maxHP),
+            //     address : account
+            // }).then(res => {
+            //     console.log(res.status);
+            //     if(res.status == 200){
+            //         toast.success("Successfully Set the Player Settings!");
+            //     } else {
+            //         toast.error("There is issues in your action!");
+            //     }
+            // });
+        }
     }
 
     const onResetPlayerSetting = () => {
@@ -221,13 +222,13 @@ const GameConfigureIndex = () => {
                                             <button
                                                 className="btn btn-oval btn-outline-info mgr-15"
                                                 type="button"
-                                                onClick={() => connect()}
+                                                onClick={() => onSetPlayerSetting()}
                                             >Apply</button>
                                             <button
                                                 className="btn btn-oval btn-outline-danger"
                                                 type="button"
                                                 onClick={() => onResetPlayerSetting()}
-                                            >{account}</button>
+                                            >Reset</button>
                                         </div>
                                     </div>
                                 </form>

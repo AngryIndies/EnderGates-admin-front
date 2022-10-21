@@ -1,4 +1,5 @@
-export const HOST_URL = 'http://192.168.104.94:3001/api/v1/';
+// export const HOST_URL = 'http://192.168.104.94:3001/api/v1/';
+export const HOST_URL = "https://endersgate-test-server.herokuapp.com/api/v1/";
 export const PAGINATION_CNT = 'PAGINATION_CNT';
 
 export const CHART_DATA = 'CHART_DATA';
@@ -23,5 +24,3 @@ export const DECKS_DATA                 = "DECKS_DATA";
 
 // Players Section
 export const PLAYER_DEX_ID              = "PLAYER_DEX_ID";
-
-
