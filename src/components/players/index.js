@@ -120,7 +120,7 @@ const LeaderboardIndex = ({ onSetPlayerDexID }) => {
                                     <tr className="text-center" key={index}>
                                        <td className="vertical-middle">{player.id}</td>
                                        <td className="vertical-middle">
-                                          <img className="img-fluid rounded-circle thumb50" src={process.env.PUBLIC_URL + 'img/ProfileImages/' + player.pfp + '.png'} alt="Image" />
+                                          <img className="img-fluid rounded-circle thumb50" src={'../assets/img/ProfileImages/' + player.pfp + '.png'} alt="Image" />
                                        </td>
                                        <td className="vertical-middle">{modString(player.username)}</td>
                                        <td className="vertical-middle">{modString(player.address)}</td>

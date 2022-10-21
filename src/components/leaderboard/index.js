@@ -6,7 +6,10 @@ import { HOST_URL } from '../../actions/types';
 import Ranking from './ranking';
 
 
-const image = ['Main_change_up', 'Main_change_same', 'Main_change_down'];
+// Ranking Change Images
+import up from "../../assets/img/ranking_change/Main_change_up.png";
+import equal from "../../assets/img/ranking_change/Main_change_same.png";
+import down from "../../assets/img/ranking_change/Main_change_down.png"
 
 const LeaderboardIndex = () => {
 
@@ -100,7 +103,7 @@ const LeaderboardIndex = () => {
                                     <tr className="text-center" key={index}>
                                        <td className="vertical-middle">{rank.rank}</td>
                                        <td  className="vertical-middle">
-                                          <img className="img-fluid rounded-circle thumb50" src={process.env.PUBLIC_URL + 'img/ProfileImages/' + rank.pfp + '.png'} alt="Image" />
+                                          <img className="img-fluid rounded-circle thumb50" src={'../assets/img/ProfileImages/' + rank.pfp + '.png'} alt="Image" />
                                        </td>
                                        <td  className="vertical-middle">{rank.username}</td>
                                        <td  className="vertical-middle">{rank.point}</td>
@@ -113,11 +116,11 @@ const LeaderboardIndex = () => {
                                        <td  className="vertical-middle">
                                           { rank.change >= 0 ? ( 
                                              rank.change === 0 ? (
-                                                <img className="img-fluid rounded-circle thumb30" src={process.env.PUBLIC_URL + 'img/' + image[1] + '.png'} alt="Image" />
+                                                <img className="img-fluid rounded-circle thumb30" src={equal} alt="Image" />
                                              ) : (
-                                                <img className="img-fluid rounded-circle thumb30" src={process.env.PUBLIC_URL + 'img/' + image[0] + '.png'} alt="Image" />
+                                                <img className="img-fluid rounded-circle thumb30" src={up} alt="Image" />
                                              ) ) : (
-                                                <img className="img-fluid rounded-circle thumb30" src={process.env.PUBLIC_URL + 'img/' + image[2] + '.png'} alt="Image" />
+                                                <img className="img-fluid rounded-circle thumb30" src={down} alt="Image" />
                                              )
                                           }
                                           

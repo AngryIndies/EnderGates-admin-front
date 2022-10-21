@@ -1,0 +1,321 @@
+.font-20 {
+    font-size: 20px;
+}
+
+.font-13rem {
+    font-size: 1.3rem !important;
+}
+
+.font-25 {
+    font-size: 25px;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+.text-align {
+    text-align: center;
+}
+
+.text-left{
+    text-align: left;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center{
+    align-items: center;
+}
+
+.margin-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.flex {
+    display: flex;
+}
+
+.ranking {
+    height: 100%;
+    vertical-align: middle;
+}
+
+.justify-middle {
+    margin: 0;
+    /* position: absolute; */
+
+}
+
+.bg-primary {
+    background-color: #DD2F6E !important;
+}
+
+
+.thumb50 {
+    width: 50px !important;
+    height: 50px !important;
+}
+
+.ml-10 {
+    margin-left: 10px;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+.mgl-5 {
+    margin-left: 5px;
+}
+
+.mgl-10 {
+    margin-left: 10px;
+}
+
+.mgl-15 {
+    margin-left: 15px;
+}
+
+.mgr-5 {
+    margin-right: 5px;
+}
+
+.mgr-10 {
+    margin-right: 10px;
+}
+
+.mgr-15 {
+    margin-right: 15px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
+.mt-60 {
+    margin-top: 60px;
+}
+
+.pl-20{
+    padding-left: 20px;
+}
+
+.pl_10{
+    padding-left: 10%;
+}
+
+.pl_19{
+    padding-left: 19%;
+}
+
+.pl_20{
+    padding-left: 20%;
+}
+
+.pt-20 {
+    padding-top: 20px;
+}
+
+.align-item-center {
+    align-items: center;
+}
+
+.content-wrapper {
+    border-top: 0px !important;
+}
+
+.height-250 {
+    height: 250px;
+}
+
+.width_100 {
+    width: 100%;
+}
+
+.width_20 {
+    width: 20%;
+}
+
+.width_30 {
+    width: 30%;
+}
+
+.width_40 {
+    width: 40%;
+}
+
+.width-70P{
+    width: 70%;
+}
+
+.height_100 {
+    height: 100%;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.top-player-list {
+    align-items: center;
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+
+.ranking-item {
+    flex-direction: column;
+}
+
+.top-ranking-player {
+    position: relative;
+}
+
+.top-ranking-pfp {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.pfp {
+    display: inline-block;
+    position: relative;
+}
+
+.pfp-small {
+    height: 150px;
+    width: 150px;
+}
+
+.pfp-normal {
+    height: 180px;
+    width: 180px;
+}
+
+.pfp-big {
+    height: 210px;
+    width: 210px;
+}
+
+.ranking-frame {
+    position: absolute;
+    z-index: 10;
+}
+
+.player-detail {
+    margin-top: 12px;
+}
+
+.top-ranking-username{
+    font-size: 30px;
+}
+
+.top-ranking-rank{
+    font-size: 26px;
+}
+
+.top-ranking-wins{
+    font-size: 20px;
+}
+
+.z-index-100{
+    z-index: 100;
+}
+
+.z-index-50{
+    z-index: 50;
+}
+
+.top-ranking-font{
+    color: #ff0040;
+}
+
+.normal-ranking-font{
+    color: #ffc61d;
+}
+
+.ranking-table{
+    display: flex;
+    align-items: center;
+    /* width: 40px; */
+}
+
+.ranking-output-btns{
+    /* height: 80%; */
+    align-items: center;
+}
+
+.max-height{
+    max-height: 100%!important;
+}
+
+.radial-bar-xs {
+    width: 31px;
+    height: 31px;
+    font-size: 8px;
+}
+
+.thumb30{
+    width: 30px;
+    height: 30px;
+}
+
+.vertical-middle{
+    vertical-align: middle!important;
+}
+
+.navbar{
+    background-color: black;
+}
+
+.green-color{
+    color: #36d278;
+}
+
+.game-config-players-settings{
+    padding-left: 10%;
+}
+
+.btn-oval{
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding-left: 30px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-right: 30px;
+}
+
+.increase-duel-input{
+    width: 112%!important;
+}
+
+.decrease-duel-input{
+    width: 88%;
+}
+
+.pull-right{
+    right: 10px;
+}

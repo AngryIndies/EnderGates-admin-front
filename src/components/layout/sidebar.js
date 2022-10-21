@@ -41,11 +41,11 @@ const Sidebar = ({ onSetSidebarTag }) => {
                         <li className="has-user-block">
                             <div id="user-block" data-toggle="collapse" data-target="#user-links">
                                 <div className="item user-block">
-                                    <div className="user-block-content">
+                                    <div className="user-block-content justify-center">
                                         <div className="user-block-picture">
                                             <img className="img-thumbnail rounded-circle" src={avatar} alt="Avatar" width="60" height="60" />
                                         </div>
-                                        <div className="user-block-info"><span className="user-block-name">Welcome, Alex</span><span className="user-block-role">Designer</span>
+                                        {/* <div className="user-block-info"><span className="user-block-name">Welcome, Alex</span><span className="user-block-role">Designer</span>
                                             <div className="btn-group user-block-status">
                                                 <button className="btn btn-inverse btn-xs dropdown-toggle no-caret" type="button" data-toggle="dropdown">
                                                     <div className="p-1 rounded d-inline-block bg-success mr-2"></div><span>Online</span>
@@ -56,7 +56,7 @@ const Sidebar = ({ onSetSidebarTag }) => {
                                                     <div className="dropdown-item"><span className="p-1 rounded d-inline-block bg-danger mr-1 mr-2"></span>Busy</div>
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@ const Sidebar = ({ onSetSidebarTag }) => {
                                 </li>
                             </ul>
                         </li>
-                        <li className={ location.pathname === '/' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_DASHBOARD, GLOBAL.DASHBOARD)}>
+                        <li className={ location.pathname === '/dashboard' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_DASHBOARD, GLOBAL.DASHBOARD)}>
                             <Link to="/" title="Dashboard" >
                                 <em className="fas fa-tachometer-alt"></em>
                                 <span>Dashboard</span>

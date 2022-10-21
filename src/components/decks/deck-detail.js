@@ -36,7 +36,7 @@ const DeckImageDetail = () => {
                                                 return (
                                                     <Col xl="2" key={index}>
                                                         <div style={{'margin' : '10px 10px'}}>
-                                                            <img className="width-70P" src={'../' +process.env.PUBLIC_URL + 'img/cards/' + `${dex}` + '.png'} />
+                                                            <img className="width-70P" src={'../assets/img/cards/' + `${dex}` + '.png'} />
                                                         </div>
                                                     </Col>
                                                 );

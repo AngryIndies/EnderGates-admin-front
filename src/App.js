@@ -1,12 +1,13 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { MetamaskStateProvider } from 'use-metamask';
+
 
 import store        from './store';
 import Header       from './components/layout/header';
 import Sidebar      from './components/layout/sidebar';
 
+import Signin       from './components/auth/signin';
 import Dashboard    from "./components/dashboard/index";
 import Leaderboard  from "./components/leaderboard/index";
 import Players      from "./components/players/index";
@@ -22,18 +23,16 @@ const App = () => {
     return (
         <Provider store={store}>
             <Router>
-                <Header />
-                <Sidebar />
                 <Routes>
-                    <Route exact path = "/"                 element = {<Dashboard/>} />
-                    <Route exact path = "/leaderboard"      element = {<Leaderboard/>} />
-                    <Route exact path = "/players"          element = {<Players />} />
-                    {/* <Route excat path = "/playerdex/:id"    element = {<PlayerDex />} />1 */}
-                    <Route exact path = "/decks"            element = {<Decks />} />
-                    <Route exact path = "/decks/:id"        element = {<DecksDetail />} />
-                    <Route exact path = "/deck-detail/:id"  element = {<DeckImageDetail />} />
-                    <Route exact path = "/game-config"           element = {<GameConfigure />} />
-                    <Route exact path = "/game-result"           element = {<GameResult />} />
+                    <Route exact path = "/"                 element = {<Signin />}/>
+                    <Route exact path = "/dashboard"        element = {<><Header /><Sidebar /><Dashboard/></>} />
+                    <Route exact path = "/leaderboard"      element = {<><Header /><Sidebar /><Leaderboard/></>} />
+                    <Route exact path = "/players"          element = {<><Header /><Sidebar /><Players /></>} />
+                    <Route exact path = "/decks"            element = {<><Header /><Sidebar /><Decks /></>} />
+                    <Route exact path = "/decks/:id"        element = {<><Header /><Sidebar /><DecksDetail /></>} />
+                    <Route exact path = "/deck-detail/:id"  element = {<><Header /><Sidebar /><DeckImageDetail /></>} />
+                    <Route exact path = "/game-config"      element = {<><Header /><Sidebar /><GameConfigure /></>} />
+                    <Route exact path = "/game-result"      element = {<><Header /><Sidebar /><GameResult /></>} />
                 </Routes>
             </Router>
         </Provider>

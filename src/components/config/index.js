@@ -4,8 +4,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useMetaMask } from "metamask-react";
 import { Row } from "react-bootstrap";
 import axios from "axios";
+import {ethers} from "ethers";
 
 import { HOST_URL } from "../../actions/types";
+import SignModal from "./sign_modal";
+
 
 const GameConfigureIndex = () => {
 
@@ -222,7 +225,9 @@ const GameConfigureIndex = () => {
                                             <button
                                                 className="btn btn-oval btn-outline-info mgr-15"
                                                 type="button"
-                                                onClick={() => onSetPlayerSetting()}
+                                                data-toggle="modal"
+                                                data-target="#setPlayerSetting"
+                                                // onClick={() => onSetPlayerSetting()}
                                             >Apply</button>
                                             <button
                                                 className="btn btn-oval btn-outline-danger"
@@ -366,14 +371,14 @@ const GameConfigureIndex = () => {
                             </div>
                         </div>
                     </div>
-
+                    <SignModal/>
                 </Row>
                 <ToastContainer
                     autoClose={3000}
                     hideProgressBar={true}
                     theme="colored"
                     position="bottom-right"
-                />
+                />                
             </div>
         </section>
     );

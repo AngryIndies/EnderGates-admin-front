@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 
-import gold_ring from '../../assets/img/mainmenu_rankframe_gold.png';
-import silver_ring from '../../assets/img/mainmenu_rankframe_silver.png';
-import copper_ring from '../../assets/img/mainmenu_rankframe_copper.png';
-import stone_ring from '../../assets/img/mainmenu_rankframe_stone.png';
+import gold_ring from '../../assets/img/ranking_bound/mainmenu_rankframe_gold.png';
+import silver_ring from '../../assets/img/ranking_bound/mainmenu_rankframe_silver.png';
+import copper_ring from '../../assets/img/ranking_bound/mainmenu_rankframe_copper.png';
+import stone_ring from '../../assets/img/ranking_bound/mainmenu_rankframe_stone.png';
 
 const Ranking = ({ RankingData }) => {
 
@@ -14,10 +14,10 @@ const Ranking = ({ RankingData }) => {
     const [playerInfosData, setPlayerInfos] = useState([]);
 
     useEffect(() => {
-        for (let i = 0; i < RankingData.length; i++) {
-            playerInfos.push(RankingData[i]);
-        }
-        setPlayerInfos(playerInfos);
+        // for (let i = 0; i < RankingData.length; i++) {
+        //     playerInfos.push(RankingData[i]);
+        // }
+        setPlayerInfos(RankingData);
     }, [ RankingData ]);
 
     var dot = '...';
@@ -52,7 +52,7 @@ const Ranking = ({ RankingData }) => {
                                     <Col xl={9} lg={9} className='pt-20 d-flex margin-center justify-center top-player-list'>
                                         <div className='d-flex ml-10 mr-10 align-item-center width_20 ranking-item' style={{ 'marginTop': '100px' }}>
                                             <div className='pfp pfp-small'>
-                                                <img className='top-ranking-pfp position-absolute' src={process.env.PUBLIC_URL + 'img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[3].pfp : '0') + '.png'} />
+                                                <img className='top-ranking-pfp position-absolute' src={'../assets/img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[3].pfp : '0') + '.png'} />
                                                 <img className='ranking-frame' src={ring[3]} />
                                             </div>
                                             <div className='player-detail text-align'>
@@ -69,7 +69,7 @@ const Ranking = ({ RankingData }) => {
                                         </div>
                                         <div className='d-flex ml-10 mr-10 align-item-center width_20 ranking-item z-index-50' style={{ 'marginTop': '50px' }}>
                                             <div className='pfp pfp-normal'>
-                                                <img className='top-ranking-pfp position-absolute ' src={process.env.PUBLIC_URL + 'img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[1].pfp : '0') + '.png'} />
+                                                <img className='top-ranking-pfp position-absolute ' src={'../assets/img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[1].pfp : '0') + '.png'} />
                                                 <img className='ranking-frame ' src={ring[1]} />
                                             </div>
                                             <div className='player-detail text-align normal-ranking-font'>
@@ -86,7 +86,7 @@ const Ranking = ({ RankingData }) => {
                                         </div>
                                         <div className='d-flex ml-10 mr-10 align-item-center width_20 ranking-item z-index-100'>
                                             <div className='pfp pfp-big'>
-                                                <img className='top-ranking-pfp position-absolute' src={process.env.PUBLIC_URL + 'img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[0].pfp : '0') + '.png'} />
+                                                <img className='top-ranking-pfp position-absolute' src={'../assets/img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[0].pfp : '0') + '.png'} />
                                                 <img className='ranking-frame' src={ring[0]} />
                                             </div>
                                             <div className='player-detail text-align top-ranking-font'>
@@ -103,7 +103,7 @@ const Ranking = ({ RankingData }) => {
                                         </div>
                                         <div className='d-flex ml-10 mr-10 align-item-center width_20 ranking-item z-index-50' style={{ 'marginTop': '50px' }}>
                                             <div className='pfp pfp-normal'>
-                                                <img className='top-ranking-pfp position-absolute ' src={process.env.PUBLIC_URL + 'img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[2].pfp : '0') + '.png'} />
+                                                <img className='top-ranking-pfp position-absolute ' src={'../assets/img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[2].pfp : '0') + '.png'} />
                                                 <img className='ranking-frame ' src={ring[2]} />
                                             </div>
                                             <div className='player-detail text-align  normal-ranking-font'>
@@ -120,7 +120,7 @@ const Ranking = ({ RankingData }) => {
                                         </div>
                                         <div className='d-flex ml-10 mr-10 align-item-center width_20 ranking-item' style={{ 'marginTop': '100px' }}>
                                             <div className='pfp pfp-small'>
-                                                <img className='top-ranking-pfp position-absolute' src={process.env.PUBLIC_URL + 'img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[4].pfp : '0') + '.png'} />
+                                                <img className='top-ranking-pfp position-absolute' src={'../assets/img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[4].pfp : '0') + '.png'} />
                                                 <img className='ranking-frame' src={ring[4]} />
                                             </div>
                                             <div className='player-detail text-align'>
