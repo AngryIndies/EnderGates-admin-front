@@ -14,6 +14,7 @@ import { SpinnerDotted } from "spinners-react";
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
 import Signin from "../auth/signin";
+import { Navigate } from "react-router-dom";
 
 const LeaderboardIndex = ({isAuthenticated}) => {
 
@@ -54,7 +55,7 @@ const LeaderboardIndex = ({isAuthenticated}) => {
    }
 
    if(!isAuthenticated){
-      return <Signin/>
+      return <Navigate to="/" />
   }
 
    return (

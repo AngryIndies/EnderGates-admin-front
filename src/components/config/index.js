@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useMetaMask } from "metamask-react";
 import { Row } from "react-bootstrap";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -97,7 +96,7 @@ const GameConfigureIndex = ({isAuthenticated}) => {
             StartHP: parseFloat(startHP),
             MaxHP: parseFloat(maxHP),
         }).then(res => {
-            if(res.status == 200){
+            if(res.status === 200){
                 toast.success("Successfully Set the Player Settings!");
             } else {
                 toast.error("There is issues in your action!");
@@ -151,7 +150,7 @@ const GameConfigureIndex = ({isAuthenticated}) => {
             setDecreaseDuelPointBy(res.data.DuelPointDecrease);
             setDecreaseDuelExpBy(res.data.DuelExpLost);
 
-            if (res.status == 200) {
+            if (res.status === 200) {
                 toast.success("Successfully Reset the Game Settings!");
             } else {
                 toast.error("There is any issues in your action!");

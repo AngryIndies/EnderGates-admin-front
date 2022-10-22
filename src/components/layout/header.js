@@ -1,11 +1,22 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { connect } from "react-redux";
 
-// Start - Import images
+
 import Logo from '../../assets/img/5HEADGAMES_Final_logo.png';
-// End - Import images
+import { onSignout } from '../../actions/authAction';
 
-const Header = () => {
+const Header = ({onSignout, isAuthenticated}) => {
+
+    const signout = () => {
+        // localStorage.removeItem('EndersGate');
+        onSignout();
+    }
+
+    // if(isAuthenticated){
+    //     return <Navigate to="/dashboard" />
+    // }
+
     return (
         <header className="topnavbar-wrapper">
             <nav className="navbar topnavbar">
@@ -221,6 +232,9 @@ const Header = () => {
                             <div className="dropdown-item">Logout</div>
                         </div>
                     </li>
+                    <li className="nav-item dropdown">
+                        <div className="nav-link dropdown-toggle dropdown-toggle-nocaret" onClick={() => signout()}><em className="fas fa-sign-out-alt"></em></div>
+                    </li>
                     {/* <li className="nav-item">
                         <Link className="nav-link" to="#" data-toggle-state="offsidebar-open" data-no-persist="true">
                             <em className="fas fa-align-right"></em>
@@ -240,4 +254,11 @@ const Header = () => {
     );
 }
 
-export default Header;
+
+const mapStateToProps = (state) => ({
+    isAuthenticated : state.authReducer.isAuthenticated,
+});
+
+export default connect(mapStateToProps, {
+    onSignout,
+})(Header);

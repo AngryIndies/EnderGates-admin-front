@@ -4,14 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 import store        from './store';
-import Header       from './components/layout/header';
-import Sidebar      from './components/layout/sidebar';
 
 import Signin       from './components/auth/signin';
 import Dashboard    from "./components/dashboard/index";
 import Leaderboard  from "./components/leaderboard/index";
 import Players      from "./components/players/index";
-// import PlayerDex    from "./components/players/dex";
 import Decks        from "./components/decks/index";
 import DecksDetail  from "./components/decks/detail";
 import DeckImageDetail from './components/decks/deck-detail';
@@ -21,13 +18,14 @@ import { AUTHENTICATION, NOT_AUTHENTICATION } from './actions/types';
 
 const App = () => {
 
-    useEffect(() => {
-        var auth = localStorage.EndersGate;
-        if(auth) {
+    useEffect(() => { 
+        var auth = localStorage.getItem('EndersGate');
+        if(auth === 'true') {
             store.dispatch({
                 type : AUTHENTICATION,
                 payload : true,
             })
+
         } else {
             store.dispatch({
                 type : NOT_AUTHENTICATION,

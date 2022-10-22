@@ -1,16 +1,14 @@
-import React, {useState, useEffect, useReducer} from "react";
+import React, {useState, useEffect} from "react";
 import { connect } from 'react-redux' ;
-import { useDispatch, useSelector } from "react-redux";
-import axios from 'axios';
-import {SpinnerRoundFilled} from 'spinners-react';
+import { Navigate } from "react-router-dom";
 
-import Signin from "../auth/signin";
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
 import DashboardActiviy from "./activity";
 import DashboardHeader from "./header";
 import DashboardMainContent from "./content";
 import { onGetDashboardMainData, onGetDashboardChartData, onGetDashboardActivityData } from "../../actions/dashboardAction";
+
 
 const DashboardIndex = ({
     onGetDashboardMainData,
@@ -48,7 +46,8 @@ const DashboardIndex = ({
     }
     
     if(!isAuthenticated){
-        return <Signin/>
+        console.log('navigation');
+        return <Navigate to="/" />
     }
 
     return (

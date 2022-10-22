@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ethers } from "ethers";
-import { HOST_URL, AUTHENTICATION } from "./types";
+import { HOST_URL, AUTHENTICATION, NOT_AUTHENTICATION } from "./types";
 
 const signMessage = async ({ message }) => {
 
@@ -25,6 +25,10 @@ const signMessage = async ({ message }) => {
 };
 
 export const onSignup = () => async (dispatch) => {
+    
+}
+
+export const onSignin = () => async (dispatch) => {
     var time = Date.now();
     var message = "ENDERSGATE" + time;
     const sig = await signMessage({
@@ -33,25 +37,33 @@ export const onSignup = () => async (dispatch) => {
 
     var result = await axios.post( HOST_URL + 'login', {
         data : sig
-    })
-
-    console.log(result.data);
+    });
 
     localStorage.setItem('EndersGate', result.data.success);
-
     dispatch({
         type : AUTHENTICATION,
         payload : result.data.success,
     });
 
-
+    console.log(result.data.success);
+    return result.data.success;
+    
 }
 
-export const onSignin = async () => {
-
+export const onSignout = () => (dispatch) => {
+    console.log('EndersGate')
+    // localStorage.removeItem('EndersGate');
+    localStorage.setItem('EndersGate', false);
+    console.log(localStorage.getItem('EndersGate'));
+    dispatch({
+        type : NOT_AUTHENTICATION,
+        payload : false,
+    });
+    
 }
 
 export default {
     onSignin,
     onSignup,
+    onSignout,
 }

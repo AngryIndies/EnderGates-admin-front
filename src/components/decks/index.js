@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import Paginator from 'react-hooks-paginator';
-import { json, Link } from "react-router-dom";
+import { json, Link, Navigate } from "react-router-dom";
 import { Row, Col, Card } from "react-bootstrap";
 import { connect } from "react-redux";
 import { SpinnerRoundFilled, SpinnerDotted } from 'spinners-react';
@@ -125,7 +125,7 @@ const DeckIndex = ({
     }
 
     if(!isAuthenticated){
-        return <Signin/>
+        return <Navigate to="/" />
     }
 
     return (

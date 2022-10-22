@@ -1,9 +1,11 @@
 import {
-    AUTHENTICATION
+    AUTHENTICATION,
+    NOT_AUTHENTICATION
 } from '../actions/types';
 
 const initialState = {
-    isAuthenticated       : false,
+    isAuthenticated     : false,
+    isSuccess           : false,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -12,8 +14,14 @@ const authReducer = (state = initialState, action) => {
         case AUTHENTICATION : 
             return {
                 ...state,
-                isAuthenticated : payload
+                isAuthenticated : payload,
+                isSuccess       : payload,
             };
+        case NOT_AUTHENTICATION:
+            return {
+                ...state,
+                isAuthenticated : payload,
+            }
         default:
             return state;
     }
