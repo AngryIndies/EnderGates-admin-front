@@ -198,7 +198,8 @@ const Header = () => {
                             </div>
                         </div>
                     </li>
-                    <li className="nav-item dropdown"><Link className="nav-link dropdown-toggle dropdown-toggle-nocaret" to="#" data-toggle="dropdown"><em className="fas fa-user"></em></Link>
+                    <li className="nav-item dropdown">
+                        <Link className="nav-link dropdown-toggle dropdown-toggle-nocaret" data-toggle="dropdown"><em className="fas fa-user"></em></Link>
                         <div className="dropdown-menu dropdown-menu-right animated bounceIn">
                             <div className="dropdown-item">
                                 <div className="p-1">

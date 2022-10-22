@@ -4,13 +4,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useMetaMask } from "metamask-react";
 import { Row } from "react-bootstrap";
 import axios from "axios";
-import {ethers} from "ethers";
+import { connect } from "react-redux";
 
 import { HOST_URL } from "../../actions/types";
+import Signin from "../auth/signin";
+import Header from "../layout/header";
+import Sidebar from "../layout/sidebar";
 
-const GameConfigureIndex = () => {
-
-    const { status, connect, account, chainId, ethereum } = useMetaMask();
+const GameConfigureIndex = ({isAuthenticated}) => {
 
     const [startGoldAmount, setStartGoldAmount] = useState(0);
     const [startHP, setStartHP] = useState(0);
@@ -91,12 +92,10 @@ const GameConfigureIndex = () => {
     }
 
     const onSetPlayerSetting = () => {
-        console.log(startGoldAmount, startHP, maxHP);
         axios.put(HOST_URL + 'updatePlayerSetting', {
             StartGoldAmount: parseFloat(startGoldAmount),
             StartHP: parseFloat(startHP),
             MaxHP: parseFloat(maxHP),
-            address : account
         }).then(res => {
             if(res.status == 200){
                 toast.success("Successfully Set the Player Settings!");
@@ -161,217 +160,229 @@ const GameConfigureIndex = () => {
 
     }
 
+    if(!isAuthenticated){
+        return <Signin/>
+    }
+
 
     return (
-        <section className="section-container">
-            <div className="content-wrapper">
-                <Row>
-                    <div className="col-md-12">
-                        <div className="card card-default">
-                            <div className="card-header">Game Configuration</div>
-                            <div className="card-body">
-                                <form className="form-horizontal">
-                                    <div className="form-group row">
-                                        <label className="col-xl-2 col-form-label text-align font-20">Players Settings</label>
-                                    </div>
-                                    <div className="form-group row pl_10">
-                                        <label className="col-xl-2 col-form-label text-left">Start Gold Amount</label>
-                                        <div className="col-xl-1">
-                                            <input
-                                                className="form-control text-align"
-                                                type="text"
-                                                value={startGoldAmount}
-                                                onChange={(e) => onStartGoldAmount(e.target.value)}
-                                            />
+        <>
+            <Header/>
+            <Sidebar/>
+            <section className="section-container">
+                <div className="content-wrapper">
+                    <Row>
+                        <div className="col-md-12">
+                            <div className="card card-default">
+                                <div className="card-header">Game Configuration</div>
+                                <div className="card-body">
+                                    <form className="form-horizontal">
+                                        <div className="form-group row">
+                                            <label className="col-xl-2 col-form-label text-align font-20">Players Settings</label>
                                         </div>
-                                    </div>
-                                    <div className="form-group row pl_10">
-                                        <label className="col-xl-2 col-form-label text-left">Start HP</label>
-                                        <div className="col-xl-1">
-                                            <input
-                                                className="form-control text-align"
-                                                type="text"
-                                                value={startHP}
-                                                onChange={(e) => onStartHP(e.target.value)}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group row pl_10">
-                                        <label className="col-xl-2 col-form-label text-left">Max HP</label>
-                                        <div className="col-xl-1">
-                                            <input
-                                                className="form-control text-align"
-                                                type="text"
-                                                value={maxHP}
-                                                onChange={(e) => onMaxHP(e.target.value)}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group row">
-                                        <label className="col-xl-1 col-form-label"></label>
-                                    </div>
-                                    <div className="form-group row">
-                                        <label className="col-xl-2 col-form-label"></label>
-                                        <div className="col-xl-6">
-                                            <button
-                                                className="btn btn-oval btn-outline-info mgr-15"
-                                                type="button"
-                                                data-toggle="modal"
-                                                data-target="#setPlayerSetting"
-                                                // onClick={() => onSetPlayerSetting()}
-                                            >Apply</button>
-                                            <button
-                                                className="btn btn-oval btn-outline-danger"
-                                                type="button"
-                                                onClick={() => onResetPlayerSetting()}
-                                            >Reset</button>
-                                        </div>
-                                    </div>
-                                </form>
-                                <form className="form-horizontal mt-5">
-                                    <div className="form-group row">
-                                        <label className="col-xl-2 col-form-label text-align font-20">Game Settings</label>
-                                    </div>
-                                    <div className="form-group row pl_10">
-                                        <label className="col-xl-3 col-form-label text-left">Turn Times</label>
-                                        <div className="col-xl-1">
-                                            <input
-                                                className="form-control text-align"
-                                                type="text"
-                                                value={turnTime}
-                                                onChange={(e) => onTurnTime(e.target.value)}
-                                            />
-                                        </div>
-                                        <label className="col-xl-3 col-form-label text-left">seconds</label>
-                                    </div>
-                                    <div className="form-group row pl_10">
-                                        <label className="col-xl-3 col-form-label text-left">Gold Bonus For Kill</label>
-                                        <div className="col-xl-1">
-                                            <input
-                                                className="form-control text-align"
-                                                type="text"
-                                                value={goldBonusForKill}
-                                                onChange={(e) => onGoldBonusForKill(e.target.value)}
-                                            />
-                                        </div>
-                                        <label className="col-xl-3 col-form-label text-left">%</label>
-                                    </div>
-                                    <div className="form-group row pl_10">
-                                        <label className="col-xl-3 col-form-label text-left">Gold Bonus For Retire</label>
-                                        <div className="col-xl-1">
-                                            <input
-                                                className="form-control text-align"
-                                                type="text"
-                                                value={goldBonusForRetire}
-                                                onChange={(e) => onGoldBonusForRetire(e.target.value)}
-                                            />
-                                        </div>
-                                        <label className="col-xl-3 col-form-label text-left">%</label>
-                                    </div>
-                                    <div className="form-group row pl_10">
-                                        <label className="col-xl-3 col-form-label text-left">ElementalAttackBonusDamageOccurance</label>
-                                        <div className="col-xl-1">
-                                            <input
-                                                className="form-control text-align"
-                                                type="text"
-                                                value={elementalAttackBonusDamageOccurance}
-                                                onChange={(e) => onElementalAttackBonusDamageOccurance(e.target.value)}
-                                            />
-                                        </div>
-                                        <label className="col-xl-3 col-form-label text-left">%</label>
-                                    </div>
-                                    <div className="form-group row pl_10">
-                                        <label className="col-xl-3 col-form-label text-left">ElementalAttackBounsDamage</label>
-                                        <div className="col-xl-1">
-                                            <input
-                                                className="form-control text-align"
-                                                type="text"
-                                                value={elementalAttackBonusDamage}
-                                                onChange={(e) => onElementalAttackBonusDamage(e.target.value)}
-                                            />
-                                        </div>
-                                        <label className="col-xl-3 col-form-label text-left">%</label>
-                                    </div>
-                                    <div className="col-xl-12 form-group row">
-                                        <div className="col-xl-6">
-                                            <div className="form-group row pl_19">
-                                                <label className="col-xl-7 col-form-label text-left">Increase duel point by</label>
-                                                <div className="col-xl-2" style={{ 'paddingLeft': '10px' }}>
-                                                    <input
-                                                        className="form-control text-align increase-duel-input"
-                                                        type="text"
-                                                        value={increaseDuelPointBy}
-                                                        onChange={(e) => onIncreaseDuelPointBy(e.target.value)}
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="form-group row pl_19">
-                                                <label className="col-xl-7 col-form-label text-left">Increase duel exp by</label>
-                                                <div className="col-xl-2" style={{ 'paddingLeft': '10px' }}>
-                                                    <input
-                                                        className="form-control text-align increase-duel-input"
-                                                        type="text"
-                                                        value={increaseDuelExpBy}
-                                                        onChange={(e) => onIncreaseDuelExpBy(e.target.value)}
-                                                    />
-                                                </div>
+                                        <div className="form-group row pl_10">
+                                            <label className="col-xl-2 col-form-label text-left">Start Gold Amount</label>
+                                            <div className="col-xl-1">
+                                                <input
+                                                    className="form-control text-align"
+                                                    type="text"
+                                                    value={startGoldAmount}
+                                                    onChange={(e) => onStartGoldAmount(e.target.value)}
+                                                />aaa
                                             </div>
                                         </div>
-                                        <div className="col-xl-6">
-                                            <div className="form-group row">
-                                                <label className="col-xl-3 col-form-label text-left">Decrease duel point by</label>
-                                                <div className="col-xl-2">
-                                                    <input
-                                                        className="form-control text-align decrease-duel-input"
-                                                        type="text"
-                                                        value={decreaseDuelPointBy}
-                                                        onChange={(e) => onDecreaseDuelPointBy(e.target.value)}
-                                                    />
+                                        <div className="form-group row pl_10">
+                                            <label className="col-xl-2 col-form-label text-left">Start HP</label>
+                                            <div className="col-xl-1">
+                                                <input
+                                                    className="form-control text-align"
+                                                    type="text"
+                                                    value={startHP}
+                                                    onChange={(e) => onStartHP(e.target.value)}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="form-group row pl_10">
+                                            <label className="col-xl-2 col-form-label text-left">Max HP</label>
+                                            <div className="col-xl-1">
+                                                <input
+                                                    className="form-control text-align"
+                                                    type="text"
+                                                    value={maxHP}
+                                                    onChange={(e) => onMaxHP(e.target.value)}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label className="col-xl-1 col-form-label"></label>
+                                        </div>
+                                        <div className="form-group row">
+                                            <label className="col-xl-2 col-form-label"></label>
+                                            <div className="col-xl-6">
+                                                <button
+                                                    className="btn btn-oval btn-outline-info mgr-15"
+                                                    type="button"
+                                                    data-toggle="modal"
+                                                    data-target="#setPlayerSetting"
+                                                    onClick={() => onSetPlayerSetting()}
+                                                >Apply</button>
+                                                <button
+                                                    className="btn btn-oval btn-outline-danger"
+                                                    type="button"
+                                                    onClick={() => onResetPlayerSetting()}
+                                                >Reset</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <form className="form-horizontal mt-5">
+                                        <div className="form-group row">
+                                            <label className="col-xl-2 col-form-label text-align font-20">Game Settings</label>
+                                        </div>
+                                        <div className="form-group row pl_10">
+                                            <label className="col-xl-3 col-form-label text-left">Turn Times</label>
+                                            <div className="col-xl-1">
+                                                <input
+                                                    className="form-control text-align"
+                                                    type="text"
+                                                    value={turnTime}
+                                                    onChange={(e) => onTurnTime(e.target.value)}
+                                                />
+                                            </div>
+                                            <label className="col-xl-3 col-form-label text-left">seconds</label>
+                                        </div>
+                                        <div className="form-group row pl_10">
+                                            <label className="col-xl-3 col-form-label text-left">Gold Bonus For Kill</label>
+                                            <div className="col-xl-1">
+                                                <input
+                                                    className="form-control text-align"
+                                                    type="text"
+                                                    value={goldBonusForKill}
+                                                    onChange={(e) => onGoldBonusForKill(e.target.value)}
+                                                />
+                                            </div>
+                                            <label className="col-xl-3 col-form-label text-left">%</label>
+                                        </div>
+                                        <div className="form-group row pl_10">
+                                            <label className="col-xl-3 col-form-label text-left">Gold Bonus For Retire</label>
+                                            <div className="col-xl-1">
+                                                <input
+                                                    className="form-control text-align"
+                                                    type="text"
+                                                    value={goldBonusForRetire}
+                                                    onChange={(e) => onGoldBonusForRetire(e.target.value)}
+                                                />
+                                            </div>
+                                            <label className="col-xl-3 col-form-label text-left">%</label>
+                                        </div>
+                                        <div className="form-group row pl_10">
+                                            <label className="col-xl-3 col-form-label text-left">ElementalAttackBonusDamageOccurance</label>
+                                            <div className="col-xl-1">
+                                                <input
+                                                    className="form-control text-align"
+                                                    type="text"
+                                                    value={elementalAttackBonusDamageOccurance}
+                                                    onChange={(e) => onElementalAttackBonusDamageOccurance(e.target.value)}
+                                                />
+                                            </div>
+                                            <label className="col-xl-3 col-form-label text-left">%</label>
+                                        </div>
+                                        <div className="form-group row pl_10">
+                                            <label className="col-xl-3 col-form-label text-left">ElementalAttackBounsDamage</label>
+                                            <div className="col-xl-1">
+                                                <input
+                                                    className="form-control text-align"
+                                                    type="text"
+                                                    value={elementalAttackBonusDamage}
+                                                    onChange={(e) => onElementalAttackBonusDamage(e.target.value)}
+                                                />
+                                            </div>
+                                            <label className="col-xl-3 col-form-label text-left">%</label>
+                                        </div>
+                                        <div className="col-xl-12 form-group row">
+                                            <div className="col-xl-6">
+                                                <div className="form-group row pl_19">
+                                                    <label className="col-xl-7 col-form-label text-left">Increase duel point by</label>
+                                                    <div className="col-xl-2" style={{ 'paddingLeft': '10px' }}>
+                                                        <input
+                                                            className="form-control text-align increase-duel-input"
+                                                            type="text"
+                                                            value={increaseDuelPointBy}
+                                                            onChange={(e) => onIncreaseDuelPointBy(e.target.value)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="form-group row pl_19">
+                                                    <label className="col-xl-7 col-form-label text-left">Increase duel exp by</label>
+                                                    <div className="col-xl-2" style={{ 'paddingLeft': '10px' }}>
+                                                        <input
+                                                            className="form-control text-align increase-duel-input"
+                                                            type="text"
+                                                            value={increaseDuelExpBy}
+                                                            onChange={(e) => onIncreaseDuelExpBy(e.target.value)}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className="form-group row">
-                                                <label className="col-xl-3 col-form-label text-left">Decrease duel exp by</label>
-                                                <div className="col-xl-2">
-                                                    <input
-                                                        className="form-control text-align decrease-duel-input"
-                                                        type="text"
-                                                        value={decreaseDuelExpBy}
-                                                        onChange={(e) => onDecreaseDuelExpBy(e.target.value)}
-                                                    />
+                                            <div className="col-xl-6">
+                                                <div className="form-group row">
+                                                    <label className="col-xl-3 col-form-label text-left">Decrease duel point by</label>
+                                                    <div className="col-xl-2">
+                                                        <input
+                                                            className="form-control text-align decrease-duel-input"
+                                                            type="text"
+                                                            value={decreaseDuelPointBy}
+                                                            onChange={(e) => onDecreaseDuelPointBy(e.target.value)}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className="form-group row">
+                                                    <label className="col-xl-3 col-form-label text-left">Decrease duel exp by</label>
+                                                    <div className="col-xl-2">
+                                                        <input
+                                                            className="form-control text-align decrease-duel-input"
+                                                            type="text"
+                                                            value={decreaseDuelExpBy}
+                                                            onChange={(e) => onDecreaseDuelExpBy(e.target.value)}
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div className="form-group row">
-                                        <label className="col-xl-2 col-form-label"></label>
-                                        <div className="col-xl-6">
-                                            <button
-                                                className="btn btn-oval btn-outline-info mgr-15"
-                                                type="button"
-                                                onClick={() => onSetGameSetting()}
-                                            >Apply</button>
-                                            <button
-                                                className="btn btn-oval btn-outline-danger"
-                                                type="button"
-                                                onClick={() => onResetGameSetting()}
-                                            >Reset</button>
+                                        <div className="form-group row">
+                                            <label className="col-xl-2 col-form-label"></label>
+                                            <div className="col-xl-6">
+                                                <button
+                                                    className="btn btn-oval btn-outline-info mgr-15"
+                                                    type="button"
+                                                    onClick={() => onSetGameSetting()}
+                                                >Apply</button>
+                                                <button
+                                                    className="btn btn-oval btn-outline-danger"
+                                                    type="button"
+                                                    onClick={() => onResetGameSetting()}
+                                                >Reset</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </Row>
-                <ToastContainer
-                    autoClose={3000}
-                    hideProgressBar={true}
-                    theme="colored"
-                    position="bottom-right"
-                />                
-            </div>
-        </section>
+                    </Row>
+                    <ToastContainer
+                        autoClose={3000}
+                        hideProgressBar={true}
+                        theme="colored"
+                        position="bottom-right"
+                    />                
+                </div>
+            </section>
+        </>
     );
 }
 
-export default GameConfigureIndex;
+const mapStateToProps = (state) => ({
+    isAuthenticated : state.authReducer.isAuthenticated,
+});
+
+export default connect(mapStateToProps, {})(GameConfigureIndex);

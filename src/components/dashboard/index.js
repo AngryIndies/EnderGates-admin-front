@@ -4,16 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 import {SpinnerRoundFilled} from 'spinners-react';
 
+import Signin from "../auth/signin";
+import Header from "../layout/header";
+import Sidebar from "../layout/sidebar";
 import DashboardActiviy from "./activity";
 import DashboardHeader from "./header";
 import DashboardMainContent from "./content";
-import { HOST_URL } from '../../actions/types';
 import { onGetDashboardMainData, onGetDashboardChartData, onGetDashboardActivityData } from "../../actions/dashboardAction";
 
 const DashboardIndex = ({
     onGetDashboardMainData,
     onGetDashboardChartData,
     onGetDashboardActivityData,
+    isAuthenticated,
     dashboardReducer_main,
     dashboardReducer_chart,
     dashboardReducer_activity
@@ -43,32 +46,41 @@ const DashboardIndex = ({
     const onLoadLess = () => {
         setLoadMoreCnt(loadCnt);
     }
+    
+    if(!isAuthenticated){
+        return <Signin/>
+    }
 
     return (
-        <section className="section-container">
-            <div className="content-wrapper">
-                <DashboardHeader/>
-                <div className="row">
-                    <DashboardMainContent
-                        data = {dashboardReducer_main}
-                        chartData  = {dashboardReducer_chart}
-                    />
-                    <DashboardActiviy
-                        onLoadMore = {onLoaddMore}
-                        onLoadLess = {onLoadLess}
-                        data={dashboardReducer_activity}
-                        clickTime = {clickTimeLoadMore}
-                    />
+        <>
+            <Header />
+            <Sidebar />
+            <section className="section-container">
+                <div className="content-wrapper">
+                    <DashboardHeader/>
+                    <div className="row">
+                        <DashboardMainContent
+                            data = {dashboardReducer_main}
+                            chartData  = {dashboardReducer_chart}
+                        />
+                        <DashboardActiviy
+                            onLoadMore = {onLoaddMore}
+                            onLoadLess = {onLoadLess}
+                            data={dashboardReducer_activity}
+                            clickTime = {clickTimeLoadMore}
+                        />
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     );
 }
 
 const mapStateToProps = (state) => ({
-    dashboardReducer_main    : state.dashboardReducer.main_data,
-    dashboardReducer_chart  : state.dashboardReducer.chart_data,
-    dashboardReducer_activity : state.dashboardReducer.activity_data,
+    isAuthenticated             : state.authReducer.isAuthenticated,
+    dashboardReducer_main       : state.dashboardReducer.main_data,
+    dashboardReducer_chart      : state.dashboardReducer.chart_data,
+    dashboardReducer_activity   : state.dashboardReducer.activity_data,
 });
 
 export default connect(mapStateToProps, {

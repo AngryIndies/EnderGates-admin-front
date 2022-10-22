@@ -1,11 +1,10 @@
 import axios from "axios";
 import { ethers } from "ethers";
-import { HOST_URL } from "./types";
+import { HOST_URL, AUTHENTICATION } from "./types";
 
 const signMessage = async ({ message }) => {
 
     try {
-        console.log({ message });
         if (!window.ethereum)
             throw new Error("No crypto wallet found. Please install it.");
 
@@ -25,18 +24,26 @@ const signMessage = async ({ message }) => {
     }
 };
 
-export const onSignup = async () => {
+export const onSignup = () => async (dispatch) => {
     var time = Date.now();
     var message = "ENDERSGATE" + time;
     const sig = await signMessage({
         message: message
     });
 
-    axios.post( HOST_URL + '', {
+    var result = await axios.post( HOST_URL + 'login', {
         data : sig
-    }).then( res => {
+    })
 
+    console.log(result.data);
+
+    localStorage.setItem('EndersGate', result.data.success);
+
+    dispatch({
+        type : AUTHENTICATION,
+        payload : result.data.success,
     });
+
 
 }
 

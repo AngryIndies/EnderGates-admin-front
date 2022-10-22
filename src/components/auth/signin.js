@@ -1,16 +1,19 @@
-import React, {useState, useRef} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+
+import Dashboard from "../dashboard";
 import { onSignin, onSignup } from "../../actions/authAction";
 
-const Signin = ({onSignup, onSignin}) => {
-
-    const [signatures, setSignatures] = useState([]);
-    const [error, setError] = useState();
+const Signin = ({onSignup, onSignin, isAuthenticated}) => {
 
     const signIn = async () => {
         onSignup();
     };
+
+    if(isAuthenticated){
+        return <Dashboard />
+    }
 
     return (
         <div className="wrapper">
@@ -19,7 +22,7 @@ const Signin = ({onSignup, onSignin}) => {
                 <div className="card card-flat" style={{ "width": "300px" }}>
                     <div className="card-header text-center bg-transparent border-0">
                         <Link href="/">
-                            <img className="block-center rounded width_50" src="../assets/img/logo/logo.png" alt="Image" />
+                            <img className="block-center rounded width_50" src="../assets/img/logo/logo.png" alt="Logo"/>
                         </Link>
                     </div>
                     <div className="card-body">
@@ -59,7 +62,10 @@ const Signin = ({onSignup, onSignin}) => {
 }
 
 const mapStateToProps = (state) => ({
-
+    isAuthenticated             : state.authReducer.isAuthenticated,
+    dashboardReducer_main       : state.dashboardReducer.main_data,
+    dashboardReducer_chart      : state.dashboardReducer.chart_data,
+    dashboardReducer_activity   : state.dashboardReducer.activity_data,
 });
 
 export default connect(mapStateToProps, {

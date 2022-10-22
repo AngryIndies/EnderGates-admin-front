@@ -4,6 +4,10 @@ export const PAGINATION_CNT = 'PAGINATION_CNT';
 
 export const CHART_DATA = 'CHART_DATA';
 
+// Authentication Side
+export const AUTHENTICATION             = "AUTHENTICATION";
+export const NOT_AUTHENTICATION         = "NOT_AUTHENTICATION";
+
 // Sidebar Section
 export const SIDEBAR_TAG_DASHBOARD      = 'SIDEBAR_TAG_DASHBOARD';
 export const SIDEBAR_TAG_LEADERBOARD    = 'SIDEBAR_TAG_LEADERBOARD';
