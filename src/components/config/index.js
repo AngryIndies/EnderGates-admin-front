@@ -187,7 +187,7 @@ const GameConfigureIndex = ({isAuthenticated}) => {
                                                     type="text"
                                                     value={startGoldAmount}
                                                     onChange={(e) => onStartGoldAmount(e.target.value)}
-                                                />aaa
+                                                />
                                             </div>
                                         </div>
                                         <div className="form-group row pl_10">
