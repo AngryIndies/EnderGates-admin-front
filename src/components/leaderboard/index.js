@@ -10,6 +10,7 @@ import Ranking from './ranking';
 import up from "../../assets/img/ranking_change/Main_change_up.png";
 import equal from "../../assets/img/ranking_change/Main_change_same.png";
 import down from "../../assets/img/ranking_change/Main_change_down.png"
+import { SpinnerDotted } from "spinners-react";
 
 const LeaderboardIndex = () => {
 
@@ -55,7 +56,7 @@ const LeaderboardIndex = () => {
          <Ranking
             RankingData={fiveRankData}
          />
-         <div className="content-wrapper" style={{'padding' : '20px', 'borderTop' : '0px'}}>
+         <div className="content-wrapper" style={{ 'padding': '20px', 'borderTop': '0px' }}>
             <div className="card card-default">
                <div className="card-header d-flex">
                   <div className="input-group">
@@ -71,10 +72,10 @@ const LeaderboardIndex = () => {
                      </div>
                   </div>
                   <div className="card-header d-flex">
-                        <div className="ml-auto">
-                           {/* <div className="d-inline-block mr-3" data-perform="card-collapse"><em className="fa fa-minus"></em></div>
+                     <div className="ml-auto">
+                        {/* <div className="d-inline-block mr-3" data-perform="card-collapse"><em className="fa fa-minus"></em></div>
                            <div className="d-inline-block mr-0" data-perform="card-dismiss"><em className="fa fa-times"></em></div> */}
-                        </div>
+                     </div>
                   </div>
                </div>
                <div className="content-wrapper">
@@ -93,6 +94,20 @@ const LeaderboardIndex = () => {
                               <th>Change 24h</th>
                            </tr>
                         </thead>
+                        {
+                           rankData.length === 0 ? (
+                              <td colspan='11' style={{ 'textAlign': 'center' }}>
+                                 <SpinnerDotted
+                                    size={90}
+                                    speed={140}
+                                    thickness={120}
+                                 />
+                              </td>
+
+                           ) : (
+                              <></>
+                           )
+                        }
                         <tbody>
                            {
                               rankData.map((rank, index) => {
@@ -102,28 +117,28 @@ const LeaderboardIndex = () => {
                                  return (
                                     <tr className="text-center" key={index}>
                                        <td className="vertical-middle">{rank.rank}</td>
-                                       <td  className="vertical-middle">
+                                       <td className="vertical-middle">
                                           <img className="img-fluid rounded-circle thumb50" src={'../assets/img/ProfileImages/' + rank.pfp + '.png'} alt="Image" />
                                        </td>
-                                       <td  className="vertical-middle">{rank.username}</td>
-                                       <td  className="vertical-middle">{rank.point}</td>
-                                       <td  className="vertical-middle">{rank.level}</td>
-                                       <td  className="vertical-middle">{rank.wins}</td>
-                                       <td  className="vertical-middle">{rank.losses}</td>
-                                       <td  className="vertical-middle">
+                                       <td className="vertical-middle">{rank.username}</td>
+                                       <td className="vertical-middle">{rank.point}</td>
+                                       <td className="vertical-middle">{rank.level}</td>
+                                       <td className="vertical-middle">{rank.wins}</td>
+                                       <td className="vertical-middle">{rank.losses}</td>
+                                       <td className="vertical-middle">
                                           <div className={"radial-bar" + " radial-bar-" + `${d}` + " radial-bar-xs mb-0"} data-label={Math.floor(rank.wins / (rank.wins + rank.losses) * 100)}></div>
                                        </td>
-                                       <td  className="vertical-middle">
-                                          { rank.change >= 0 ? ( 
+                                       <td className="vertical-middle">
+                                          {rank.change >= 0 ? (
                                              rank.change === 0 ? (
                                                 <img className="img-fluid rounded-circle thumb30" src={equal} alt="Image" />
                                              ) : (
                                                 <img className="img-fluid rounded-circle thumb30" src={up} alt="Image" />
-                                             ) ) : (
-                                                <img className="img-fluid rounded-circle thumb30" src={down} alt="Image" />
-                                             )
+                                             )) : (
+                                             <img className="img-fluid rounded-circle thumb30" src={down} alt="Image" />
+                                          )
                                           }
-                                          
+
                                           &nbsp;&nbsp;&nbsp;
                                           {rank.change}
                                        </td>
@@ -137,7 +152,7 @@ const LeaderboardIndex = () => {
                         <div className="d-flex">
                            <div className="d-flex align-center">
                               <div className="input-group">
-                                 <input className="form-control form-control-sm" type="text" placeholder="Search" onChange={(e) => searchData(e.target.value)}/>
+                                 <input className="form-control form-control-sm" type="text" placeholder="Search" onChange={(e) => searchData(e.target.value)} />
                                  <div className="input-group-append"><button className="btn btn-secondary btn-sm" type="button">Search</button></div>
                               </div>
                            </div>

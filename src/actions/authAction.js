@@ -1,4 +1,6 @@
+import axios from "axios";
 import { ethers } from "ethers";
+import { HOST_URL } from "./types";
 
 const signMessage = async ({ message }) => {
 
@@ -30,7 +32,12 @@ export const onSignup = async () => {
         message: message
     });
 
-    console.log(sig);
+    axios.post( HOST_URL + '', {
+        data : sig
+    }).then( res => {
+
+    });
+
 }
 
 export const onSignin = async () => {

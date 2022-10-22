@@ -220,7 +220,7 @@ const DeckIndex = ({
                                             <SpinnerDotted
                                                 size={90}
                                                 speed={140}
-                                                thickness={180}
+                                                thickness={120}
                                             />
                                         </td>
                                         
@@ -263,22 +263,15 @@ const DeckIndex = ({
                                     </div>
                                     <div className="ml-auto">
                                         <div className="dataTables_paginate paging_simple_numbers" id="datatable1_paginate">
-                                            {
-                                                totalDecksCount ? (
-                                                    <Paginator
-                                                        totalRecords={totalDecksCount}
-                                                        pageLimit={paginationCnt}
-                                                        pageNeighbours={2}
-                                                        setOffset={setPaginationFrom}
-                                                        currentPage={currentPage}
-                                                        setCurrentPage={onClick}
-                                                    />
-                                                ) : (
-                                                    <SpinnerRoundFilled
-                                                        size={30}
-                                                    />
-                                                )
-                                            }
+                                            
+                                            <Paginator
+                                                totalRecords={totalDecksCount}
+                                                pageLimit={paginationCnt}
+                                                pageNeighbours={2}
+                                                setOffset={setPaginationFrom}
+                                                currentPage={currentPage}
+                                                setCurrentPage={onClick}
+                                            />
 
                                         </div>
                                     </div>

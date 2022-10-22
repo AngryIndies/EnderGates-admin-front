@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { SpinnerDiamond  } from 'spinners-react';
+import { SpinnerDiamond, SpinnerDotted  } from 'spinners-react';
 import { connect } from "react-redux";
 
 
@@ -79,10 +79,10 @@ const DashboardMainContent = ({ data, chartData }) => {
                     <Chart chartData= {chartData}/>
                 ) : (
                     <Row className="text-center justify-center" style={{'height' : '150px'}}>
-                        <SpinnerDiamond 
+                        <SpinnerDotted
                             size={90}
-                            thickness={180}
-                            speed={142}
+                            speed={100}
+                            thickness={120}
                         />
                     </Row>
                     

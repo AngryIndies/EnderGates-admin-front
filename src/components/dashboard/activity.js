@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { SpinnerDiamond } from 'spinners-react';
+import { SpinnerDiamond, SpinnerDotted } from 'spinners-react';
 
 import { Link } from "react-router-dom";
 
@@ -16,8 +16,14 @@ const LastActivities = ({onLoadMore, onLoadLess, data, clickTime}) => {
                 </div>
                 <div className="list-group">
                     {
-                        data == null ? (
-                            <SpinnerDiamond />
+                        data.length === 0 ? (
+                            <div className="text-center">
+                                <SpinnerDotted
+                                    size={40}
+                                    speed={140}
+                                    thickness={120}
+                                />
+                            </div>
                         ) : (
                             data.map((activity, item) => {
                                 return (

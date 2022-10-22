@@ -4,6 +4,7 @@ import axios from 'axios';
 import Paginator from 'react-hooks-paginator';
 import { connect } from "react-redux";
 import prettyMilliseconds from 'pretty-ms';
+import { SpinnerDotted } from "spinners-react";
 
 import { HOST_URL } from '../../actions/types';
 import { } from '../../actions/'
@@ -19,13 +20,13 @@ const GameResultIndex = () => {
     const [searchKey, setSearchKey] = useState('');
 
     useEffect(() => {
-        axios.get( HOST_URL + `getDashboardInfos`).then( res => {
+        axios.get(HOST_URL + `getDashboardInfos`).then(res => {
             setTotalDataCount(res.data.totalGames);
         });
     }, []);
 
     useEffect(() => {
-        axios.get( HOST_URL + 'getGameHistory?from=' + paginationFrom + '&limit=' + paginationCnt).then( res => {
+        axios.get(HOST_URL + 'getGameHistory?from=' + paginationFrom + '&limit=' + paginationCnt).then(res => {
             setGameResult(res.data);
         });
     }, [paginationFrom, paginationCnt, searchKey]);
@@ -94,6 +95,19 @@ const GameResultIndex = () => {
                                         <th>Total Damage Player2</th>
                                     </tr>
                                 </thead>
+                                {
+                                    gameResult.length === 0 ? (
+                                        <td colspan='11' style={{ 'textAlign': 'center' }}>
+                                            <SpinnerDotted
+                                                size={90}
+                                                speed={140}
+                                                thickness={120}
+                                            />
+                                        </td>
+                                    ) : (
+                                        <></>
+                                    )
+                                }
                                 <tbody>
                                     {
                                         gameResult.map((result, index) => {

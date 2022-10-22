@@ -43,7 +43,9 @@ const Sidebar = ({ onSetSidebarTag }) => {
                                 <div className="item user-block">
                                     <div className="user-block-content justify-center">
                                         <div className="user-block-picture">
-                                            <img className="img-thumbnail rounded-circle" src={avatar} alt="Avatar" width="60" height="60" />
+                                            <Link to="/">
+                                                <img className="img-thumbnail rounded-circle" src={avatar} alt="Avatar" width="60" height="60" />
+                                            </Link>
                                         </div>
                                         {/* <div className="user-block-info"><span className="user-block-name">Welcome, Alex</span><span className="user-block-role">Designer</span>
                                             <div className="btn-group user-block-status">
@@ -87,7 +89,7 @@ const Sidebar = ({ onSetSidebarTag }) => {
                             </ul>
                         </li>
                         <li className={ location.pathname === '/dashboard' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_DASHBOARD, GLOBAL.DASHBOARD)}>
-                            <Link to="/" title="Dashboard" >
+                            <Link to="/dashboard" title="Dashboard" >
                                 <em className="fas fa-tachometer-alt"></em>
                                 <span>Dashboard</span>
                             </Link>

@@ -7,8 +7,6 @@ import axios from "axios";
 import {ethers} from "ethers";
 
 import { HOST_URL } from "../../actions/types";
-import SignModal from "./sign_modal";
-
 
 const GameConfigureIndex = () => {
 
@@ -93,26 +91,19 @@ const GameConfigureIndex = () => {
     }
 
     const onSetPlayerSetting = () => {
-        if(status === 'notConnected'){
-            connect();
-        } else if(status === 'connected'){
-            alert(account);
-
-            // console.log(startGoldAmount, startHP, maxHP);
-            // axios.put(HOST_URL + 'updatePlayerSetting', {
-            //     StartGoldAmount: parseFloat(startGoldAmount),
-            //     StartHP: parseFloat(startHP),
-            //     MaxHP: parseFloat(maxHP),
-            //     address : account
-            // }).then(res => {
-            //     console.log(res.status);
-            //     if(res.status == 200){
-            //         toast.success("Successfully Set the Player Settings!");
-            //     } else {
-            //         toast.error("There is issues in your action!");
-            //     }
-            // });
-        }
+        console.log(startGoldAmount, startHP, maxHP);
+        axios.put(HOST_URL + 'updatePlayerSetting', {
+            StartGoldAmount: parseFloat(startGoldAmount),
+            StartHP: parseFloat(startHP),
+            MaxHP: parseFloat(maxHP),
+            address : account
+        }).then(res => {
+            if(res.status == 200){
+                toast.success("Successfully Set the Player Settings!");
+            } else {
+                toast.error("There is issues in your action!");
+            }
+        });
     }
 
     const onResetPlayerSetting = () => {
@@ -188,7 +179,7 @@ const GameConfigureIndex = () => {
                                         <div className="col-xl-1">
                                             <input
                                                 className="form-control text-align"
-                                                type="number"
+                                                type="text"
                                                 value={startGoldAmount}
                                                 onChange={(e) => onStartGoldAmount(e.target.value)}
                                             />
@@ -199,7 +190,7 @@ const GameConfigureIndex = () => {
                                         <div className="col-xl-1">
                                             <input
                                                 className="form-control text-align"
-                                                type="number"
+                                                type="text"
                                                 value={startHP}
                                                 onChange={(e) => onStartHP(e.target.value)}
                                             />
@@ -210,7 +201,7 @@ const GameConfigureIndex = () => {
                                         <div className="col-xl-1">
                                             <input
                                                 className="form-control text-align"
-                                                type="number"
+                                                type="text"
                                                 value={maxHP}
                                                 onChange={(e) => onMaxHP(e.target.value)}
                                             />
@@ -246,7 +237,7 @@ const GameConfigureIndex = () => {
                                         <div className="col-xl-1">
                                             <input
                                                 className="form-control text-align"
-                                                type="number"
+                                                type="text"
                                                 value={turnTime}
                                                 onChange={(e) => onTurnTime(e.target.value)}
                                             />
@@ -258,7 +249,7 @@ const GameConfigureIndex = () => {
                                         <div className="col-xl-1">
                                             <input
                                                 className="form-control text-align"
-                                                type="number"
+                                                type="text"
                                                 value={goldBonusForKill}
                                                 onChange={(e) => onGoldBonusForKill(e.target.value)}
                                             />
@@ -270,7 +261,7 @@ const GameConfigureIndex = () => {
                                         <div className="col-xl-1">
                                             <input
                                                 className="form-control text-align"
-                                                type="number"
+                                                type="text"
                                                 value={goldBonusForRetire}
                                                 onChange={(e) => onGoldBonusForRetire(e.target.value)}
                                             />
@@ -282,7 +273,7 @@ const GameConfigureIndex = () => {
                                         <div className="col-xl-1">
                                             <input
                                                 className="form-control text-align"
-                                                type="number"
+                                                type="text"
                                                 value={elementalAttackBonusDamageOccurance}
                                                 onChange={(e) => onElementalAttackBonusDamageOccurance(e.target.value)}
                                             />
@@ -294,7 +285,7 @@ const GameConfigureIndex = () => {
                                         <div className="col-xl-1">
                                             <input
                                                 className="form-control text-align"
-                                                type="number"
+                                                type="text"
                                                 value={elementalAttackBonusDamage}
                                                 onChange={(e) => onElementalAttackBonusDamage(e.target.value)}
                                             />
@@ -308,7 +299,7 @@ const GameConfigureIndex = () => {
                                                 <div className="col-xl-2" style={{ 'paddingLeft': '10px' }}>
                                                     <input
                                                         className="form-control text-align increase-duel-input"
-                                                        type="number"
+                                                        type="text"
                                                         value={increaseDuelPointBy}
                                                         onChange={(e) => onIncreaseDuelPointBy(e.target.value)}
                                                     />
@@ -319,7 +310,7 @@ const GameConfigureIndex = () => {
                                                 <div className="col-xl-2" style={{ 'paddingLeft': '10px' }}>
                                                     <input
                                                         className="form-control text-align increase-duel-input"
-                                                        type="number"
+                                                        type="text"
                                                         value={increaseDuelExpBy}
                                                         onChange={(e) => onIncreaseDuelExpBy(e.target.value)}
                                                     />
@@ -332,7 +323,7 @@ const GameConfigureIndex = () => {
                                                 <div className="col-xl-2">
                                                     <input
                                                         className="form-control text-align decrease-duel-input"
-                                                        type="number"
+                                                        type="text"
                                                         value={decreaseDuelPointBy}
                                                         onChange={(e) => onDecreaseDuelPointBy(e.target.value)}
                                                     />
@@ -343,7 +334,7 @@ const GameConfigureIndex = () => {
                                                 <div className="col-xl-2">
                                                     <input
                                                         className="form-control text-align decrease-duel-input"
-                                                        type="number"
+                                                        type="text"
                                                         value={decreaseDuelExpBy}
                                                         onChange={(e) => onDecreaseDuelExpBy(e.target.value)}
                                                     />
@@ -371,7 +362,6 @@ const GameConfigureIndex = () => {
                             </div>
                         </div>
                     </div>
-                    <SignModal/>
                 </Row>
                 <ToastContainer
                     autoClose={3000}

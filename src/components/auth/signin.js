@@ -19,14 +19,14 @@ const Signin = ({onSignup, onSignin}) => {
                 <div className="card card-flat" style={{ "width": "300px" }}>
                     <div className="card-header text-center bg-transparent border-0">
                         <Link href="/">
-                            <img className="block-center rounded width_40" src="../assets/img/logo/logo.png" alt="Image" />
+                            <img className="block-center rounded width_50" src="../assets/img/logo/logo.png" alt="Image" />
                         </Link>
                     </div>
                     <div className="card-body">
                         <p className="text-center py-2 text-bold">SIGN IN TO CONTINUE.</p>
-                        <p className="pt-3 text-right"><Link className="text-muted" href="register.html">Need to Signup?</Link></p>
+                        {/* <p className="pt-3 text-right"><Link className="text-muted" href="register.html">Need to Signup?</Link></p> */}
                         <div id="loginForm" noValidate>
-                            <div className="form-group">
+                            {/* <div className="form-group">
                                 <div className="input-group with-focus">
                                     <input className="form-control border-right-0" id="exampleInputEmail1" type="email" placeholder="Enter email" autoComplete="off" required />
                                     <div className="input-group-append">
@@ -48,8 +48,8 @@ const Signin = ({onSignup, onSignin}) => {
                                     <label className="custom-control-label">Remember Me</label>
                                 </div>
                                 <div className="float-right"><Link className="text-muted" href="recover.html">Forgot your password?</Link></div>
-                            </div>
-                            <button className="btn btn-block btn-primary mt-3" onClick={() => signIn()}>Login</button>
+                            </div> */}
+                            <button className="btn btn-block btn-primary mt-3" onClick={() => signIn()}>SIGN IN</button>
                         </div>
                     </div>
                 </div>

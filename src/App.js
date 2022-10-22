@@ -18,7 +18,6 @@ import DeckImageDetail from './components/decks/deck-detail';
 import GameConfigure from './components/config/index';
 import GameResult from './components/result/index';
 
-
 const App = () => {
     return (
         <Provider store={store}>

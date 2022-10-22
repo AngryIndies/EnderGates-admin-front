@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import Paginator from 'react-hooks-paginator';
 import { connect } from "react-redux";
-
+import { SpinnerDotted } from "spinners-react";
 
 import { HOST_URL } from '../../actions/types';
 import { } from '../../actions/'
@@ -19,12 +19,12 @@ const LeaderboardIndex = ({ onSetPlayerDexID }) => {
    const [playerInfo, setPlayerInfo] = useState([]);
    const [searchKey, setSearchKey] = useState('');
 
-   const chain = { 
-         '137'    : 'Polygon',
-         '1'      : 'Ethereum',
-         '97'     : 'Binance',
-         '1666600000' : 'Harmony'
-      }
+   const chain = {
+      '137': 'Polygon',
+      '1': 'Ethereum',
+      '97': 'Binance',
+      '1666600000': 'Harmony'
+   }
 
    useEffect(() => {
       axios.get(HOST_URL + 'getPlayerCount').then(res => {
@@ -110,6 +110,20 @@ const LeaderboardIndex = ({ onSetPlayerDexID }) => {
                               <th>Decks</th>
                            </tr>
                         </thead>
+                        {
+                           playerInfo.length === 0 ? (
+                              <td colspan='11' style={{ 'textAlign': 'center' }}>
+                                 <SpinnerDotted
+                                    size={90}
+                                    speed={140}
+                                    thickness={120}
+                                 />
+                              </td>
+
+                           ) : (
+                              <></>
+                           )
+                        }
                         <tbody>
                            {
                               playerInfo.map((player, index) => {
@@ -179,4 +193,4 @@ const mapStateToProps = (state) => ({
 
 });
 
-export default connect(mapStateToProps, {onSetPlayerDexID})(LeaderboardIndex);
+export default connect(mapStateToProps, { onSetPlayerDexID })(LeaderboardIndex);
