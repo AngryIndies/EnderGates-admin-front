@@ -2,6 +2,8 @@ import axios from "axios";
 import { ethers } from "ethers";
 import { HOST_URL, AUTHENTICATION, NOT_AUTHENTICATION } from "./types";
 
+const MESSAGEFORSIGNIN = "ENDERSGATE";
+
 const signMessage = async ({ message }) => {
 
     try {
@@ -30,7 +32,7 @@ export const onSignup = () => async (dispatch) => {
 
 export const onSignin = () => async (dispatch) => {
     var time = Date.now();
-    var message = "ENDERSGATE" + time;
+    var message = MESSAGEFORSIGNIN + time;
     const sig = await signMessage({
         message: message
     });
