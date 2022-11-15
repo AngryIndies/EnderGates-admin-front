@@ -45,10 +45,10 @@ const DashboardIndex = ({
         setLoadMoreCnt(loadCnt);
     }
     
-    if(!isAuthenticated){
-        console.log('navigation');
-        return <Navigate to="/" />
-    }
+    // if(!isAuthenticated){
+    //     console.log('navigation');
+    //     return <Navigate to="/" />
+    // }
 
     return (
         <>

@@ -6,6 +6,11 @@ import { connect } from "react-redux";
 import Logo from '../../assets/img/5HEADGAMES_Final_logo.png';
 import { onSignout } from '../../actions/authAction';
 
+// import '../../assets/js/app';
+// import '../../assets/vendor/bootstrap/dist/js/bootstrap';
+
+import '../../../node_modules/bootstrap/dist/js/bootstrap.min.js';
+
 const Header = ({onSignout, isAuthenticated}) => {
 
     const signout = () => {
@@ -31,7 +36,7 @@ const Header = ({onSignout, isAuthenticated}) => {
                     </Link>
                </div>
                 <ul className="navbar-nav mr-auto flex-row">
-                    {/* <li className="nav-item">
+                    <li className="nav-item">
                         <Link className="nav-link d-none d-md-block d-lg-block d-xl-block" to="#" data-trigger-resize="" data-toggle-state="aside-collapsed">
                             <em className="fas fa-align-left"></em>
                         </Link>
@@ -39,7 +44,7 @@ const Header = ({onSignout, isAuthenticated}) => {
                             <em className="fas fa-align-left"></em>
                         </Link>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <Link className="nav-link" to="#" data-search-open="">
                             <em className="fas fa-search"></em>
                         </Link>
