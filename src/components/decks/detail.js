@@ -3,7 +3,6 @@ import axios from 'axios';
 import Paginator from 'react-hooks-paginator';
 import { Link, useParams } from "react-router-dom";
 import { connect } from "react-redux";
-import { useSelector } from "react-redux";
 
 import { HOST_URL } from '../../actions/types';
 

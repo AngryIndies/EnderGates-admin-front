@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { Link, useParams, useLocation } from "react-router-dom";
+import React from "react";
+import { connect } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 
-import { onSetSidebarTag } from '../../actions/sidebarAction'
-import { 
-    SIDEBAR_TAG_DASHBOARD, 
-    SIDEBAR_TAG_LEADERBOARD, 
-    SIDEBAR_TAG_PLAYERS, 
+import { onSetSidebarTag } from '../../actions/sidebarAction';
+import {
+    SIDEBAR_TAG_CONFIG,
+    SIDEBAR_TAG_DASHBOARD,
     SIDEBAR_TAG_DECKS,
-    SIDEBAR_TAG_CONFIG
+    SIDEBAR_TAG_LEADERBOARD,
+    SIDEBAR_TAG_PLAYERS
 } from "../../actions/types";
+
 import GLOBAL from '../../global/variable';
 
 import avatar from '../../assets/img/ProfileImages/0.png';
@@ -88,37 +89,37 @@ const Sidebar = ({ onSetSidebarTag }) => {
                                 </li>
                             </ul>
                         </li>
-                        <li className={ location.pathname === '/dashboard' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_DASHBOARD, GLOBAL.DASHBOARD)}>
+                        <li className={location.pathname === '/dashboard' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_DASHBOARD, GLOBAL.DASHBOARD)}>
                             <Link to="/dashboard" title="Dashboard" >
                                 <em className="fas fa-tachometer-alt"></em>
                                 <span>Dashboard</span>
                             </Link>
                         </li>
-                        <li className={ location.pathname === '/leaderboard' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_LEADERBOARD, GLOBAL.LEADERBOARD)}>
+                        <li className={location.pathname === '/leaderboard' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_LEADERBOARD, GLOBAL.LEADERBOARD)}>
                             <Link to="/leaderboard" title="Leaderboard">
                                 <em className="fas fa-chart-bar"></em>
                                 <span>Leaderboard</span>
                             </Link>
                         </li>
-                        <li className={ location.pathname === '/players' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_PLAYERS, GLOBAL.PLAYERS)}>
+                        <li className={location.pathname === '/players' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_PLAYERS, GLOBAL.PLAYERS)}>
                             <Link to="/players" title="Players">
                                 <em className="fa fa-users"></em>
                                 <span>Players</span>
                             </Link>
                         </li>
-                        <li className={ location.pathname === '/decks' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_DECKS, GLOBAL.DECKS)}>
+                        <li className={location.pathname === '/decks' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_DECKS, GLOBAL.DECKS)}>
                             <Link to="/decks" title="Decks">
                                 <em className=" fas fa-window-restore"></em>
                                 <span>Decks</span>
                             </Link>
                         </li>
-                        <li className={ location.pathname === '/game-config' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_CONFIG, GLOBAL.CONFIG)}>
+                        <li className={location.pathname === '/game-config' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_CONFIG, GLOBAL.CONFIG)}>
                             <Link to="/game-config" title="Configure">
                                 <em className="fas fa-cogs"></em>
                                 <span>Game Configure</span>
                             </Link>
                         </li>
-                        <li className={ location.pathname === '/game-result' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_CONFIG, GLOBAL.CONFIG)}>
+                        <li className={location.pathname === '/game-result' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_CONFIG, GLOBAL.CONFIG)}>
                             <Link to="/game-result" title="news">
                                 <em className="fas fa-list-ol"></em>
                                 <span>Game</span>
@@ -304,7 +305,7 @@ const Sidebar = ({ onSetSidebarTag }) => {
 
 
 const mapStateToProps = (state) => ({
-    sidebar_tag : state.sidebar
+    sidebar_tag: state.sidebar
 });
 
-export default connect(mapStateToProps, {onSetSidebarTag})(Sidebar);
+export default connect(mapStateToProps, { onSetSidebarTag })(Sidebar);

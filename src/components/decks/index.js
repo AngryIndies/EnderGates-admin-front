@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';
+import { Card, Col, Row } from "react-bootstrap";
 import Paginator from 'react-hooks-paginator';
-import { json, Link, Navigate } from "react-router-dom";
-import { Row, Col, Card } from "react-bootstrap";
 import { connect } from "react-redux";
-import { SpinnerRoundFilled, SpinnerDotted } from 'spinners-react';
+import { Link, Navigate } from "react-router-dom";
+import { SpinnerDotted } from 'spinners-react';
 
 
 import DecksChart from './decks_chart';
 
 import { onGetDashboardMainData } from "../../actions/dashboardAction";
-import { onGetDecks, onGetAllDecks } from "../../actions/decksAction";
+import { onGetAllDecks, onGetDecks } from "../../actions/decksAction";
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
-import Signin from "../auth/signin";
 
 const DeckIndex = ({
     onGetAllDecks,

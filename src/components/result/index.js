@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
 import axios from 'axios';
+import prettyMilliseconds from 'pretty-ms';
+import React, { useEffect, useState } from "react";
 import Paginator from 'react-hooks-paginator';
 import { connect } from "react-redux";
-import prettyMilliseconds from 'pretty-ms';
+import { Navigate } from "react-router-dom";
 import { SpinnerDotted } from "spinners-react";
 
 import { HOST_URL } from '../../actions/types';
-import { } from '../../actions/'
-import { PLAYER_DEX_ID } from '../../actions/types';
-import Signin from "../auth/signin";
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
 
-const GameResultIndex = ({isAuthenticated}) => {
+const GameResultIndex = ({ isAuthenticated }) => {
 
     const [totalCount, setTotalDataCount] = useState(0);
     const [paginationCnt, setPaginationCnt] = useState(10);
@@ -28,7 +25,7 @@ const GameResultIndex = ({isAuthenticated}) => {
         });
     }, []);
 
-    useEffect(() => { 
+    useEffect(() => {
         axios.get(HOST_URL + 'getGameHistory?from=' + paginationFrom + '&limit=' + paginationCnt).then(res => {
             setGameResult(res.data);
         });
@@ -56,14 +53,14 @@ const GameResultIndex = ({isAuthenticated}) => {
         setSearchKey(key);
     }
 
-    if(!isAuthenticated){
+    if (!isAuthenticated) {
         return <Navigate to="/" />
     }
 
     return (
         <>
-            <Header/>
-            <Sidebar/>
+            <Header />
+            <Sidebar />
             <section className="section-container">
                 <div className="content-wrapper" style={{ 'padding': '20px', 'borderTop': '0px' }}>
                     <div className="card card-default">
@@ -178,7 +175,7 @@ const GameResultIndex = ({isAuthenticated}) => {
 }
 
 const mapStateToProps = (state) => ({
-    isAuthenticated : state.authReducer.isAuthenticated,
+    isAuthenticated: state.authReducer.isAuthenticated,
 });
 
 export default connect(mapStateToProps, {})(GameResultIndex);

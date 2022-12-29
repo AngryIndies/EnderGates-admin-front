@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
 import Paginator from 'react-hooks-paginator';
+import { Link, useParams } from "react-router-dom";
 import { HOST_URL } from "../../actions/types";
 
 const PlayerDex = () => {
@@ -37,13 +37,13 @@ const PlayerDex = () => {
 
         if (array.length < cnt) {
             for (var i = 0; i < cnt; i++) {
-                i != cnt - 1 ? (exp += array[i] + ', ') : (exp += array[i]);
+                i !== cnt - 1 ? (exp += array[i] + ', ') : (exp += array[i]);
             }
             return exp;
 
         } else {
             for (var i = 0; i < cnt; i++) {
-                i != cnt - 1 ? (exp += array[i] + ', ') : (exp += array[i]);
+                i !== cnt - 1 ? (exp += array[i] + ', ') : (exp += array[i]);
             }
             exp += ' ' + dots;
             return exp;

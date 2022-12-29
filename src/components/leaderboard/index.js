@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import React, { useEffect, useState } from "react";
 import Paginator from 'react-hooks-paginator';
-import { HOST_URL } from '../../actions/types';
 import { connect } from "react-redux";
+import { HOST_URL } from '../../actions/types';
 import Ranking from './ranking';
 
 
 // Ranking Change Images
-import up from "../../assets/img/ranking_change/Main_change_up.png";
-import equal from "../../assets/img/ranking_change/Main_change_same.png";
-import down from "../../assets/img/ranking_change/Main_change_down.png"
+import { Navigate } from "react-router-dom";
 import { SpinnerDotted } from "spinners-react";
+import down from "../../assets/img/ranking_change/Main_change_down.png";
+import equal from "../../assets/img/ranking_change/Main_change_same.png";
+import up from "../../assets/img/ranking_change/Main_change_up.png";
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
-import Signin from "../auth/signin";
-import { Navigate } from "react-router-dom";
 
 const LeaderboardIndex = ({isAuthenticated}) => {
 

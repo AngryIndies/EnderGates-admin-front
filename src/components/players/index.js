@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
 import axios from 'axios';
+import React, { useEffect, useState } from "react";
 import Paginator from 'react-hooks-paginator';
 import { connect } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
 import { SpinnerDotted } from "spinners-react";
 
-import { HOST_URL } from '../../actions/types';
-import { } from '../../actions/'
+import { } from '../../actions/';
 import { onSetPlayerDexID } from "../../actions/playersAction";
-import { PLAYER_DEX_ID } from '../../actions/types';
-import Signin from "../auth/signin";
+import { HOST_URL, PLAYER_DEX_ID } from '../../actions/types';
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
 

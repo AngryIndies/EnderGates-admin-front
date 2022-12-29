@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';

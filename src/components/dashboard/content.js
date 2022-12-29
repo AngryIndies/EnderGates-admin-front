@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Col, Row, Card } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { SpinnerDiamond, SpinnerDotted  } from 'spinners-react';
+import React from "react";
+import { Card, Col, Row } from "react-bootstrap";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { SpinnerDotted } from 'spinners-react';
 
 
 import Chart from "./chart";
@@ -16,7 +16,7 @@ const DashboardMainContent = ({ data, chartData }) => {
                         <Card.Header>
                             <Card.Title className="text-white font-13rem">Total Users</Card.Title>
                             <Card.Text className="d-flex align-items-center">
-                                <div className="ml-auto"><em className="fa fa-users fa-2x"></em></div>
+                                {/* <div className="ml-auto"><em className="fa fa-users fa-2x"></em></div> */}
                             </Card.Text>
                         </Card.Header>
                         <Card.Body>
@@ -33,12 +33,12 @@ const DashboardMainContent = ({ data, chartData }) => {
                         <Card.Header>
                             <Card.Title className="text-white font-13rem">Total Cards</Card.Title>
                             <Card.Text className="d-flex align-items-center">
-                                <div className="ml-auto"><em className="fa-2x mr-2 fas fa-ticket-alt"></em></div>
+                                {/* <div className="ml-auto"><em className="fa-2x mr-2 fas fa-ticket-alt"></em></div> */}
                             </Card.Text>
                         </Card.Header>
                         <Card.Body>
                             <Card.Text className="font-25 font-bold">
-                                { !data.totalCards ? 0 : data.totalCards.actionCards + data.totalCards.guardianCards + data.totalCards.reactionCards}
+                                {!data.totalCards ? 0 : data.totalCards.actionCards + data.totalCards.guardianCards + data.totalCards.reactionCards}
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -48,7 +48,7 @@ const DashboardMainContent = ({ data, chartData }) => {
                         <Card.Header>
                             <Card.Title className="text-white font-13rem">Total Games</Card.Title>
                             <Card.Text className="d-flex align-items-center">
-                                <div className="ml-auto"><em className="fa-2x mr-2 fas fa-gamepad"></em></div>
+                                {/* <div className="ml-auto"><em className="fa-2x mr-2 fas fa-gamepad"></em></div> */}
                             </Card.Text>
                         </Card.Header>
                         <Card.Body>
@@ -63,7 +63,7 @@ const DashboardMainContent = ({ data, chartData }) => {
                         <Card.Header>
                             <Card.Title className="text-white font-13rem">Total Decks</Card.Title>
                             <Card.Text className="d-flex align-items-center">
-                                <div className="ml-auto"><em className="fa-2x mr-2 fas fa-bars"></em></div>
+                                {/* <div className="ml-auto"><em className="fa-2x mr-2 fas fa-bars"></em></div> */}
                             </Card.Text>
                         </Card.Header>
                         <Card.Body>
@@ -74,21 +74,22 @@ const DashboardMainContent = ({ data, chartData }) => {
                     </Card>
                 </Col>
             </div>
+
             {
                 Object.keys(chartData).length ? (
-                    <Chart chartData= {chartData}/>
+                    <Chart chartData={chartData} />
                 ) : (
-                    <Row className="text-center justify-center" style={{'height' : '150px'}}>
+                    <Row className="text-center justify-center" style={{ 'height': '150px' }}>
                         <SpinnerDotted
                             size={90}
                             speed={100}
                             thickness={120}
                         />
                     </Row>
-                    
+
                 )
             }
-            
+
 
             <div className="row">
                 <div className="col-md-4">
@@ -224,7 +225,7 @@ const DashboardMainContent = ({ data, chartData }) => {
 }
 
 const mapStateToProps = (state) => ({
-    dashboardReducer_main    : state.dashboardReducer.main_data,
+    dashboardReducer_main: state.dashboardReducer.main_data,
 });
 
 export default connect(mapStateToProps, {

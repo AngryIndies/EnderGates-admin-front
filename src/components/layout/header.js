@@ -1,13 +1,10 @@
 import React from "react";
-import { Link, Navigate } from 'react-router-dom';
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 
-
-import Logo from '../../assets/img/5HEADGAMES_Final_logo.png';
 import { onSignout } from '../../actions/authAction';
+import Logo from '../../assets/img/5HEADGAMES_Final_logo.png';
 
-// import '../../assets/js/app';
-// import '../../assets/vendor/bootstrap/dist/js/bootstrap';
 
 import '../../../node_modules/bootstrap/dist/js/bootstrap.min.js';
 

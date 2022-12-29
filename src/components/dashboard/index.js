@@ -1,14 +1,13 @@
-import React, {useState, useEffect} from "react";
-import { connect } from 'react-redux' ;
+import React, { useEffect, useState } from "react";
+import { connect } from 'react-redux';
 import { Navigate } from "react-router-dom";
 
+import { onGetDashboardActivityData, onGetDashboardChartData, onGetDashboardMainData } from "../../actions/dashboardAction";
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
 import DashboardActiviy from "./activity";
-import DashboardHeader from "./header";
 import DashboardMainContent from "./content";
-import { onGetDashboardMainData, onGetDashboardChartData, onGetDashboardActivityData } from "../../actions/dashboardAction";
-
+import DashboardHeader from "./header";
 
 const DashboardIndex = ({
     onGetDashboardMainData,
@@ -28,11 +27,11 @@ const DashboardIndex = ({
         onGetDashboardMainData();
         onGetDashboardChartData();
         onGetDashboardActivityData(loadMoreCnt);
-    }, []);
+    }, [loadMoreCnt, onGetDashboardActivityData, onGetDashboardChartData, onGetDashboardMainData]);
 
     useEffect(() => {
         onGetDashboardActivityData(loadMoreCnt);
-    }, [loadMoreCnt])
+    }, [loadMoreCnt, onGetDashboardActivityData])
 
     var loadClickCnt = 1;
     const onLoaddMore = () => {
@@ -44,11 +43,11 @@ const DashboardIndex = ({
     const onLoadLess = () => {
         setLoadMoreCnt(loadCnt);
     }
-    
-    // if(!isAuthenticated){
-    //     console.log('navigation');
-    //     return <Navigate to="/" />
-    // }
+
+    if (!isAuthenticated) {
+        console.log('navigation');
+        return <Navigate to="/" />
+    }
 
     return (
         <>
@@ -56,17 +55,17 @@ const DashboardIndex = ({
             <Sidebar />
             <section className="section-container">
                 <div className="content-wrapper">
-                    <DashboardHeader/>
+                    <DashboardHeader />
                     <div className="row">
                         <DashboardMainContent
-                            data = {dashboardReducer_main}
-                            chartData  = {dashboardReducer_chart}
+                            data={dashboardReducer_main}
+                            chartData={dashboardReducer_chart}
                         />
                         <DashboardActiviy
-                            onLoadMore = {onLoaddMore}
-                            onLoadLess = {onLoadLess}
+                            onLoadMore={onLoaddMore}
+                            onLoadLess={onLoadLess}
                             data={dashboardReducer_activity}
-                            clickTime = {clickTimeLoadMore}
+                            clickTime={clickTimeLoadMore}
                         />
                     </div>
                 </div>
@@ -76,10 +75,10 @@ const DashboardIndex = ({
 }
 
 const mapStateToProps = (state) => ({
-    isAuthenticated             : state.authReducer.isAuthenticated,
-    dashboardReducer_main       : state.dashboardReducer.main_data,
-    dashboardReducer_chart      : state.dashboardReducer.chart_data,
-    dashboardReducer_activity   : state.dashboardReducer.activity_data,
+    isAuthenticated: state.authReducer.isAuthenticated,
+    dashboardReducer_main: state.dashboardReducer.main_data,
+    dashboardReducer_chart: state.dashboardReducer.chart_data,
+    dashboardReducer_activity: state.dashboardReducer.activity_data,
 });
 
 export default connect(mapStateToProps, {

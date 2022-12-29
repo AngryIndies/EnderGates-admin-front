@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { SpinnerDiamond, SpinnerDotted } from 'spinners-react';
+import React from "react";
+import { SpinnerDotted } from 'spinners-react';
 
 import { Link } from "react-router-dom";
 

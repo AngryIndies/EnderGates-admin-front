@@ -1,8 +1,7 @@
 import {
     DASHBOARD_MAIN_DATA,
-    DASHBOARD_CHART_DATA, 
-    DASHBOARD_ACTIVITY_DATA,
-    DECKS_ALL_DATA,
+    DASHBOARD_CHART_DATA,
+    DASHBOARD_ACTIVITY_DATA
 } from '../actions/types';
 
 const initialState = {
