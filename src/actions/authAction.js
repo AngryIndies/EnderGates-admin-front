@@ -2,7 +2,7 @@ import axios from "axios";
 import { ethers } from "ethers";
 import { HOST_URL, AUTHENTICATION, NOT_AUTHENTICATION } from "./types";
 
-const MESSAGEFORSIGNIN = "ENDERSGATE";
+const MESSAGEFORSIGNIN = "Endersgate-Admin-";
 
 const signMessage = async ({ message }) => {
 
@@ -27,41 +27,45 @@ const signMessage = async ({ message }) => {
 };
 
 export const onSignup = () => async (dispatch) => {
-    
+
 }
 
 export const onSignin = () => async (dispatch) => {
-    var time = Date.now();
-    var message = MESSAGEFORSIGNIN + time;
+    const time = Date.now();
+    const message = MESSAGEFORSIGNIN + time;
     const sig = await signMessage({
         message: message
     });
 
-    var result = await axios.post( HOST_URL + 'login', {
-        data : sig
+    const result = await axios.post(HOST_URL + 'login', {
+        data: sig
     });
 
-    localStorage.setItem('EndersGate', result.data.success);
-    dispatch({
-        type : AUTHENTICATION,
-        payload : result.data.success,
-    });
+    localStorage.setItem("SignData", JSON.stringify(sig));
+    localStorage.setItem("TokenData", JSON.stringify({
+        success: result.success,
+        token: result.token,
+        msg: result.msg
+    }));
 
-    console.log(result.data.success);
-    return result.data.success;
-    
+    if (result.data.success) {
+        dispatch({
+            type: AUTHENTICATION,
+            payload: result.data,
+        });
+    }
+
+    return result.data;
 }
 
 export const onSignout = () => (dispatch) => {
-    console.log('EndersGate')
-    // localStorage.removeItem('EndersGate');
-    localStorage.setItem('EndersGate', false);
-    console.log(localStorage.getItem('EndersGate'));
+    localStorage.removeItem('SignData');
+    localStorage.removeItem('TokenData');
     dispatch({
-        type : NOT_AUTHENTICATION,
-        payload : false,
+        type: NOT_AUTHENTICATION,
+        payload: false,
     });
-    
+
 }
 
 export default {

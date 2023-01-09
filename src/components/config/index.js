@@ -10,7 +10,7 @@ import Signin from "../auth/signin";
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
 
-const GameConfigureIndex = ({isAuthenticated}) => {
+const GameConfigureIndex = ({ isAuthenticated }) => {
 
     const [startGoldAmount, setStartGoldAmount] = useState(0);
     const [startHP, setStartHP] = useState(0);
@@ -91,35 +91,51 @@ const GameConfigureIndex = ({isAuthenticated}) => {
     }
 
     const onSetPlayerSetting = () => {
-        axios.put(HOST_URL + 'updatePlayerSetting', {
+        let signData = localStorage.getItem("SignData");
+        signData = JSON.parse(signData);
+
+        axios.post(HOST_URL + 'updatePlayerSetting', {
             StartGoldAmount: parseFloat(startGoldAmount),
             StartHP: parseFloat(startHP),
             MaxHP: parseFloat(maxHP),
+            walletAddress: signData.address,
+            signatureData: signData.message,
+            signature: signData.signature
         }).then(res => {
-            if(res.status === 200){
+            if (res.status === 200) {
                 toast.success("Successfully Set the Player Settings!");
-            } else {
-                toast.error("There is issues in your action!");
             }
+        }).catch((error) => {
+            toast.error(error.response.data);
         });
     }
 
     const onResetPlayerSetting = () => {
-        axios.put(HOST_URL + 'resetPlayerSetting').then(res => {
-            setStartGoldAmount(parseFloat(res.data.StartGoldAmount));
-            setStartHP(res.data.StartHP);
-            setMaxHP(res.data.MaxHP);
+        let signData = localStorage.getItem("SignData");
+        signData = JSON.parse(signData);
 
-            if (res.status == 200) {
+        axios.post(HOST_URL + 'resetPlayerSetting', {
+            walletAddress: signData.address,
+            signatureData: signData.message,
+            signature: signData.signature
+        }).then(res => {
+            if (res.status === 200) {
+                setStartGoldAmount(parseFloat(res.data.StartGoldAmount));
+                setStartHP(res.data.StartHP);
+                setMaxHP(res.data.MaxHP);
+
                 toast.success("Successfully Reset the Player Settings!");
-            } else {
-                toast.error("There is issues in your action!");
             }
-        })
+        }).catch((error) => {
+            toast.error(error.response.data);
+        });
     }
 
     const onSetGameSetting = () => {
-        axios.put(HOST_URL + 'updateGameSetting', {
+        let signData = localStorage.getItem("SignData");
+        signData = JSON.parse(signData);
+
+        axios.post(HOST_URL + 'updateGameSetting', {
             TurnTime: parseFloat(turnTime),
             GoldBonusForKill: parseFloat(goldBonusForKill),
             GoldBonusForRetire: parseFloat(goldBonusForRetire),
@@ -129,45 +145,54 @@ const GameConfigureIndex = ({isAuthenticated}) => {
             DuelPointDecrease: parseFloat(decreaseDuelPointBy),
             DuelExpWon: parseFloat(increaseDuelExpBy),
             DuelExpLost: parseFloat(decreaseDuelExpBy),
+            walletAddress: signData.address,
+            signatureData: signData.message,
+            signature: signData.signature
         }).then(res => {
-            if (res.status == 200) {
+            if (res.status === 200) {
                 toast.success("Successfully Set the Game Settings!");
-            } else {
-                toast.error("There is any issues in your action!");
             }
+        }).catch((error) => {
+            toast.error(error.response.data);
         });
     }
 
     const onResetGameSetting = () => {
-        axios.put(HOST_URL + 'resetGameSetting').then(res => {
-            setTurnTime(res.data.TurnTime);
-            setGoldBonusForKill(res.data.GoldBonusForKill);
-            setGoldBonusForRetire(res.data.GoldBonusForRetire);
-            setElementalAttackBonusDamageOccurance(res.data.ElementalBonusOccurancePercent);
-            setElementalAttackBonusDamage(res.data.ElementalBonusDamage);
-            setIncreaseDuelPointBy(res.data.DuelPointIncrease);
-            setIncreaseDuelExpBy(res.data.DuelExpWon);
-            setDecreaseDuelPointBy(res.data.DuelPointDecrease);
-            setDecreaseDuelExpBy(res.data.DuelExpLost);
+        let signData = localStorage.getItem("SignData");
+        signData = JSON.parse(signData);
 
+        axios.post(HOST_URL + 'resetGameSetting', {
+            walletAddress: signData.address,
+            signatureData: signData.message,
+            signature: signData.signature
+        }).then(res => {
             if (res.status === 200) {
+                setTurnTime(res.data.TurnTime);
+                setGoldBonusForKill(res.data.GoldBonusForKill);
+                setGoldBonusForRetire(res.data.GoldBonusForRetire);
+                setElementalAttackBonusDamageOccurance(res.data.ElementalBonusOccurancePercent);
+                setElementalAttackBonusDamage(res.data.ElementalBonusDamage);
+                setIncreaseDuelPointBy(res.data.DuelPointIncrease);
+                setIncreaseDuelExpBy(res.data.DuelExpWon);
+                setDecreaseDuelPointBy(res.data.DuelPointDecrease);
+                setDecreaseDuelExpBy(res.data.DuelExpLost);
+                
                 toast.success("Successfully Reset the Game Settings!");
-            } else {
-                toast.error("There is any issues in your action!");
             }
-        })
-
+        }).catch((error) => {
+            toast.error(error.response.data);
+        });
     }
 
-    if(!isAuthenticated){
-        return <Signin/>
+    if (!isAuthenticated) {
+        return <Signin />
     }
 
 
     return (
         <>
-            <Header/>
-            <Sidebar/>
+            <Header />
+            <Sidebar />
             <section className="section-container">
                 <div className="content-wrapper">
                     <Row>
@@ -373,7 +398,7 @@ const GameConfigureIndex = ({isAuthenticated}) => {
                         hideProgressBar={true}
                         theme="colored"
                         position="bottom-right"
-                    />                
+                    />
                 </div>
             </section>
         </>
@@ -381,7 +406,7 @@ const GameConfigureIndex = ({isAuthenticated}) => {
 }
 
 const mapStateToProps = (state) => ({
-    isAuthenticated : state.authReducer.isAuthenticated,
+    isAuthenticated: state.authReducer.isAuthenticated,
 });
 
 export default connect(mapStateToProps, {})(GameConfigureIndex);

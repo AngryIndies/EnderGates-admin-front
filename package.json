@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "endergate-admin-panel",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.2",
+    "crypto-js": "^4.1.1",
     "ethers": "^5.7.2",
     "pretty-ms": "^8.0.0",
     "prop-types": "^15.8.1",

@@ -15,7 +15,7 @@ import up from "../../assets/img/ranking_change/Main_change_up.png";
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
 
-const LeaderboardIndex = ({isAuthenticated}) => {
+const LeaderboardIndex = ({ isAuthenticated }) => {
 
    const [totalUsers, setTotalUsers] = useState(0);
    const [paginationCnt, setPaginationCnt] = useState(10);
@@ -53,14 +53,14 @@ const LeaderboardIndex = ({isAuthenticated}) => {
       setSearchKey(key);
    }
 
-   if(!isAuthenticated){
+   if (!isAuthenticated) {
       return <Navigate to="/" />
-  }
+   }
 
    return (
       <>
-         <Header/>
-         <Sidebar/>
+         <Header />
+         <Sidebar />
          <section className="section-container">
             <Ranking
                RankingData={fiveRankData}
@@ -127,7 +127,7 @@ const LeaderboardIndex = ({isAuthenticated}) => {
                                        <tr className="text-center" key={index}>
                                           <td className="vertical-middle">{rank.rank}</td>
                                           <td className="vertical-middle">
-                                             <img className="img-fluid rounded-circle thumb50" src={'../assets/img/ProfileImages/' + rank.pfp + '.png'} alt="Image" />
+                                             <img className="img-fluid rounded-circle thumb50" src={'../assets/img/ProfileImages/' + rank.pfp + '.png'} alt="PFP" />
                                           </td>
                                           <td className="vertical-middle">{rank.username}</td>
                                           <td className="vertical-middle">{rank.point}</td>
@@ -140,11 +140,11 @@ const LeaderboardIndex = ({isAuthenticated}) => {
                                           <td className="vertical-middle">
                                              {rank.change >= 0 ? (
                                                 rank.change === 0 ? (
-                                                   <img className="img-fluid rounded-circle thumb30" src={equal} alt="Image" />
+                                                   <img className="img-fluid rounded-circle thumb30" src={equal} alt="PFP Frame" />
                                                 ) : (
-                                                   <img className="img-fluid rounded-circle thumb30" src={up} alt="Image" />
+                                                   <img className="img-fluid rounded-circle thumb30" src={up} alt="PFP Frame" />
                                                 )) : (
-                                                <img className="img-fluid rounded-circle thumb30" src={down} alt="Image" />
+                                                <img className="img-fluid rounded-circle thumb30" src={down} alt="PFP Frame" />
                                              )
                                              }
 
@@ -195,9 +195,9 @@ const LeaderboardIndex = ({isAuthenticated}) => {
 }
 
 const mapStateToProps = (state) => ({
-   isAuthenticated             : state.authReducer.isAuthenticated,
+   isAuthenticated: state.authReducer.isAuthenticated,
 });
 
 export default connect(mapStateToProps, {
-   
+
 })(LeaderboardIndex);

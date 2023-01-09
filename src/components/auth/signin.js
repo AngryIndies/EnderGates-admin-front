@@ -5,17 +5,18 @@ import { ToastContainer, toast } from 'react-toastify';
 
 import { onSignin } from "../../actions/authAction";
 
-const Signin = ({ onSignin, isAuthenticated}) => {
+const Signin = ({ onSignin, isAuthenticated }) => {
 
     const signIn = async () => {
-        var result = await onSignin();
-        if(!result){
-            toast.error('SIGN IN FAILED!');
+        let result = await onSignin();
+        if (result.success) {
+            toast.info(result.message);
+        } else {
+            toast.error(result.message);
         }
-        
     };
 
-    if(isAuthenticated){
+    if (isAuthenticated) {
         return <Navigate to="/dashboard" />
     }
 
@@ -26,7 +27,7 @@ const Signin = ({ onSignin, isAuthenticated}) => {
                 <div className="card card-flat" style={{ "width": "300px" }}>
                     <div className="card-header text-center bg-transparent border-0">
                         <Link href="/">
-                            <img className="block-center rounded width_50" src="../assets/img/logo/logo.png" alt="Logo"/>
+                            <img className="block-center rounded width_50" src="../assets/img/logo/logo.png" alt="Logo" />
                         </Link>
                     </div>
                     <div className="card-body">
@@ -42,13 +43,13 @@ const Signin = ({ onSignin, isAuthenticated}) => {
                 hideProgressBar={true}
                 theme="colored"
                 position="bottom-right"
-            />       
+            />
         </div>
     );
 }
 
 const mapStateToProps = (state) => ({
-    isAuthenticated             : state.authReducer.isAuthenticated,
+    isAuthenticated: state.authReducer.isAuthenticated,
 });
 
 export default connect(mapStateToProps, {

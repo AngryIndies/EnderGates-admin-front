@@ -18,7 +18,7 @@ const Ranking = ({ RankingData }) => {
         //     playerInfos.push(RankingData[i]);
         // }
         setPlayerInfos(RankingData);
-    }, [ RankingData ]);
+    }, [RankingData]);
 
     var dot = '...';
     const modString = (str) => {
