@@ -96,10 +96,20 @@ const GameResultIndex = ({ isAuthenticated }) => {
                                             <th>Game Result</th>
                                             <th>Duration</th>
                                             <th>Turns</th>
-                                            <th>Kills</th>
-                                            <th>Retires</th>
-                                            <th>Total Damage Player1</th>
-                                            <th>Total Damage Player2</th>
+                                            <th>P1 Action</th>
+                                            <th>P1 Reaction</th>
+                                            <th>P1 Gold</th>
+                                            <th>P1 TD</th>
+                                            <th>P1 Kills</th>
+                                            <th>P1 Hires</th>
+                                            <th>P1 Retires</th>
+                                            <th>P2 Action</th>
+                                            <th>P2 Reaction</th>
+                                            <th>P2 Gold</th>
+                                            <th>P2 TD</th>
+                                            <th>P2 Kills</th>
+                                            <th>P2 Hires</th>
+                                            <th>P2 Retires</th>
                                         </tr>
                                     </thead>
                                     {
@@ -124,13 +134,24 @@ const GameResultIndex = ({ isAuthenticated }) => {
                                                         <td className="vertical-middle">{result.player1}</td>
                                                         <td className="vertical-middle">{result.player2}</td>
                                                         <td className="vertical-middle">{result.game_data}</td>
-                                                        <td className="vertical-middle">{result.game_result}</td>
+                                                        <td className="vertical-middle">{result.game_result === 0 ? "Player1 Wins" : "Player 2 Wins"}</td>
                                                         <td className="vertical-middle">{modifyDateFormat(result.start_time, result.finish_time)}</td>
                                                         <td className="vertical-middle">{result.turns}</td>
-                                                        <td className="vertical-middle">{result.kills}</td>
-                                                        <td className="vertical-middle">{result.retires}</td>
-                                                        <td className="vertical-middle">{result.td_player1}</td>
-                                                        <td className="vertical-middle">{result.td_player2}</td>
+                                                        <td className="vertical-middle">{result.player1_action_count}</td>
+                                                        <td className="vertical-middle">{result.player1_reaction_count}</td>
+                                                        <td className="vertical-middle">{result.player1_gold_amount}</td>
+                                                        <td className="vertical-middle">{result.player1_td}</td>
+                                                        <td className="vertical-middle">{result.player1_kills}</td>
+                                                        <td className="vertical-middle">{result.player1_hires}</td>
+                                                        <td className="vertical-middle">{result.player1_retires}</td>
+                                                        <td className="vertical-middle">{result.player2_action_count}</td>
+                                                        <td className="vertical-middle">{result.player2_reaction_count}</td>
+                                                        <td className="vertical-middle">{result.player2_gold_amount}</td>
+                                                        <td className="vertical-middle">{result.player2_td}</td>
+                                                        <td className="vertical-middle">{result.player2_kills}</td>
+                                                        <td className="vertical-middle">{result.player2_hires}</td>
+                                                        <td className="vertical-middle">{result.player2_retires}</td>
+
                                                     </tr>
                                                 );
                                             })
@@ -145,12 +166,12 @@ const GameResultIndex = ({ isAuthenticated }) => {
                                                 <div className="input-group-append"><button className="btn btn-secondary btn-sm" type="button">Search</button></div>
                                             </div>
                                         </div>
-                                        <div className="d-flex dt-buttons btn-group mgl-15 align-center">
+                                        {/* <div className="d-flex dt-buttons btn-group mgl-15 align-center">
                                             <button className="btn btn-default buttons-copy buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>Copy</span></button>
                                             <button className="btn btn-default buttons-csv buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>CSV</span></button> <button className="btn btn-default buttons-excel buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>Excel</span></button>
                                             <button className="btn btn-default buttons-pdf buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>PDF</span></button>
                                             <button className="btn btn-default buttons-print btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>Print</span></button>
-                                        </div>
+                                        </div> */}
                                         <div className="ml-auto">
                                             <div className="dataTables_paginate paging_simple_numbers" id="datatable1_paginate">
                                                 <Paginator

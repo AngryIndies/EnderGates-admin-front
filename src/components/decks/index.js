@@ -34,11 +34,11 @@ const DeckIndex = ({
 
     useEffect(() => {
         onGetAllDecks();
-    }, [])
+    }, [onGetAllDecks])
 
     useEffect(() => {
         onGetDecks(paginationFrom, paginationCnt);
-    }, [paginationFrom, paginationCnt]);
+    }, [paginationFrom, paginationCnt, onGetDecks]);
 
 
     const stringToArray = (str) => {
@@ -47,8 +47,8 @@ const DeckIndex = ({
     }
 
     useEffect(() => {
-        var array = [];
-        var arr = [];
+        let array = [];
+        let arr = [];
         for (let i = 0; i < allDecks.length; i++) {
             arr[i] = stringToArray(allDecks[i].deck_cards)
             array = array.concat(arr[i]);
@@ -57,14 +57,16 @@ const DeckIndex = ({
         setTotalCardsinDecks(array.length);
 
         array.sort();
-        var result = [];
-        var current = null;
-        var cnt = 0;
-        for (var i = 0; i < array.length; i++) {
+        let result = [];
+        let current = null;
+        let cnt = 0;
+        for (let i = 0; i < array.length; i++) {
             if (array[i] !== current) {
                 if (cnt > 0) {
-                    var str = '{"index":' + current + ', "cnt" :' + cnt +'}';
-                    result.push(JSON.parse(str));
+                    result.push({
+                        index: current,
+                        cnt: cnt
+                    });
                 }
                 current = array[i];
                 cnt = 1;
@@ -73,14 +75,14 @@ const DeckIndex = ({
             }
         }
 
-        var action = 0;
-        var reaction = 0;
-        var guardian = 0;
+        let action = 0;
+        let reaction = 0;
+        let guardian = 0;
 
-        for(var i = 0; i < result.length; i++){
-            if(result[i]['index'] <= 45){
+        for (let i = 0; i < result.length; i++) {
+            if (result[i]['index'] <= 45) {
                 action += result[i]['cnt'];
-            } else if(result[i]['index'] > 45 && result[i]['index'] <= 86){
+            } else if (result[i]['index'] > 45 && result[i]['index'] <= 86) {
                 reaction += result[i]['cnt'];
             } else {
                 guardian += result[i]['cnt'];
@@ -105,31 +107,31 @@ const DeckIndex = ({
         const cnt = 3;
         const array = str.split(',');
         const dots = '...';
-        var exp = '';
+        let exp = '';
 
         if (array.length < cnt) {
-            for (var i = 0; i < cnt; i++) {
-                i != cnt - 1 ? (exp += array[i] + ', ') : (exp += array[i]);
+            for (let i = 0; i < cnt; i++) {
+                i !== cnt - 1 ? (exp += array[i] + ', ') : (exp += array[i]);
             }
             return exp;
 
         } else {
-            for (var i = 0; i < cnt; i++) {
-                i != cnt - 1 ? (exp += array[i] + ', ') : (exp += array[i]);
+            for (let i = 0; i < cnt; i++) {
+                i !== cnt - 1 ? (exp += array[i] + ', ') : (exp += array[i]);
             }
             exp += ' ' + dots;
             return exp;
         }
     }
 
-    if(!isAuthenticated){
+    if (!isAuthenticated) {
         return <Navigate to="/" />
     }
 
     return (
         <>
-            <Header/>
-            <Sidebar/>
+            <Header />
+            <Sidebar />
             <section className="section-container">
                 <div className="content-wrapper" style={{ 'padding': '20px', 'borderTop': '0px' }}>
                     <Row>
@@ -143,7 +145,7 @@ const DeckIndex = ({
                                 </Card.Header>
                                 <Card.Body>
                                     <Card.Text className="font-25 font-bold">
-                                        { totalDecksCount }
+                                        {totalDecksCount}
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
@@ -156,7 +158,7 @@ const DeckIndex = ({
                                 </Card.Header>
                                 <Card.Body>
                                     <Card.Text className="font-25 font-bold">
-                                        { Math.ceil( totalCardsInDecks / totalDecksCount )}
+                                        {Math.ceil(totalCardsInDecks / totalDecksCount)}
                                     </Card.Text>
                                 </Card.Body>
                                 {/* <Card.Footer className=" bg-transparent border-0 text-white">
@@ -178,15 +180,15 @@ const DeckIndex = ({
                                 </Card.Body>
                             </Card> */}
                         </Col>
-                        <Col xl={4} style={{ 'textAlign': 'center'}}>
-                            <DecksChart 
-                                action = {actionCard}
-                                reaction = {reactionCard}
-                                guardian = {guardianCard}
+                        <Col xl={4} style={{ 'textAlign': 'center' }}>
+                            <DecksChart
+                                action={actionCard}
+                                reaction={reactionCard}
+                                guardian={guardianCard}
                             />
                         </Col>
                         <Col xl={3}>
-                            
+
                         </Col>
                     </Row>
 
@@ -224,15 +226,15 @@ const DeckIndex = ({
                                         </tr>
                                     </thead>
                                     {
-                                        decksData.length === 0? (
-                                            <td colSpan='5' style={{'textAlign':'center'}}>
+                                        decksData.length === 0 ? (
+                                            <td colSpan='5' style={{ 'textAlign': 'center' }}>
                                                 <SpinnerDotted
                                                     size={90}
                                                     speed={140}
                                                     thickness={120}
                                                 />
                                             </td>
-                                            
+
                                         ) : (
                                             <></>
                                         )
@@ -243,11 +245,11 @@ const DeckIndex = ({
                                                 decksData.map((deck, index) => {
                                                     return (
                                                         <tr className="text-center" key={index}>
-                                                            <td className="vertical-middle">{deck.userid}</td>
+                                                            <td className="vertical-middle">{deck.userId}</td>
                                                             <td className="vertical-middle">{deck.username}</td>
                                                             <td className="vertical-middle">{deck.deck_name}</td>
                                                             <td className="vertical-middle">
-                                                                <Link to={"/deck-detail/" + `${deck.id}`}>{toDecksStringtoShort(deck.deck_cards)}</Link>
+                                                                <Link to={`/deck-detail/${deck.id}`}>{toDecksStringtoShort(deck.deck_cards)}</Link>
                                                             </td>
                                                             <td className="vertical-middle">
                                                                 {deck.selected === 1 ? (<em className="fa fa-check green-color"></em>) : (<></>)}
@@ -258,21 +260,13 @@ const DeckIndex = ({
                                             ) : (
                                                 <></>
                                             )
-                                            
                                         }
                                     </tbody>
                                 </table>
                                 <div className="card-footer">
                                     <div className="d-flex">
-                                        <div className="d-flex dt-buttons btn-group mgl-15 align-center">
-                                            <button className="btn btn-default buttons-copy buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>Copy</span></button>
-                                            <button className="btn btn-default buttons-csv buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>CSV</span></button> <button className="btn btn-default buttons-excel buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>Excel</span></button>
-                                            <button className="btn btn-default buttons-pdf buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>PDF</span></button>
-                                            <button className="btn btn-default buttons-print btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>Print</span></button>
-                                        </div>
                                         <div className="ml-auto">
                                             <div className="dataTables_paginate paging_simple_numbers" id="datatable1_paginate">
-                                                
                                                 <Paginator
                                                     totalRecords={totalDecksCount}
                                                     pageLimit={paginationCnt}
@@ -281,7 +275,6 @@ const DeckIndex = ({
                                                     currentPage={currentPage}
                                                     setCurrentPage={onClick}
                                                 />
-
                                             </div>
                                         </div>
                                     </div>
@@ -296,7 +289,7 @@ const DeckIndex = ({
 }
 
 const mapStateToProps = (state) => ({
-    isAuthenticated : state.authReducer.isAuthenticated,
+    isAuthenticated: state.authReducer.isAuthenticated,
     totalDecksCount: state.dashboardReducer.main_data.totalDecks,
     allDecks: state.decksReducer.decks_all_data,
     decksData: state.decksReducer.decks_data,

@@ -18,14 +18,14 @@ const DeckIndex = () => {
     const [decksData, setDecksData] = useState([]);
 
     useEffect(() => {
-        axios.get(HOST_URL + "getPlayerDecksCount?userId=" + id).then( res => {
+        axios.get(HOST_URL + "getPlayerDecksCount?userId=" + id).then(res => {
             setTotalDecks(res.data.count);
         })
 
-        axios.get( HOST_URL + "getPlayerDecks?userId=" + id + "&from=" + paginationFrom + "&limit=" + paginationCnt).then( res => {
+        axios.get(HOST_URL + "getPlayerDecks?userId=" + id + "&from=" + paginationFrom + "&limit=" + paginationCnt).then(res => {
             setDecksData(res.data);
         })
-    },  [id, paginationFrom, paginationCnt]);
+    }, [id, paginationFrom, paginationCnt]);
 
     const selectPaginationCnt = (cnt) => {
         setPaginationCnt(cnt);
@@ -98,11 +98,11 @@ const DeckIndex = () => {
                                         decksData.map((deck, index) => {
                                             return (
                                                 <tr className="text-center" key={index}>
-                                                    <td className="vertical-middle">{deck.userid}</td>
+                                                    <td className="vertical-middle">{deck.userId}</td>
                                                     <td className="vertical-middle">{deck.username}</td>
                                                     <td className="vertical-middle">{deck.deck_name}</td>
                                                     <td className="vertical-middle">
-                                                        <Link to={"/deck-detail/" + `${deck.id}`}>{toDecksStringToArray(deck.deck_cards)}</Link>
+                                                        <Link to={`/deck-detail/${deck.id}`}>{toDecksStringToArray(deck.deck_cards)}</Link>
                                                     </td>
                                                     <td className="vertical-middle">
                                                         {deck.selected === 1 ? (<em className="fa fa-check green-color"></em>) : (<></>)}
@@ -120,12 +120,6 @@ const DeckIndex = () => {
                                             {/* <input className="form-control form-control-sm" type="text" placeholder="Search" onChange={(e) => searchData(e.target.value)} />
                                             <div className="input-group-append"><button className="btn btn-secondary btn-sm" type="button">Search</button></div> */}
                                         </div>
-                                    </div>
-                                    <div className="d-flex dt-buttons btn-group mgl-15 align-center">
-                                        <button className="btn btn-default buttons-copy buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>Copy</span></button>
-                                        <button className="btn btn-default buttons-csv buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>CSV</span></button> <button className="btn btn-default buttons-excel buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>Excel</span></button>
-                                        <button className="btn btn-default buttons-pdf buttons-html5 btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>PDF</span></button>
-                                        <button className="btn btn-default buttons-print btn-info" tabIndex="0" aria-controls="datatable4" type="button"><span>Print</span></button>
                                     </div>
                                     <div className="ml-auto">
                                         <div className="dataTables_paginate paging_simple_numbers" id="datatable1_paginate">

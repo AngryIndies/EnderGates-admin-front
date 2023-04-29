@@ -14,6 +14,7 @@ import Decks from "./components/decks/index";
 import Leaderboard from "./components/leaderboard/index";
 import Players from "./components/players/index";
 import GameResult from './components/result/index';
+import CardsComponent from './components/cards';
 
 const App = () => {
 
@@ -56,6 +57,7 @@ const App = () => {
                     <Route exact path="/game-config" element={<GameConfigure />} />
                     <Route exact path="/game-result" element={<GameResult />} />
                     <Route exact path='/tournament' element={<GameResult />} />
+                    <Route exact path='/cards' element={<CardsComponent />} />
                 </Routes>
             </Router>
         </Provider>

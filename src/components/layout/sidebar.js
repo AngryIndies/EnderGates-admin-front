@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import { onSetSidebarTag } from '../../actions/sidebarAction';
 import {
+    SIDEBAR_TAG_CARDS,
     SIDEBAR_TAG_CONFIG,
     SIDEBAR_TAG_DASHBOARD,
     SIDEBAR_TAG_DECKS,
@@ -48,18 +49,6 @@ const Sidebar = ({ onSetSidebarTag }) => {
                                                 <img className="img-thumbnail rounded-circle" src={avatar} alt="Avatar" width="60" height="60" />
                                             </Link>
                                         </div>
-                                        {/* <div className="user-block-info"><span className="user-block-name">Welcome, Alex</span><span className="user-block-role">Designer</span>
-                                            <div className="btn-group user-block-status">
-                                                <button className="btn btn-inverse btn-xs dropdown-toggle no-caret" type="button" data-toggle="dropdown">
-                                                    <div className="p-1 rounded d-inline-block bg-success mr-2"></div><span>Online</span>
-                                                </button>
-                                                <ul className="dropdown-menu">
-                                                    <div className="dropdown-item"><span className="p-1 rounded d-inline-block bg-success mr-1 mr-2"></span>Online</div>
-                                                    <div className="dropdown-item"><span className="p-1 rounded d-inline-block bg-warning mr-1 mr-2"></span>Away</div>
-                                                    <div className="dropdown-item"><span className="p-1 rounded d-inline-block bg-danger mr-1 mr-2"></span>Busy</div>
-                                                </ul>
-                                            </div>
-                                        </div> */}
                                     </div>
                                 </div>
                             </div>
@@ -113,10 +102,10 @@ const Sidebar = ({ onSetSidebarTag }) => {
                                 <span>Decks</span>
                             </Link>
                         </li>
-                        <li className={location.pathname === '/game-config' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_CONFIG, GLOBAL.CONFIG)}>
-                            <Link to="/game-config" title="Configure">
-                                <em className="fas fa-cogs"></em>
-                                <span>Game Configure</span>
+                        <li className={location.pathname === '/cards' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_CARDS, GLOBAL.CARDS)}>
+                            <Link to="/cards" title="news">
+                                <em className="fas fa-id-card"></em>
+                                <span>Cards</span>
                             </Link>
                         </li>
                         <li className={location.pathname === '/game-result' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_CONFIG, GLOBAL.CONFIG)}>
@@ -125,163 +114,12 @@ const Sidebar = ({ onSetSidebarTag }) => {
                                 <span>Game</span>
                             </Link>
                         </li>
-                        {/* <li className=" "><Link to="#tables" title="Tables" data-toggle="collapse"><em className="fas fa-table"></em><span>Tables</span></Link>
-                            <ul className="sidebar-nav sidebar-subnav collapse" id="tables">
-                                <li className="sidebar-subnav-header">Tables</li>
-                                <li className=" ">
-                                    <Link to="table-datatable.html" title="Data Tables">
-                                        <span>Data Tables</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="table-standard.html" title="Standard">
-                                        <span>Standard</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="table-extended.html" title="Extended">
-                                        <span>Extended</span>
-                                    </Link>
-                                </li>
-                            </ul>
+                        <li className={location.pathname === '/game-config' ? 'active' : ''} onClick={() => setSidebarTag(SIDEBAR_TAG_CONFIG, GLOBAL.CONFIG)}>
+                            <Link to="/game-config" title="Configure">
+                                <em className="fas fa-cogs"></em>
+                                <span>Game Configure</span>
+                            </Link>
                         </li>
-                        <li className=" "><Link to="#forms" title="Forms" data-toggle="collapse"><em className="fas fa-edit"></em><span>Forms</span></Link>
-                            <ul className="sidebar-nav sidebar-subnav collapse" id="forms">
-                                <li className="sidebar-subnav-header">Forms</li>
-                                <li className=" "><Link to="form-standard.html" title="Standard">
-                                    <span>Standard</span></Link>
-                                </li>
-                                <li className=" "><Link to="form-extended.html" title="Extended">
-                                    <span>Extended</span></Link>
-                                </li>
-                                <li className=" "><Link to="form-validation.html" title="Validation">
-                                    <span>Validation</span></Link>
-                                </li>
-                                <li className=" "><Link to="form-wizard.html" title="Wizard">
-                                    <span>Wizard</span></Link>
-                                </li>
-                            </ul>
-                        </li>
-                        <li className=" "><Link to="#elements" title="Elements" data-toggle="collapse"><em className="fas fa-wrench"></em><span>Elements</span></Link>
-                            <ul className="sidebar-nav sidebar-subnav collapse" id="elements">
-                                <li className="sidebar-subnav-header">Elements</li>
-                                <li className=" ">
-                                    <Link to="cards.html" title="Cards">
-                                        <span>Cards</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="portlets.html" title="Portlets">
-                                        <span>Portlets</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="buttons.html" title="Buttons">
-                                        <span>Buttons</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="icons.html" title="Icons">
-                                        <span>Icons</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="notifications.html" title="Notifications">
-                                        <span>Notifications</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="typo.html" title="Typography">
-                                        <span>Typography</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="grid.html" title="Grid">
-                                        <span>Grid</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="grid-masonry.html" title="Grid Masonry">
-                                        <span>Grid Masonry</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="dropdown-animations.html" title="Dropdown">
-                                        <span>Dropdown</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="widgets.html" title="Widgets">
-                                        <span>Widgets</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="maps.html" title="Maps">
-                                        <span>Maps</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="calendar.html" title="Calendar">
-                                        <span>Calendar</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="spinners.html" title="Spinners">
-                                        <span>Spinners</span>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </li>
-                        <li className=" "><Link to="#pages" title="Pages" data-toggle="collapse"><em className="far fa-file-alt"></em><span>Pages</span></Link>
-                            <ul className="sidebar-nav sidebar-subnav collapse" id="pages">
-                                <li className="sidebar-subnav-header">Pages</li>
-                                <li className=" ">
-                                    <Link to="landing.html" title="Landing">
-                                        <span>Landing</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="login.html" title="Login">
-                                        <span>Login</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="login-multi.html" title="Login Multi">
-                                        <span>Login Multi</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="register.html" title="Sign up">
-                                        <span>Sign up</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="lock.html" title="Lock">
-                                        <span>Lock</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="recover.html" title="Recover Password">
-                                        <span>Recover Password</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="template.html" title="Empty Template">
-                                        <span>Empty Template</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="timeline.html" title="Timeline">
-                                        <span>Timeline</span>
-                                    </Link>
-                                </li>
-                                <li className=" ">
-                                    <Link to="inbox.html" title="Mail Inbox">
-                                        <span>Mail Inbox</span>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </li> */}
                     </ul>
                     <div className="nav-footer">
                         <div className="nav-footer-divider"></div>

@@ -3,7 +3,7 @@ import ReactApexChart from "react-apexcharts";
 import { connect } from "react-redux";
 import { SpinnerCircular } from 'spinners-react';
 
-const ApexPie = ({action, reaction, guardian}) => {
+const ApexPie = ({ action, reaction, guardian }) => {
 
     var data = {
         render: false,
@@ -58,23 +58,23 @@ const ApexPie = ({action, reaction, guardian}) => {
     useEffect(() => {
         data.options.labels = ['Action Cards', 'Reaction Cards', 'Guardian Cards'];
         data.series = action ? [action, reaction, guardian] : [];
-        var temp =  action ? (
-                                <div id="chart">
-                                    <ReactApexChart
-                                        options={data.options}
-                                        series={data.series}
-                                        type="donut"
-                                        height={350}
-                                    />
-                                </div>
-                            ) : (
-                                <SpinnerCircular 
-                                    size={90} 
-                                    thickness={180} 
-                                    speed={140}
-                                />
-                            )
-        
+        var temp = action ? (
+            <div id="chart">
+                <ReactApexChart
+                    options={data.options}
+                    series={data.series}
+                    type="donut"
+                    height={350}
+                />
+            </div>
+        ) : (
+            <SpinnerCircular
+                size={90}
+                thickness={180}
+                speed={140}
+            />
+        )
+
         setRenderContainer(temp);
     }, [action]);
 
@@ -84,7 +84,7 @@ const ApexPie = ({action, reaction, guardian}) => {
 }
 
 const mapStateToProps = (state) => ({
-    cards    : state.dashboardReducer.main_data.totalCards,
+    cards: state.dashboardReducer.main_data.totalCards,
 });
 
 export default connect(mapStateToProps, {})(ApexPie);

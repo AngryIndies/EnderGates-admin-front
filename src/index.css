@@ -1,429 +1,425 @@
 .card-text {
-   margin-bottom: 0;
+  margin-bottom: 0;
 }
 #whiteSpace {
-   white-space: normal;
+  white-space: normal;
 }
 
 #tp-btn::after {
-   content: "";
+  content: "";
 }
 .progress .progress-bar {
-   animation-name: animateBar;
-   animation-iteration-count: 1;
-   animation-timing-function: ease-in;
-   animation-duration: 0.6s;
+  animation-name: animateBar;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.6s;
 }
 @keyframes animateBar {
-   0% {
-      transform: translateX(-100%);
-   }
-   100% {
-      transform: translateX(0);
-   }
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 ol.go2441762052 {
-   text-align: center;
+  text-align: center;
 }
 
 #order2 {
-   order: 2;
+  order: 2;
 }
 
 /* Chart */
 
 .go2478912419 {
-   text-align: center;
-   display: block;
-   margin-bottom: 2rem;
+  text-align: center;
+  display: block;
+  margin-bottom: 2rem;
 }
 .summernote > :first-child {
-   min-height: 250px;
+  min-height: 250px;
 }
 .picker-input__text,
 .range-picker-input {
-   width: 100% !important;
+  width: 100% !important;
 }
 
 .timepicker-container,
 .MuiFormControl-root.MuiTextField-root {
-   flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 .timepicker-container input {
-   background: #fff;
-   border: 1px solid #f0f1f5;
-   color: #b1b1b1;
-   padding: 0.375rem 0.75rem;
-   font-size: 0.875rem;
-   height: 41px;
-   width: 100%;
-   box-sizing: border-box;
+  background: #fff;
+  border: 1px solid #f0f1f5;
+  color: #b1b1b1;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  height: 41px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .MuiFormControl-root.MuiTextField-root {
-   display: block;
+  display: block;
 }
 .MuiInputBase-root.MuiInput-root.MuiInput-underline.MuiInputBase-formControl.MuiInput-formControl {
-   width: 100%;
-   height: 100%;
+  width: 100%;
+  height: 100%;
 }
-
-
 
 /* Picker */
 .slick-slider .items {
-   padding: 0.5rem;
+  padding: 0.5rem;
 }
 .slick-next:before,
 .slick-prev:before {
-   line-height: 1;
-   opacity: 0.75;
-   color: #6cc51d;
-   position: absolute;
-   top: 50%;
-   width: 20px;
-   height: 20px;
-   margin-top: -14px;
-   right: 30px;
-   font-size: 32px;
+  line-height: 1;
+  opacity: 0.75;
+  color: #6cc51d;
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -14px;
+  right: 30px;
+  font-size: 32px;
 }
 .slick-next::after,
 .slick-prev::after {
-   line-height: 1;
-   opacity: 0.75;
-   color: #6cc51d;
-   position: absolute;
-   top: 50%;
-   width: 20px;
-   height: 20px;
-   margin-top: -14px;
-   right: 30px;
-   font-size: 32px;
-   z-index: 99;
+  line-height: 1;
+  opacity: 0.75;
+  color: #6cc51d;
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -14px;
+  right: 30px;
+  font-size: 32px;
+  z-index: 99;
 }
 .items {
-   padding-right: 25px;
+  padding-right: 25px;
 }
 
 .react-calendar {
-   border: none;
+  border: none;
 }
 .icon-false:after {
-   content: none !important;
+  content: none !important;
 }
 
 .swal-footer {
-   text-align: center !important;
+  text-align: center !important;
 }
 
 rect#chart_ChartBorder {
-   fill: transparent;
+  fill: transparent;
 }
 
 /* Height 80 */
 .h-80 {
-   min-height: 80vh;
+  min-height: 80vh;
 }
 .h-70 {
-   min-height: 70vh;
+  min-height: 70vh;
 }
 
 /* pagination */
 .pagination {
-   margin-bottom: 0 !important;
+  margin-bottom: 0 !important;
 }
 @import url("https://fonts.googleapis.com/css?family=Lato");
 .rc-backdrop {
-   position: fixed;
-   top: 0;
-   left: 0;
-   bottom: 0;
-   right: 0;
-   z-index: 80;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 80;
 }
 .rc-backdrop.invert {
-   background: rgba(1, 1, 1, 0.7);
+  background: rgba(1, 1, 1, 0.7);
 }
 .range-picker-input {
-   display: inline-flex;
-   border: 1px solid #e4e4e4;
-   width: 300px;
+  display: inline-flex;
+  border: 1px solid #e4e4e4;
+  width: 300px;
 }
 .range-picker-input * {
-   box-sizing: border-box;
+  box-sizing: border-box;
 }
 .range-picker-input__icon {
-   display: inline-flex;
-   align-items: center;
+  display: inline-flex;
+  align-items: center;
 }
 .range-picker-input__start,
 .range-picker-input__end {
-   display: inline-flex;
-   flex: 1;
+  display: inline-flex;
+  flex: 1;
 }
 .range-picker-input__start .picker-input.range input,
 .range-picker-input__end .picker-input.range input {
-   width: 100%;
-   border: none;
+  width: 100%;
+  border: none;
 }
 .picker-input {
-   display: inline-block;
-   position: relative;
+  display: inline-block;
+  position: relative;
 }
 .picker-input__icon {
-   position: absolute;
-   top: 50%;
-   transform: translateY(-50%);
-   left: 10px;
-   display: inline-flex;
-   align-items: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+  display: inline-flex;
+  align-items: center;
 }
 .picker-input__text {
-   padding: 10px;
-   border: 1px solid #e4e4e4;
-   outline: none;
-   font-size: 16.8px;
+  padding: 10px;
+  border: 1px solid #e4e4e4;
+  outline: none;
+  font-size: 16.8px;
 }
 .picker-input__text:disabled {
-   background: #e4e4e4;
+  background: #e4e4e4;
 }
 .picker-input__clear {
-   position: absolute;
-   top: 50%;
-   transform: translateY(-50%);
-   right: 10px;
-   cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  cursor: pointer;
 }
 .picker {
-   display: inline-block;
+  display: inline-block;
 }
 .picker__container {
-   position: absolute;
-   z-index: 100;
+  position: absolute;
+  z-index: 100;
 }
 .picker__container.portal {
-   position: fixed;
-   top: 50%;
-   left: 50%;
-   transform: translateX(-50%) translateY(-50%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
 .picker__container__include-time {
-   border: 1px solid #e4e4e4;
+  border: 1px solid #e4e4e4;
 }
 .picker__container__include-time .calendar__item,
 .picker__container__include-time .time__container {
-   border: none;
+  border: none;
 }
 .picker__container__tab {
-   margin: 10px 0;
+  margin: 10px 0;
 }
 .picker__container__tab button {
-   padding: 5px 10px;
-   outline: none;
-   display: inline-flex;
-   align-items: center;
-   background: none;
-   border: none;
-   border-bottom: 2px solid #e4e4e4;
+  padding: 5px 10px;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: none;
+  border-bottom: 2px solid #e4e4e4;
 }
 .picker__container__tab button.active {
-   color: #49599a;
-   border-bottom: 2px solid #49599a;
+  color: #49599a;
+  border-bottom: 2px solid #49599a;
 }
 .picker__container__tab button:first-child {
-   border-right: none;
+  border-right: none;
 }
 .picker__container__tab button svg {
-   margin-right: 5px;
+  margin-right: 5px;
 }
 .time__container {
-   display: inline-flex;
-   align-items: center;
-   border: 1px solid #e4e4e4;
-   padding: 15px;
-   background: white;
-   font-family: "Lato";
-   font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #e4e4e4;
+  padding: 15px;
+  background: white;
+  font-family: "Lato";
+  font-size: 12px;
 }
 .time__container__div {
-   margin: 0 10px;
+  margin: 0 10px;
 }
 .time__container__type {
-   display: flex;
-   flex-direction: column;
-   margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
 }
 .time-input {
-   display: inline-block;
-   width: 40px;
-   overflow: hidden;
+  display: inline-block;
+  width: 40px;
+  overflow: hidden;
 }
 .time-input__up,
 .time-input__down {
-   border: 1px solid #e4e4e4;
+  border: 1px solid #e4e4e4;
 }
 .time-input__up button,
 .time-input__down button {
-   outline: none;
-   width: 100%;
-   cursor: pointer;
-   border: none;
+  outline: none;
+  width: 100%;
+  cursor: pointer;
+  border: none;
 }
 .time-input__text {
-   width: 100%;
-   border-left: 1px solid #e4e4e4;
-   border-right: 1px solid #e4e4e4;
-   box-sizing: border-box;
+  width: 100%;
+  border-left: 1px solid #e4e4e4;
+  border-right: 1px solid #e4e4e4;
+  box-sizing: border-box;
 }
 .time-input__text input {
-   width: 100%;
-   box-sizing: border-box;
-   border: none;
-   font-size: 15px;
-   padding: 5px;
-   text-align: center;
-   outline: none;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  font-size: 15px;
+  padding: 5px;
+  text-align: center;
+  outline: none;
 }
 .calendar {
-   display: inline-block;
-   background: white;
-   font-size: 12px;
+  display: inline-block;
+  background: white;
+  font-size: 12px;
 }
 .calendar *,
 .calendar *:before,
 .calendar *:after {
-   box-sizing: border-box;
+  box-sizing: border-box;
 }
 .calendar__container {
-   width: 270px;
-   font-family: "Roboto", sans-serif;
-   display: none;
+  width: 270px;
+  font-family: "Roboto", sans-serif;
+  display: none;
 }
 .calendar__list {
-   display: table;
+  display: table;
 }
 .calendar__item {
-   display: table-cell;
-   border: 1px solid #ececec;
+  display: table-cell;
+  border: 1px solid #ececec;
 }
 .calendar__item:not(:first-child) {
-   border-left: none !important;
+  border-left: none !important;
 }
 .calendar--show {
-   display: inline-block;
+  display: inline-block;
 }
 .calendar__head {
-   position: relative;
-   background: #7986cb;
-   padding: 10px 6px;
+  position: relative;
+  background: #7986cb;
+  padding: 10px 6px;
 }
 .calendar__head--title {
-   font-size: 1.3em;
-   color: white;
-   text-align: center;
-   margin: 4px;
+  font-size: 1.3em;
+  color: white;
+  text-align: center;
+  margin: 4px;
 }
 .calendar__head--button {
-   outline: none;
-   border: none;
-   cursor: pointer;
-   background: none;
-   font-size: 20px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background: none;
+  font-size: 20px;
 }
 .calendar__head--button svg {
-   fill: white;
+  fill: white;
 }
 .calendar__head--prev,
 .calendar__head--next {
-   position: absolute;
-   top: 0;
-   bottom: 0;
-   display: flex;
-   align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
 }
 .calendar__head--prev {
-   left: 0;
+  left: 0;
 }
 .calendar__head--next {
-   right: 0;
+  right: 0;
 }
 .calendar__panel--show {
-   display: block !important;
+  display: block !important;
 }
 .calendar__panel--today {
-   background: #aab6fe;
-   padding: 5px;
-   display: none;
+  background: #aab6fe;
+  padding: 5px;
+  display: none;
 }
 .calendar__panel--today h2 {
-   margin: 0;
-   cursor: pointer;
-   font-size: 12px;
-   text-align: center;
+  margin: 0;
+  cursor: pointer;
+  font-size: 12px;
+  text-align: center;
 }
 .calendar__body--table {
-   width: 100%;
-   table-layout: fixed;
-   text-align: center;
-   border-spacing: none;
-   border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+  text-align: center;
+  border-spacing: none;
+  border-collapse: collapse;
 }
 .calendar__body--table th {
-   height: 30px;
-   vertical-align: middle;
-   color: #212121;
+  height: 30px;
+  vertical-align: middle;
+  color: #212121;
 }
 .calendar__day {
-   vertical-align: top;
-   padding-top: 5px;
-   height: 40px;
-   cursor: pointer;
+  vertical-align: top;
+  padding-top: 5px;
+  height: 40px;
+  cursor: pointer;
 }
 .calendar__day self:hover:not(&--disabled) {
-   background: #aab6fe;
-   cursor: pointer;
+  background: #aab6fe;
+  cursor: pointer;
 }
 .calendar__day--0 {
-   color: red;
+  color: red;
 }
 .calendar__day--6 {
-   color: blue;
+  color: blue;
 }
 .calendar__day--today {
-   background: #fff9c4;
+  background: #fff9c4;
 }
 .calendar__day--disabled {
-   color: #ddd;
-   cursor: initial;
+  color: #ddd;
+  cursor: initial;
 }
 .calendar__day--start,
 .calendar__day--end,
 .calendar__day--selected {
-   background: #7986cb;
-   color: #fff;
+  background: #7986cb;
+  color: #fff;
 }
 .calendar__day--start:hover,
 .calendar__day--end:hover,
 .calendar__day--selected:hover {
-   background: #7986cb;
+  background: #7986cb;
 }
 .calendar__day--range {
-   background: #dce1ff;
+  background: #dce1ff;
 }
 .calendar__day--text {
-   display: block;
-   font-size: 10px;
+  display: block;
+  font-size: 10px;
 }
 .calendar__year,
 .calendar__month {
-   height: 55px;
-   vertical-align: middle;
+  height: 55px;
+  vertical-align: middle;
 }
 .calendar__year:hover,
 .calendar__month:hover {
-   background: #aab6fe;
-   cursor: pointer;
+  background: #aab6fe;
+  cursor: pointer;
 }
-
-

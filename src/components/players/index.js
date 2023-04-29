@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Paginator from 'react-hooks-paginator';
 import { connect } from "react-redux";
@@ -69,15 +69,15 @@ const LeaderboardIndex = ({ onSetPlayerDexID, isAuthenticated }) => {
       onSetPlayerDexID(PLAYER_DEX_ID, id);
    }
 
-   if(!isAuthenticated){
+   if (!isAuthenticated) {
       return <Navigate to="/" />
-  }
+   }
 
 
    return (
       <>
-         <Header/>
-         <Sidebar/>
+         <Header />
+         <Sidebar />
          <section className="section-container">
             <div className="content-wrapper" style={{ 'padding': '20px', 'borderTop': '0px' }}>
                <div className="card card-default">
@@ -136,14 +136,11 @@ const LeaderboardIndex = ({ onSetPlayerDexID, isAuthenticated }) => {
                            <tbody>
                               {
                                  playerInfo.map((player, index) => {
-                                    let bar = Math.floor(player.wins / (player.wins + player.losses) * 100);
-                                    let r = bar % 10;
-                                    let d = bar - r;
                                     return (
                                        <tr className="text-center" key={index}>
                                           <td className="vertical-middle">{player.id}</td>
                                           <td className="vertical-middle">
-                                             <img className="img-fluid rounded-circle thumb50" src={'../assets/img/ProfileImages/' + player.pfp + '.png'} alt="Image" />
+                                             <img className="img-fluid rounded-circle thumb50" src={'../assets/img/ProfileImages/' + player.pfp + '.png'} alt="Player PFP" />
                                           </td>
                                           <td className="vertical-middle">{modString(player.username)}</td>
                                           <td className="vertical-middle">{modString(player.address)}</td>
@@ -154,7 +151,7 @@ const LeaderboardIndex = ({ onSetPlayerDexID, isAuthenticated }) => {
                                           <td className="vertical-middle">{player.wins}</td>
                                           <td className="vertical-middle">{player.losses}</td>
                                           <td className="vertical-middle" onClick={() => setPlayerDex(`${player.id}`)}>
-                                             <Link to={"/decks/" + `${player.id}`}>{player.deck_count}</Link>
+                                             <Link to={`/decks/${player.id}`}>{player.deck_count}</Link>
                                           </td>
                                        </tr>
                                     );
@@ -200,7 +197,7 @@ const LeaderboardIndex = ({ onSetPlayerDexID, isAuthenticated }) => {
 }
 
 const mapStateToProps = (state) => ({
-   isAuthenticated : state.authReducer.isAuthenticated
+   isAuthenticated: state.authReducer.isAuthenticated
 });
 
 export default connect(mapStateToProps, { onSetPlayerDexID })(LeaderboardIndex);

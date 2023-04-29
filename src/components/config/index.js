@@ -27,6 +27,7 @@ const GameConfigureIndex = ({ isAuthenticated }) => {
 
     useEffect(() => {
         axios.get(HOST_URL + 'getGameSetting').then(res => {
+            console.log(res)
             setStartGoldAmount(parseFloat(res.data.playerSetting.StartGoldAmount));
             setStartHP(res.data.playerSetting.StartHP);
             setMaxHP(res.data.playerSetting.MaxHP);
@@ -176,7 +177,7 @@ const GameConfigureIndex = ({ isAuthenticated }) => {
                 setIncreaseDuelExpBy(res.data.DuelExpWon);
                 setDecreaseDuelPointBy(res.data.DuelPointDecrease);
                 setDecreaseDuelExpBy(res.data.DuelExpLost);
-                
+
                 toast.success("Successfully Reset the Game Settings!");
             }
         }).catch((error) => {
