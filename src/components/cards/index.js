@@ -15,11 +15,11 @@ const CardsComponent = () => {
 
     useEffect(() => {
         axios.get(HOST_URL + `cardsInfo`).then(res => {
-            let cardInfos = res.data.cards;
+            let cardInfos = res?.data.cards;
             cardInfos = cardInfos.filter((card) => card.is_free === 1);
 
             axios.get(HOST_URL + `getMetaData`).then(res => {
-                const metadatas = Object.values(res.data.metadatas);
+                const metadatas = Object.values(res.data?.metadatas);
                 let web3Requried = [], freeToUse = [];
 
                 metadatas.forEach((metadata) => {
@@ -43,16 +43,33 @@ const CardsComponent = () => {
 
     const handleApplyClick = () => {
         const cardIds = selectedItems.map((item) => {
-            return {
-                id: item.properties.id?.value,
-                count: item.count,
+            if (item.properties.id) {
+                return {
+                    id: item.properties.id?.value,
+                    count: item.count,
+                }
+            } else {
+                if (item.image === "QmQ8PAwZtKztvsFnAdp79KyvHkhUYzSkZQwgsHVdMy3Zbp")
+                    return {
+                        id: 215,
+                        count: item.count,
+                    }
+                else
+                    return {
+                        id: -1,
+                        count: item.count,
+                    }
             }
         });
 
         axios.put(HOST_URL + 'cardsInfo', {
             cardIds: cardIds
         }).then(res => {
-            toast.success("Successfully updated free to use cards info");
+            if (res.data.result)
+                toast.success("Successfully updated free to use cards info.");
+            else
+                toast.error("Error occured during setting cards info.");
+
         }).catch(err => {
             toast.error(err);
         });

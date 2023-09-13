@@ -27,7 +27,7 @@ function ShuttleList({ web3Required, freeToUse, onSelectionChange }) {
                 return { ...i, count };
             }
             return i;
-        });
+        }).filter(i => i.count > 0);
         setSelectedItems(updatedSelectedItems);
         if (count === 0) {
             setAvailableItems(
@@ -36,7 +36,7 @@ function ShuttleList({ web3Required, freeToUse, onSelectionChange }) {
                 }),
             );
         }
-        onSelectionChange(updatedSelectedItems.filter(i => i.count > 0));
+        onSelectionChange(updatedSelectedItems);
     };
 
     const handleCountChange = (event, item) => {

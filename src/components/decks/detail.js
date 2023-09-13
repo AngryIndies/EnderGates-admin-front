@@ -102,7 +102,7 @@ const DeckIndex = () => {
                                                     <td className="vertical-middle">{deck.username}</td>
                                                     <td className="vertical-middle">{deck.deck_name}</td>
                                                     <td className="vertical-middle">
-                                                        <Link to={`/deck-detail/${deck.id}`}>{toDecksStringToArray(deck.deck_cards)}</Link>
+                                                        <Link to={`/decks/${deck.id}`}>{toDecksStringToArray(deck.deck_cards)}</Link>
                                                     </td>
                                                     <td className="vertical-middle">
                                                         {deck.selected === 1 ? (<em className="fa fa-check green-color"></em>) : (<></>)}

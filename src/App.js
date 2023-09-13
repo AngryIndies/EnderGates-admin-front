@@ -52,8 +52,7 @@ const App = () => {
                     <Route exact path="/leaderboard" element={<Leaderboard />} />
                     <Route exact path="/players" element={<Players />} />
                     <Route exact path="/decks" element={<Decks />} />
-                    <Route exact path="/decks/:id" element={<DecksDetail />} />
-                    <Route exact path="/deck-detail/:id" element={<DeckImageDetail />} />
+                    <Route exact path="/decks/:id" element={<DeckImageDetail />} />
                     <Route exact path="/game-config" element={<GameConfigure />} />
                     <Route exact path="/game-result" element={<GameResult />} />
                     <Route exact path='/tournament' element={<GameResult />} />

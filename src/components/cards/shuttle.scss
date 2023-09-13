@@ -56,9 +56,13 @@
 }
 
 .shuttle-list li span {
+  width: 24px;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: black;
+  text-align: center;
+  border-radius: 3px;
   font-size: 18px;
   font-weight: bold;
-  color: #777;
   cursor: pointer;
 }
 
@@ -92,6 +96,11 @@
   color: #777;
 }
 
+.shuttle-item-count {
+  display: flex;
+  gap: 4px;
+}
+
 .shuttle-list::-webkit-scrollbar {
   width: 10px;
 }
@@ -108,4 +117,3 @@
 .shuttle-list::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-

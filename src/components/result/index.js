@@ -16,7 +16,7 @@ const GameResultIndex = ({ isAuthenticated }) => {
     const [paginationCnt, setPaginationCnt] = useState(10);
     const [paginationFrom, setPaginationFrom] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
-    const [gameResult, setGameResult] = useState([]);
+    const [gameResult, setGameResult] = useState(null);
     const [searchKey, setSearchKey] = useState('');
 
     useEffect(() => {
@@ -113,7 +113,7 @@ const GameResultIndex = ({ isAuthenticated }) => {
                                         </tr>
                                     </thead>
                                     {
-                                        gameResult.length === 0 ? (
+                                        !gameResult ? (
                                             <td colSpan='11' style={{ 'textAlign': 'center' }}>
                                                 <SpinnerDotted
                                                     size={90}
@@ -127,7 +127,7 @@ const GameResultIndex = ({ isAuthenticated }) => {
                                     }
                                     <tbody>
                                         {
-                                            gameResult.map((result, index) => {
+                                            gameResult?.map((result, index) => {
                                                 return (
                                                     <tr className="text-center" key={index}>
                                                         <td className="vertical-middle">{result.id}</td>

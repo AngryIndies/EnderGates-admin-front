@@ -1,0 +1,12 @@
+.card-artwork {
+  width: 120px;
+}
+
+.card-artwork img {
+  width: 100%;
+}
+
+
+.card-info {
+    text-align: center;
+}

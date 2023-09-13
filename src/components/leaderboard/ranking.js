@@ -9,7 +9,6 @@ import stone_ring from '../../assets/img/ranking_bound/mainmenu_rankframe_stone.
 const Ranking = ({ RankingData }) => {
 
     const ring = [gold_ring, silver_ring, copper_ring, stone_ring, stone_ring];
-    const playerInfos = [];
 
     const [playerInfosData, setPlayerInfos] = useState([]);
 
@@ -51,89 +50,120 @@ const Ranking = ({ RankingData }) => {
                                 <Row className="bg-white mgl-5 mgr-5">
                                     <Col xl={9} lg={9} className='pt-20 d-flex margin-center justify-center top-player-list'>
                                         <div className='d-flex ml-10 mr-10 align-item-center width_20 ranking-item' style={{ 'marginTop': '100px' }}>
-                                            <div className='pfp pfp-small'>
-                                                <img className='top-ranking-pfp position-absolute' src={'../assets/img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[3].pfp : '0') + '.png'} />
-                                                <img className='ranking-frame' src={ring[3]} />
-                                            </div>
-                                            <div className='player-detail text-align'>
-                                                <div className='top-ranking-username'>
-                                                    <b>{modString(playerInfosData.length !== 0 ? playerInfosData[3].username : '1')}</b>
-                                                </div>
-                                                <div className='top-ranking-rank'>
-                                                    Rank : <b>{playerInfosData.length !== 0 ? playerInfosData[3].rank : '1'}</b>
-                                                </div>
-                                                <div className='top-ranking-wins'>
-                                                    Wins : <b>{playerInfosData.length !== 0 ? playerInfosData[3].wins : '1'}</b>
-                                                </div>
-                                            </div>
+                                            {
+                                                playerInfosData[3] ?
+                                                    (<div>
+                                                        <div className='pfp pfp-small'>
+                                                            <img className='top-ranking-pfp position-absolute' src={'../assets/img/ProfileImages/' + (playerInfosData[3] ? playerInfosData[3].pfp : '0') + '.png'} />
+                                                            <img className='ranking-frame' src={ring[3]} />
+                                                        </div>
+                                                        <div className='player-detail text-align'>
+                                                            <div className='top-ranking-username'>
+                                                                <b>{modString(playerInfosData.length !== 0 ? playerInfosData[3].username : '1')}</b>
+                                                            </div>
+                                                            <div className='top-ranking-rank'>
+                                                                Rank : <b>{playerInfosData.length !== 0 ? playerInfosData[3].rank : '1'}</b>
+                                                            </div>
+                                                            <div className='top-ranking-wins'>
+                                                                Wins : <b>{playerInfosData.length !== 0 ? playerInfosData[3].wins : '1'}</b>
+                                                            </div>
+                                                        </div>
+                                                    </div>) : (<div></div>)
+                                            }
                                         </div>
                                         <div className='d-flex ml-10 mr-10 align-item-center width_20 ranking-item z-index-50' style={{ 'marginTop': '50px' }}>
-                                            <div className='pfp pfp-normal'>
-                                                <img className='top-ranking-pfp position-absolute ' src={'../assets/img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[1].pfp : '0') + '.png'} />
-                                                <img className='ranking-frame ' src={ring[1]} />
-                                            </div>
-                                            <div className='player-detail text-align normal-ranking-font'>
-                                                <div className='top-ranking-username'>
-                                                    <b>{modString(playerInfosData.length !== 0 ? playerInfosData[1].username : '1')}</b>
-                                                </div>
-                                                <div className='top-ranking-rank'>
-                                                    Rank : <b>{playerInfosData.length !== 0 ? playerInfosData[1].rank : '1'}</b>
-                                                </div>
-                                                <div className='top-ranking-wins'>
-                                                    Wins : <b>{playerInfosData.length !== 0 ? playerInfosData[1].wins : '1'}</b>
-                                                </div>
-                                            </div>
+                                            {
+                                                playerInfosData[1] ?
+                                                    (
+                                                        <div>
+                                                            <div className='pfp pfp-normal'>
+                                                                <img className='top-ranking-pfp position-absolute ' src={'../assets/img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[1].pfp : '0') + '.png'} />
+                                                                <img className='ranking-frame ' src={ring[1]} />
+                                                            </div>
+                                                            <div className='player-detail text-align normal-ranking-font'>
+                                                                <div className='top-ranking-username'>
+                                                                    <b>{modString(playerInfosData.length !== 0 ? playerInfosData[1].username : '1')}</b>
+                                                                </div>
+                                                                <div className='top-ranking-rank'>
+                                                                    Rank : <b>{playerInfosData.length !== 0 ? playerInfosData[1].rank : '1'}</b>
+                                                                </div>
+                                                                <div className='top-ranking-wins'>
+                                                                    Wins : <b>{playerInfosData.length !== 0 ? playerInfosData[1].wins : '1'}</b>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    ) : (<div></div>)
+                                            }
                                         </div>
                                         <div className='d-flex ml-10 mr-10 align-item-center width_20 ranking-item z-index-100'>
-                                            <div className='pfp pfp-big'>
-                                                <img className='top-ranking-pfp position-absolute' src={'../assets/img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[0].pfp : '0') + '.png'} />
-                                                <img className='ranking-frame' src={ring[0]} />
-                                            </div>
-                                            <div className='player-detail text-align top-ranking-font'>
-                                                <div className='top-ranking-username'>
-                                                    <b>{modString(playerInfosData.length !== 0 ? playerInfosData[0].username : '1')}</b>
-                                                </div>
-                                                <div className='top-ranking-rank'>
-                                                    Rank : <b>{playerInfosData.length !== 0 ? playerInfosData[0].rank : '1'}</b>
-                                                </div>
-                                                <div className='top-ranking-wins'>
-                                                    Wins : <b>{playerInfosData.length !== 0 ? playerInfosData[0].wins : '1'}</b>
-                                                </div>
-                                            </div>
+                                            {
+                                                playerInfosData[0] ? (
+                                                    <div>
+                                                        <div className='pfp pfp-big'>
+                                                            <img className='top-ranking-pfp position-absolute' src={'../assets/img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[0].pfp : '0') + '.png'} />
+                                                            <img className='ranking-frame' src={ring[0]} />
+                                                        </div>
+                                                        <div className='player-detail text-align top-ranking-font'>
+                                                            <div className='top-ranking-username'>
+                                                                <b>{modString(playerInfosData.length !== 0 ? playerInfosData[0].username : '1')}</b>
+                                                            </div>
+                                                            <div className='top-ranking-rank'>
+                                                                Rank : <b>{playerInfosData.length !== 0 ? playerInfosData[0].rank : '1'}</b>
+                                                            </div>
+                                                            <div className='top-ranking-wins'>
+                                                                Wins : <b>{playerInfosData.length !== 0 ? playerInfosData[0].wins : '1'}</b>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ) : (<div> </div>)
+                                            }
                                         </div>
                                         <div className='d-flex ml-10 mr-10 align-item-center width_20 ranking-item z-index-50' style={{ 'marginTop': '50px' }}>
-                                            <div className='pfp pfp-normal'>
-                                                <img className='top-ranking-pfp position-absolute ' src={'../assets/img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[2].pfp : '0') + '.png'} />
-                                                <img className='ranking-frame ' src={ring[2]} />
-                                            </div>
-                                            <div className='player-detail text-align  normal-ranking-font'>
-                                                <div className='top-ranking-username'>
-                                                    <b>{modString(playerInfosData.length !== 0 ? playerInfosData[2].username : '1')}</b>
-                                                </div>
-                                                <div className='top-ranking-rank'>
-                                                    Rank : <b>{playerInfosData.length !== 0 ? playerInfosData[2].rank : '1'}</b>
-                                                </div>
-                                                <div className='top-ranking-wins'>
-                                                    Wins : <b>{playerInfosData.length !== 0 ? playerInfosData[2].wins : '1'}</b>
-                                                </div>
-                                            </div>
+                                            {
+                                                playerInfosData[2] ? (
+                                                    <div>
+                                                        <div className='pfp pfp-normal'>
+                                                            <img className='top-ranking-pfp position-absolute ' src={'../assets/img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[2].pfp : '0') + '.png'} />
+                                                            <img className='ranking-frame ' src={ring[2]} />
+                                                        </div>
+                                                        <div className='player-detail text-align  normal-ranking-font'>
+                                                            <div className='top-ranking-username'>
+                                                                <b>{modString(playerInfosData.length !== 0 ? playerInfosData[2].username : '1')}</b>
+                                                            </div>
+                                                            <div className='top-ranking-rank'>
+                                                                Rank : <b>{playerInfosData.length !== 0 ? playerInfosData[2].rank : '1'}</b>
+                                                            </div>
+                                                            <div className='top-ranking-wins'>
+                                                                Wins : <b>{playerInfosData.length !== 0 ? playerInfosData[2].wins : '1'}</b>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ) : (<div></div>)
+                                            }
+
                                         </div>
                                         <div className='d-flex ml-10 mr-10 align-item-center width_20 ranking-item' style={{ 'marginTop': '100px' }}>
-                                            <div className='pfp pfp-small'>
-                                                <img className='top-ranking-pfp position-absolute' src={'../assets/img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[4].pfp : '0') + '.png'} />
-                                                <img className='ranking-frame' src={ring[4]} />
-                                            </div>
-                                            <div className='player-detail text-align'>
-                                                <div className='top-ranking-username'>
-                                                    <b>{modString(playerInfosData.length !== 0 ? playerInfosData[4].username : '1')}</b>
-                                                </div>
-                                                <div className='top-ranking-rank'>
-                                                    Rank : <b>{playerInfosData.length !== 0 ? playerInfosData[4].rank : '1'}</b>
-                                                </div>
-                                                <div className='top-ranking-wins'>
-                                                    Wins : <b>{playerInfosData.length !== 0 ? playerInfosData[4].wins : '1'}</b>
-                                                </div>
-                                            </div>
+                                            {
+                                                playerInfosData[4] ? (
+                                                    <div>
+                                                        <div className='pfp pfp-small'>
+                                                            <img className='top-ranking-pfp position-absolute' src={'../assets/img/ProfileImages/' + (playerInfosData.length !== 0 ? playerInfosData[4].pfp : '0') + '.png'} />
+                                                            <img className='ranking-frame' src={ring[4]} />
+                                                        </div>
+                                                        <div className='player-detail text-align'>
+                                                            <div className='top-ranking-username'>
+                                                                <b>{modString(playerInfosData.length !== 0 ? playerInfosData[4].username : '1')}</b>
+                                                            </div>
+                                                            <div className='top-ranking-rank'>
+                                                                Rank : <b>{playerInfosData.length !== 0 ? playerInfosData[4].rank : '1'}</b>
+                                                            </div>
+                                                            <div className='top-ranking-wins'>
+                                                                Wins : <b>{playerInfosData.length !== 0 ? playerInfosData[4].wins : '1'}</b>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ) : (<div></div>)
+                                            }
                                         </div>
                                     </Col>
                                 </Row>

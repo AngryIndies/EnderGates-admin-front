@@ -26,9 +26,9 @@ const DeckIndex = ({
     const [paginationFrom, setPaginationFrom] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
 
-    const [actionCard, setActionCard] = useState(0);
-    const [reactionCard, setReactionCard] = useState(0);
-    const [guardianCard, setGuardianCard] = useState(0);
+    const [actionCard, setActionCard] = useState(-1);
+    const [reactionCard, setReactionCard] = useState(-1);
+    const [guardianCard, setGuardianCard] = useState(-1);
 
     const [totalCardsInDecks, setTotalCardsinDecks] = useState(0);
 
@@ -158,7 +158,9 @@ const DeckIndex = ({
                                 </Card.Header>
                                 <Card.Body>
                                     <Card.Text className="font-25 font-bold">
-                                        {Math.ceil(totalCardsInDecks / totalDecksCount)}
+                                        {
+                                            totalDecksCount === 0 ? 0 : Math.ceil(totalCardsInDecks / totalDecksCount)
+                                        }
                                     </Card.Text>
                                 </Card.Body>
                                 {/* <Card.Footer className=" bg-transparent border-0 text-white">
@@ -226,7 +228,7 @@ const DeckIndex = ({
                                         </tr>
                                     </thead>
                                     {
-                                        decksData.length === 0 ? (
+                                        !decksData ? (
                                             <td colSpan='5' style={{ 'textAlign': 'center' }}>
                                                 <SpinnerDotted
                                                     size={90}
@@ -249,7 +251,7 @@ const DeckIndex = ({
                                                             <td className="vertical-middle">{deck.username}</td>
                                                             <td className="vertical-middle">{deck.deck_name}</td>
                                                             <td className="vertical-middle">
-                                                                <Link to={`/deck-detail/${deck.id}`}>{toDecksStringtoShort(deck.deck_cards)}</Link>
+                                                                <Link to={`/decks/${deck.id}`}>{toDecksStringtoShort(deck.deck_cards)}</Link>
                                                             </td>
                                                             <td className="vertical-middle">
                                                                 {deck.selected === 1 ? (<em className="fa fa-check green-color"></em>) : (<></>)}

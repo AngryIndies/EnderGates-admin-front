@@ -1,5 +1,5 @@
 export const HOST_URL = 'http://localhost:3000/api/v1/';
-// export const HOST_URL = "https://endersgate-test-server.herokuapp.com/api/v1/";
+// export const HOST_URL = "https://endergate.herokuapp.com/api/v1/";
 export const PAGINATION_CNT = 'PAGINATION_CNT';
 
 export const CHART_DATA = 'CHART_DATA';
