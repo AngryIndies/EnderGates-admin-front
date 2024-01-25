@@ -129,19 +129,19 @@ const Sidebar = ({ onSetSidebarTag }) => {
               </Link>
             </li>
             <li
-              className={location.pathname === "/game-result" ? "active" : ""}
+              className={location.pathname === "/result" ? "active" : ""}
               onClick={() => setSidebarTag(SIDEBAR_TAG_CONFIG, GLOBAL.CONFIG)}
             >
-              <Link to="/game-result" title="news">
+              <Link to="/result" title="news">
                 <em className="fas fa-list-ol"></em>
                 <span>Game</span>
               </Link>
             </li>
             <li
-              className={location.pathname === "/game-config" ? "active" : ""}
+              className={location.pathname === "/config" ? "active" : ""}
               onClick={() => setSidebarTag(SIDEBAR_TAG_CONFIG, GLOBAL.CONFIG)}
             >
-              <Link to="/game-config" title="Configure">
+              <Link to="/config" title="Configure">
                 <em className="fas fa-cogs"></em>
                 <span>Game Configure</span>
               </Link>

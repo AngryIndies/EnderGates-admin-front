@@ -5,13 +5,13 @@ import store from "./store";
 
 import SignIn from "./components/Auth/SignIn";
 import CardsComponent from "./components/cards";
-import GameConfigure from "./components/config/index";
+import GameSetting from "./components/GameSetting/GameSetting";
 import Dashboard from "./components/Dashboard/Dashboard";
 import DeckImageDetail from "./components/Deck/deck-detail";
 import Deck from "./components/Deck/Deck";
 import LeaderBoard from "./components/LeaderBoard/LeaderBoard";
 import Player from "./components/Player/Player";
-import GameResult from "./components/result/index";
+import GameResult from "./components/GameResult/GameResult";
 
 const App = () => {
   return (
@@ -24,8 +24,8 @@ const App = () => {
           <Route exact path="/player" element={<Player />} />
           <Route exact path="/deck" element={<Deck />} />
           <Route exact path="/deck/:id" element={<DeckImageDetail />} />
-          <Route exact path="/game-config" element={<GameConfigure />} />
-          <Route exact path="/game-result" element={<GameResult />} />
+          <Route exact path="/config" element={<GameSetting />} />
+          <Route exact path="/result" element={<GameResult />} />
           <Route exact path="/tournament" element={<GameResult />} />
           <Route exact path="/cards" element={<CardsComponent />} />
         </Routes>

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Paginator from "react-hooks-paginator";
 import { Link, useParams } from "react-router-dom";
-import { HOST_URL } from "../../config/config";
+import { HOST_URL } from "../../GameSetting/GameSetting";
 
 const PlayerDeck = () => {
   const { id } = useParams();

@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import Paginator from "react-hooks-paginator";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { SpinnerDotted } from "spinners-react";
 
-import DecksChart from "./decks_chart";
+import DecksChart from "./DeckChart";
 
+import { getDashboardMainData } from "../../reducers/dashboard.slice";
+import { fetchDecks } from "../../reducers/deck.slice";
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
-    
-const Deck = ({ onGetAllDecks, onGetDecks }) => {
-  const { totalDecksCount, allDecks, decksData } = useSelector((state) => ({
-    totalDecksCount: state.dashboard.totalDecks,
-    allDecks: state.decks.decksAllData,
-    decksData: state.decks.decksData,
+
+const Deck = () => {
+  const dispatch = useDispatch();
+
+  const { allDecks, decksData } = useSelector((state) => ({
+    allDecks: state.deck.decksAllData,
+    decksData: state.deck.decksData,
   }));
+
+  const { basicData } = useSelector((state) => state.dashboard);
 
   const [paginationCnt, setPaginationCnt] = useState(10);
   const [paginationFrom, setPaginationFrom] = useState(0);
@@ -25,15 +30,19 @@ const Deck = ({ onGetAllDecks, onGetDecks }) => {
   const [reactionCard, setReactionCard] = useState(-1);
   const [guardianCard, setGuardianCard] = useState(-1);
 
-  const [totalCardsInDecks, setTotalCardsinDecks] = useState(0);
+  const [totalCardsInDecks, setTotalCardsInDecks] = useState(0);
 
   useEffect(() => {
-    onGetAllDecks();
-  }, [onGetAllDecks]);
+    if (!basicData.totalCards) return;
+    setActionCard(basicData.totalCards.actionCards);
+    setGuardianCard(basicData.totalCards.guardianCards);
+    setReactionCard(basicData.totalCards.reactionCards);
+  }, [basicData.totalCards]);
 
   useEffect(() => {
-    onGetDecks(paginationFrom, paginationCnt);
-  }, [paginationFrom, paginationCnt, onGetDecks]);
+    dispatch(getDashboardMainData());
+    dispatch(fetchDecks({ from: paginationFrom, cnt: paginationCnt }));
+  }, [paginationFrom, paginationCnt]);
 
   const stringToArray = (str) => {
     let array = str.split(",");
@@ -48,7 +57,7 @@ const Deck = ({ onGetAllDecks, onGetDecks }) => {
       array = array.concat(arr[i]);
     }
 
-    setTotalCardsinDecks(array.length);
+    setTotalCardsInDecks(array.length);
 
     array.sort();
     let result = [];
@@ -96,7 +105,7 @@ const Deck = ({ onGetAllDecks, onGetDecks }) => {
     setCurrentPage(i);
   };
 
-  const toDecksStringtoShort = (str) => {
+  const shortDeckCardStr = (str) => {
     const cnt = 3;
     const array = str.split(",");
     const dots = "...";
@@ -140,7 +149,7 @@ const Deck = ({ onGetAllDecks, onGetDecks }) => {
                 </Card.Header>
                 <Card.Body>
                   <Card.Text className="font-25 font-bold">
-                    {totalDecksCount}
+                    {basicData.totalDecks}
                   </Card.Text>
                 </Card.Body>
               </Card>
@@ -157,29 +166,29 @@ const Deck = ({ onGetAllDecks, onGetDecks }) => {
                 </Card.Header>
                 <Card.Body>
                   <Card.Text className="font-25 font-bold">
-                    {totalDecksCount === 0
+                    {basicData.totalDecks === 0
                       ? 0
-                      : Math.ceil(totalCardsInDecks / totalDecksCount)}
+                      : Math.ceil(totalCardsInDecks / basicData.totalDecks)}
                   </Card.Text>
                 </Card.Body>
-                {/* <Card.Footer className=" bg-transparent border-0 text-white">
-                            </Card.Footer> */}
               </Card>
             </Col>
             <Col xl={4}>
-              {/* <Card className="text-white bg-success">
-                                <Card.Header>
-                                    <Card.Title className="text-white font-13rem">Total Cards</Card.Title>
-                                    <Card.Text className="d-flex align-items-center">
-                                        <div className="ml-auto"><em className="fa-2x mr-2 fas fa-ticket-alt"></em></div>
-                                    </Card.Text>
-                                </Card.Header>
-                                <Card.Body>
-                                    <Card.Text className="font-25 font-bold">
-                                        { }
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card> */}
+              <Card className="text-white bg-success">
+                <Card.Header>
+                  <Card.Title className="text-white font-13rem">
+                    Total Cards
+                  </Card.Title>
+                  <Card.Text className="d-flex align-items-center">
+                    <div className="ml-auto">
+                      <em className="fa-2x mr-2 fas fa-ticket-alt"></em>
+                    </div>
+                  </Card.Text>
+                </Card.Header>
+                <Card.Body>
+                  <Card.Text className="font-25 font-bold">{}</Card.Text>
+                </Card.Body>
+              </Card>
             </Col>
             <Col xl={4} style={{ textAlign: "center" }}>
               <DecksChart
@@ -250,8 +259,8 @@ const Deck = ({ onGetAllDecks, onGetDecks }) => {
                               {deck.deck_name}
                             </td>
                             <td className="vertical-middle">
-                              <Link to={`/decks/${deck.id}`}>
-                                {toDecksStringtoShort(deck.deck_cards)}
+                              <Link to={`/deck/${deck.id}`}>
+                                {shortDeckCardStr(deck.deck_cards)}
                               </Link>
                             </td>
                             <td className="vertical-middle">
@@ -277,7 +286,7 @@ const Deck = ({ onGetAllDecks, onGetDecks }) => {
                         id="datatable1_paginate"
                       >
                         <Paginator
-                          totalRecords={totalDecksCount}
+                          totalRecords={basicData.totalDecks}
                           pageLimit={paginationCnt}
                           pageNeighbours={2}
                           setOffset={setPaginationFrom}
@@ -296,11 +305,5 @@ const Deck = ({ onGetAllDecks, onGetDecks }) => {
     </>
   );
 };
-
-const mapStateToProps = (state) => ({
-  totalDecksCount: state.dashboardReducer.basicData.totalDecks,
-  allDecks: state.decksReducer.decks_all_data,
-  decksData: state.decksReducer.decks_data,
-});
 
 export default Deck;

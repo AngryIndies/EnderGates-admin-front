@@ -1,16 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Row } from "react-bootstrap";
-import { connect } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { HOST_URL } from "../../config/config";
-import Signin from "../Auth/SignIn";
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
 
-const GameConfigureIndex = ({ isAuthenticated }) => {
+export default function GameSetting() {
   const [startGoldAmount, setStartGoldAmount] = useState(0);
   const [startHP, setStartHP] = useState(0);
   const [maxHP, setMaxHP] = useState(0);
@@ -18,8 +16,8 @@ const GameConfigureIndex = ({ isAuthenticated }) => {
   const [goldBonusForKill, setGoldBonusForKill] = useState(0);
   const [goldBonusForRetire, setGoldBonusForRetire] = useState(0);
   const [
-    elementalAttackBonusDamageOccurance,
-    setElementalAttackBonusDamageOccurance,
+    elementalAttackBonusDamageOccurrence,
+    setElementalAttackBonusDamageOccurrence,
   ] = useState(0);
   const [elementalAttackBonusDamage, setElementalAttackBonusDamage] =
     useState(0);
@@ -37,7 +35,7 @@ const GameConfigureIndex = ({ isAuthenticated }) => {
       setTurnTime(res.data.gameSetting.TurnTime);
       setGoldBonusForKill(res.data.gameSetting.GoldBonusForKill);
       setGoldBonusForRetire(res.data.gameSetting.GoldBonusForRetire);
-      setElementalAttackBonusDamageOccurance(
+      setElementalAttackBonusDamageOccurrence(
         res.data.gameSetting.ElementalBonusOccurancePercent
       );
       setElementalAttackBonusDamage(res.data.gameSetting.ElementalBonusDamage);
@@ -73,7 +71,7 @@ const GameConfigureIndex = ({ isAuthenticated }) => {
   };
 
   const onElementalAttackBonusDamageOccurance = (num) => {
-    setElementalAttackBonusDamageOccurance(parseFloat(num));
+    setElementalAttackBonusDamageOccurrence(parseFloat(num));
   };
 
   const onElementalAttackBonusDamage = (num) => {
@@ -154,7 +152,7 @@ const GameConfigureIndex = ({ isAuthenticated }) => {
         GoldBonusForRetire: parseFloat(goldBonusForRetire),
         ElementalBonusDamage: parseFloat(elementalAttackBonusDamage),
         ElementalBonusOccurancePercent: parseFloat(
-          elementalAttackBonusDamageOccurance
+          elementalAttackBonusDamageOccurrence
         ),
         DuelPointIncrease: parseFloat(increaseDuelPointBy),
         DuelPointDecrease: parseFloat(decreaseDuelPointBy),
@@ -189,7 +187,7 @@ const GameConfigureIndex = ({ isAuthenticated }) => {
           setTurnTime(res.data.TurnTime);
           setGoldBonusForKill(res.data.GoldBonusForKill);
           setGoldBonusForRetire(res.data.GoldBonusForRetire);
-          setElementalAttackBonusDamageOccurance(
+          setElementalAttackBonusDamageOccurrence(
             res.data.ElementalBonusOccurancePercent
           );
           setElementalAttackBonusDamage(res.data.ElementalBonusDamage);
@@ -205,10 +203,6 @@ const GameConfigureIndex = ({ isAuthenticated }) => {
         toast.error(error.response.data);
       });
   };
-
-  if (!isAuthenticated) {
-    return <Signin />;
-  }
 
   return (
     <>
@@ -350,7 +344,7 @@ const GameConfigureIndex = ({ isAuthenticated }) => {
                         <input
                           className="form-control text-align"
                           type="text"
-                          value={elementalAttackBonusDamageOccurance}
+                          value={elementalAttackBonusDamageOccurrence}
                           onChange={(e) =>
                             onElementalAttackBonusDamageOccurance(
                               e.target.value
@@ -471,10 +465,4 @@ const GameConfigureIndex = ({ isAuthenticated }) => {
       </section>
     </>
   );
-};
-
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.authReducer.isAuthenticated,
-});
-
-export default connect(mapStateToProps, {})(GameConfigureIndex);
+}
