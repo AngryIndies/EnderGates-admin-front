@@ -86,7 +86,7 @@ const ApexPie = ({ action, reaction, guardian }) => {
 }
 
 const mapStateToProps = (state) => ({
-    cards: state.dashboardReducer.main_data.totalCards,
+    cards: state.dashboardReducer.basicData.totalCards,
 });
 
 export default connect(mapStateToProps, {})(ApexPie);

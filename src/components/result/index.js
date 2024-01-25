@@ -5,8 +5,8 @@ import Paginator from 'react-hooks-paginator';
 import { connect } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { SpinnerDotted } from "spinners-react";
+import { HOST_URL } from "../../config/config";
 
-import { HOST_URL } from '../../actions/types';
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
 

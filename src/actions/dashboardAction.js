@@ -1,10 +1,8 @@
-import axios from 'axios'
+import axios from 'axios';
+import { HOST_URL } from "../config/config";
 import {
-    HOST_URL,
-    DASHBOARD_MAIN_DATA,
-    DASHBOARD_CHART_DATA,
-    DASHBOARD_ACTIVITY_DATA,
-} from './types'
+    DASHBOARD_ACTIVITY_DATA, DASHBOARD_CHART_DATA, DASHBOARD_MAIN_DATA
+} from './types';
 
 export const onGetDashboardMainData = () => async (dispatch) => {
     let result = await axios.get(HOST_URL + `getDashboardInfos`);

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { HOST_URL } from "../../actions/types";
+import { HOST_URL } from "../../config/config";
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
 import './deck-detail.css';
