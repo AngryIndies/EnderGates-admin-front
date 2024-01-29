@@ -37,14 +37,6 @@ const Header = () => {
         <ul className="navbar-nav mr-auto flex-row">
           <li className="nav-item">
             <Link
-              className="nav-link d-none d-md-block d-lg-block d-xl-block"
-              to="#"
-              data-trigger-resize=""
-              data-toggle-state="aside-collapsed"
-            >
-              <em className="fas fa-align-left"></em>
-            </Link>
-            <Link
               className="nav-link sidebar-toggle d-md-none"
               to="#"
               data-toggle-state="aside-toggled"
@@ -53,11 +45,6 @@ const Header = () => {
               <em className="fas fa-align-left"></em>
             </Link>
           </li>
-          {/* <li className="nav-item">
-                        <Link className="nav-link" to="#" data-search-open="">
-                            <em className="fas fa-search"></em>
-                        </Link>
-                    </li> */}
         </ul>
         <ul className="navbar-nav flex-row">
           <li className="nav-item dropdown dropdown-list">

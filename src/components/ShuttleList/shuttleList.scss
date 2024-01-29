@@ -2,7 +2,10 @@
   display: flex;
   overflow: auto;
   width: 100%;
-  height: calc(100vh - 220px);  
+  height: calc(100vh - 220px);
+  &.small {
+    height: 320px;
+  }
 }
 
 .shuttle-list {
@@ -10,7 +13,6 @@
   margin: 0;
   padding: 0;
   width: 50%;
-  height: 600px;
   overflow-y: auto;
   border: 1px solid #e0e0e0;
   border-radius: 5px;
@@ -70,7 +72,7 @@
 .shuttle-list li input {
   border: none;
   border-radius: 5px;
-  width: 50px;
+  width: 32px;
   text-align: center;
   font-size: 16px;
   font-weight: bold;

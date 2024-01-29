@@ -6,9 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 import { HOST_URL } from "../../config/config";
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
-import ShuttleList from "./ShuttleList";
+import ShuttleList from "../../components/ShuttleList/ShuttleList";
 
-const CardsComponent = () => {
+const Cards = () => {
   const [availableItems, setAvailableItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -19,7 +19,7 @@ const CardsComponent = () => {
 
       axios.get(HOST_URL + `getMetaData`).then((res) => {
         const metadatas = Object.values(res.data?.metadatas);
-        let web3Requried = [],
+        let web3Required = [],
           freeToUse = [];
 
         metadatas.forEach((metadata) => {
@@ -32,11 +32,11 @@ const CardsComponent = () => {
               count: card.free_cards_count,
             });
           } else {
-            web3Requried.push(metadata);
+            web3Required.push(metadata);
           }
         });
 
-        setAvailableItems(web3Requried);
+        setAvailableItems(web3Required);
         setSelectedItems(freeToUse);
       });
     });
@@ -90,8 +90,10 @@ const CardsComponent = () => {
             <div className="content-wrapper">
               {availableItems.length > 0 ? (
                 <ShuttleList
-                  web3Required={availableItems}
-                  freeToUse={selectedItems}
+                  available={availableItems}
+                  selected={selectedItems}
+                  availableTitle="Web3 Required NFT Cards"
+                  selectedTitle="Free To Use"
                   onSelectionChange={setSelectedItems}
                 />
               ) : (
@@ -113,4 +115,4 @@ const CardsComponent = () => {
     </>
   );
 };
-export default CardsComponent;
+export default Cards;

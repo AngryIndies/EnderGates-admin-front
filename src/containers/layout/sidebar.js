@@ -143,24 +143,20 @@ const Sidebar = ({ onSetSidebarTag }) => {
             >
               <Link to="/config" title="Configure">
                 <em className="fas fa-cogs"></em>
-                <span>Game Configure</span>
+                <span>Game Setting</span>
+              </Link>
+            </li>
+
+            <li
+              className={location.pathname === "/ai" ? "active" : ""}
+              onClick={() => setSidebarTag(SIDEBAR_TAG_CONFIG, GLOBAL.AI_DECK)}
+            >
+              <Link to="/ai" title="Configure">
+                <em className="fas fa-robot"></em>
+                <span>AI Player</span>
               </Link>
             </li>
           </ul>
-          {/* <div className="nav-footer">
-                        <div className="nav-footer-divider"></div>
-                        <div className="btn-group text-center">
-                            <button className="btn btn-link" type="button" data-toggle="tooltip" data-title="Add Contact">
-                                <em className="fas fa-user text-muted"><sup className="fa fa-plus"></sup></em>
-                            </button>
-                            <button className="btn btn-link" type="button" data-toggle="tooltip" data-title="Settings">
-                                <em className="fas fa-cog text-muted"></em>
-                            </button>
-                            <button className="btn btn-link" type="button" data-toggle="tooltip" data-title="Logout">
-                                <em className="fas fa-sign-out-alt text-muted"></em>
-                            </button>
-                        </div>
-                    </div> */}
         </nav>
       </div>
     </aside>

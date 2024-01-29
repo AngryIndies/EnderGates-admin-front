@@ -3,15 +3,16 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import store from "./store";
 
-import SignIn from "./components/Auth/SignIn";
-import CardsComponent from "./components/cards";
-import GameSetting from "./components/GameSetting/GameSetting";
-import Dashboard from "./components/Dashboard/Dashboard";
-import DeckImageDetail from "./components/Deck/deck-detail";
-import Deck from "./components/Deck/Deck";
-import LeaderBoard from "./components/LeaderBoard/LeaderBoard";
-import Player from "./components/Player/Player";
-import GameResult from "./components/GameResult/GameResult";
+import SignIn from "./containers/Auth/SignIn";
+import Cards from "./containers/Cards/Cards";
+import GameSetting from "./containers/GameSetting/GameSetting";
+import Dashboard from "./containers/Dashboard/Dashboard";
+import DeckImageDetail from "./containers/Deck/deck-detail";
+import Deck from "./containers/Deck/Deck";
+import LeaderBoard from "./containers/LeaderBoard/LeaderBoard";
+import Player from "./containers/Player/Player";
+import GameResult from "./containers/GameResult/GameResult";
+import AI from "./containers/AI/AI";
 
 const App = () => {
   return (
@@ -27,7 +28,8 @@ const App = () => {
           <Route exact path="/config" element={<GameSetting />} />
           <Route exact path="/result" element={<GameResult />} />
           <Route exact path="/tournament" element={<GameResult />} />
-          <Route exact path="/cards" element={<CardsComponent />} />
+          <Route exact path="/cards" element={<Cards />} />
+          <Route exact path="/ai" element={<AI />} />
         </Routes>
       </Router>
     </Provider>
