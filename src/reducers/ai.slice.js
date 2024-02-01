@@ -13,7 +13,7 @@ const initialState = {
 
 export const getAiPlayerList = createAsyncThunk(
   "ai/getAiPlayerList",
-  async ({ from, limit }, { dispatchEvent }) => {
+  async ({ from, limit }) => {
     const result = await axios.get(
       `${HOST_URL}aiPlayerList?from=${from}&limit=${limit}`
     );
@@ -23,10 +23,19 @@ export const getAiPlayerList = createAsyncThunk(
 
 export const addAiPlayer = createAsyncThunk(
   "ai/addAiPlayer",
-  async ({ newAiPlayer }, { dispatchEvent }) => {
-    const result = await axios.post(`${HOST_URL}newAiPlayer`, newAiPlayer);
+  async ({ newAiPlayer }) => {
+    const result = await axios.post(`${HOST_URL}aiPlayer`, newAiPlayer);
 
-    return result;
+    return result.data;
+  }
+);
+
+export const removeAiPlayer = createAsyncThunk(
+  "ai/removeAiPlayer",
+  async ({ id }) => {
+    const result = await axios.delete(`${HOST_URL}aiPlayer/${id}`);
+
+    return result.data;
   }
 );
 
@@ -50,7 +59,11 @@ const aiSlice = createSlice({
       })
       .addCase(addAiPlayer.pending, (state) => {})
       .addCase(addAiPlayer.fulfilled, (state, { payload }) => {})
-      .addCase(addAiPlayer.rejected, (state, { error }) => {});
+      .addCase(addAiPlayer.rejected, (state, { error }) => {})
+
+      .addCase(removeAiPlayer.pending, (state) => {})
+      .addCase(removeAiPlayer.fulfilled, (state, { payload }) => {})
+      .addCase(removeAiPlayer.rejected, (state, { error }) => {});
   },
 });
 

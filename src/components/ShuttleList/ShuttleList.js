@@ -9,7 +9,7 @@ function ShuttleList({
   selectedTitle,
   className,
 }) {
-  const [selectedItems, setSelectedItems] = useState(selected);
+  const [selectedItems, setSelectedItems] = useState([]);
   const [availableItems, setAvailableItems] = useState(available);
 
   const handleAddItemClick = (item) => {

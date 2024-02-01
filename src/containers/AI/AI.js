@@ -1,31 +1,47 @@
 import { useEffect, useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, ButtonGroup, Form, Modal } from "react-bootstrap";
 import Paginator from "react-hooks-paginator";
 import { useDispatch, useSelector } from "react-redux";
-import Select from "react-select";
-import { getAiPlayerList } from "../../reducers/ai.slice";
+import {
+  addAiPlayer,
+  getAiPlayerList,
+  removeAiPlayer
+} from "../../reducers/ai.slice";
+import { getCardsInfo, getMetadata } from "../../reducers/card.slice";
+
 import Header from "../layout/header";
 import Sidebar from "../layout/sidebar";
-import uniqueId from "lodash.uniqueid";
-import "./ai.scss";
 
+import ConfirmModal from "../../components/ConfirmModal/ConfirmModal";
 import ShuttleList from "../../components/ShuttleList/ShuttleList";
-import { getCardsInfo, getMetadata } from "../../reducers/card.slice";
+
+import "./ai.scss";
 
 export default function AI() {
   const dispatch = useDispatch();
 
-  const { totalAIPlayerCount } = useSelector((state) => state.ai);
+  const { totalAIPlayerCount, aiPlayersList } = useSelector(
+    (state) => state.ai
+  );
   const { cardsInfo, cardsMetadata } = useSelector((state) => state.card);
 
   const [playerPerPage, setPlayerPerPage] = useState(10);
   const [pageFrom, setPageFrom] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [modalShow, setModalShow] = useState(false);
+
+  const [confirmModalShow, setConfirmModalShow] = useState(false);
+  const [aiPlayerToRemove, setAiPlayerToRemove] = useState(null);
+
   const [level, setLevel] = useState("");
   const [sublevel, setSublevel] = useState("");
   const [aiPlayerName, setAiPlayerName] = useState("");
-  const [selectedOptions, setSelectedOptions] = useState([]);
+
+  // State for validation messages
+  const [levelError, setLevelError] = useState("");
+  const [sublevelError, setSublevelError] = useState("");
+  const [aiPlayerNameError, setAiPlayerNameError] = useState("");
+
   const [availableItems, setAvailableItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -34,6 +50,70 @@ export default function AI() {
 
   const onPageClick = (i) => {
     setCurrentPage(i);
+  };
+
+  // Validation functions
+  const validateLevel = () => {
+    if (!level) {
+      setLevelError("Level is required");
+      return false;
+    }
+    setLevelError("");
+    return true;
+  };
+
+  const validateSublevel = () => {
+    if (!sublevel) {
+      setSublevelError("Sublevel is required");
+      return false;
+    }
+    setSublevelError("");
+    return true;
+  };
+
+  const validateAiPlayerName = () => {
+    if (!aiPlayerName) {
+      setAiPlayerNameError("AI Player Name is required");
+      return false;
+    }
+    setAiPlayerNameError("");
+    return true;
+  };
+
+  const handleAddAiPlayer = async () => {
+    const isLevelValid = validateLevel();
+    const isSublevelValid = validateSublevel();
+    const isAiPlayerNameValid = validateAiPlayerName();
+
+    if (!isLevelValid || !isSublevelValid || !isAiPlayerNameValid) {
+      return; // Stop submission if validation fails
+    }
+
+    const newAiPlayer = {
+      level,
+      sublevel,
+      aiPlayerName,
+      selectedCards: selectedItems,
+    };
+
+    await dispatch(addAiPlayer({ newAiPlayer }));
+    dispatch(getAiPlayerList({ from: pageFrom, limit: playerPerPage }));
+    setModalShow(false);
+  };
+
+  const handleShowConfirmModal = (aiPlayer) => {
+    setAiPlayerToRemove(aiPlayer); // Set the current AI player ID to remove
+    setConfirmModalShow(true); // Show the confirmation modal
+  };
+
+  const handleRemoveAiPlayer = async () => {
+    if (aiPlayerToRemove) {
+      // Replace this with your actual HTTP request logic
+      await dispatch(removeAiPlayer({ id: aiPlayerToRemove.id }));
+      setConfirmModalShow(false); // Hide the modal after removal
+      setAiPlayerToRemove(null); // Reset the removal ID
+      dispatch(getAiPlayerList({ from: pageFrom, limit: playerPerPage }));
+    }
   };
 
   useEffect(() => {
@@ -100,7 +180,32 @@ export default function AI() {
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody></tbody>
+                  <tbody>
+                    {aiPlayersList.map((aiPlayer, index) => {
+                      return (
+                        <tr key={index}>
+                          <td>{aiPlayer.id}</td>
+                          <td>{aiPlayer.quest_level}</td>
+                          <td>{aiPlayer.quest_sublevel}</td>
+                          <td>{aiPlayer.ai_name}</td>
+                          <td>{aiPlayer.ai_deck}</td>
+                          <td>
+                            <ButtonGroup className="mb-2">
+                              <Button>
+                                <em className="fas fa-edit"></em>
+                              </Button>
+                              <Button
+                                className="btn-danger"
+                                onClick={() => handleShowConfirmModal(aiPlayer)}
+                              >
+                                <em className="fas fa-trash"></em>
+                              </Button>
+                            </ButtonGroup>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
                 </table>
                 <div className="card-footer">
                   <div className="d-flex">
@@ -139,7 +244,11 @@ export default function AI() {
                 type="number"
                 placeholder="Enter Level"
                 value={level}
-                onChange={(e) => setLevel(e.target.value)}
+                onChange={(e) => {
+                  setLevel(e.target.value);
+                  setLevelError("");
+                }}
+                isInvalid={!!levelError}
               />
             </Form.Group>
 
@@ -149,7 +258,11 @@ export default function AI() {
                 type="number"
                 placeholder="Enter Sublevel"
                 value={sublevel}
-                onChange={(e) => setSublevel(e.target.value)}
+                onChange={(e) => {
+                  setSublevel(e.target.value);
+                  setSublevelError("");
+                }}
+                isInvalid={!!sublevelError}
               />
             </Form.Group>
 
@@ -159,7 +272,11 @@ export default function AI() {
                 type="text"
                 placeholder="Enter AIPlayerName"
                 value={aiPlayerName}
-                onChange={(e) => setAiPlayerName(e.target.value)}
+                onChange={(e) => {
+                  setAiPlayerName(e.target.value);
+                  setAiPlayerNameError("");
+                }}
+                isInvalid={!!aiPlayerNameError}
               />
             </Form.Group>
 
@@ -168,7 +285,6 @@ export default function AI() {
               <ShuttleList
                 className="small"
                 available={availableItems}
-                selected={selectedItems}
                 availableTitle="Available"
                 selectedTitle="Selected"
                 onSelectionChange={setSelectedItems}
@@ -180,11 +296,19 @@ export default function AI() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleAddAiPlayer}>
             Save Changes
           </Button>
         </Modal.Footer>
       </Modal>
+
+      <ConfirmModal
+        heading="Confirm delete AI Player"
+        text={`Do you want to remove AI player ${aiPlayerToRemove?.ai_name}`}
+        show={confirmModalShow}
+        onHide={() => setConfirmModalShow(false)}
+        onConfirm={handleRemoveAiPlayer}
+      ></ConfirmModal>
     </>
   );
 }
