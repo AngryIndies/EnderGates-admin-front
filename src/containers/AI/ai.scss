@@ -12,3 +12,11 @@
   flex-direction: column;
   gap: 8px;
 }
+
+.ellipsis-text {
+  white-space: nowrap; /* Prevents the text from wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Show ellipsis (...) for overflow */
+  max-width: 150px; /* Set a max-width to trigger overflow (adjust as needed) */
+  display: block; /* Ensures the behavior applies correctly */
+}

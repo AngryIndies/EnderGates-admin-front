@@ -30,6 +30,15 @@ export const addAiPlayer = createAsyncThunk(
   }
 );
 
+export const editAiPlayer = createAsyncThunk(
+  "ai/editAiPlayer",
+  async ({ aiPlayer }) => {
+    const result = await axios.put(`${HOST_URL}aiPlayer`, aiPlayer);
+
+    return result.data;
+  }
+);
+
 export const removeAiPlayer = createAsyncThunk(
   "ai/removeAiPlayer",
   async ({ id }) => {
@@ -60,6 +69,10 @@ const aiSlice = createSlice({
       .addCase(addAiPlayer.pending, (state) => {})
       .addCase(addAiPlayer.fulfilled, (state, { payload }) => {})
       .addCase(addAiPlayer.rejected, (state, { error }) => {})
+
+      .addCase(editAiPlayer.pending, (state) => {})
+      .addCase(editAiPlayer.fulfilled, (state, { payload }) => {})
+      .addCase(editAiPlayer.rejected, (state, { error }) => {})
 
       .addCase(removeAiPlayer.pending, (state) => {})
       .addCase(removeAiPlayer.fulfilled, (state, { payload }) => {})

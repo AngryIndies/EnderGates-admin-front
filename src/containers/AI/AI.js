@@ -4,8 +4,9 @@ import Paginator from "react-hooks-paginator";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addAiPlayer,
+  editAiPlayer,
   getAiPlayerList,
-  removeAiPlayer
+  removeAiPlayer,
 } from "../../reducers/ai.slice";
 import { getCardsInfo, getMetadata } from "../../reducers/card.slice";
 
@@ -28,7 +29,7 @@ export default function AI() {
   const [playerPerPage, setPlayerPerPage] = useState(10);
   const [pageFrom, setPageFrom] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [modalShow, setModalShow] = useState(false);
+  const [addModalShow, setAddModalShow] = useState(false);
 
   const [confirmModalShow, setConfirmModalShow] = useState(false);
   const [aiPlayerToRemove, setAiPlayerToRemove] = useState(null);
@@ -41,12 +42,26 @@ export default function AI() {
   const [levelError, setLevelError] = useState("");
   const [sublevelError, setSublevelError] = useState("");
   const [aiPlayerNameError, setAiPlayerNameError] = useState("");
+  const [aiDeck, setAiDeck] = useState([]);
 
-  const [availableItems, setAvailableItems] = useState([]);
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [availableCards, setAvailableCards] = useState([]);
+  const [selectedCards, setSelectedCards] = useState([]);
 
-  const handleShow = () => setModalShow(true);
-  const handleClose = () => setModalShow(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingPlayerId, setEditingPlayerId] = useState(-1);
+
+  const handleAddModalShow = () => {
+    setLevel("");
+    setSublevel("");
+    setAiPlayerName("");
+    setSelectedCards([]);
+
+    setAddModalShow(true);
+  };
+  const handleAddClose = () => {
+    setAddModalShow(false);
+    setIsEditing(false);
+  };
 
   const onPageClick = (i) => {
     setCurrentPage(i);
@@ -89,16 +104,65 @@ export default function AI() {
       return; // Stop submission if validation fails
     }
 
+    if (isEditing) {
+      const editingPlayerInfo = {
+        aiPlayerName,
+        playerId: editingPlayerId,
+        selectedCards: aiDeck,
+      };
+
+      await dispatch(editAiPlayer({ aiPlayer: editingPlayerInfo }));
+      dispatch(getAiPlayerList({ from: pageFrom, limit: playerPerPage }));
+      setAddModalShow(false);
+
+      return;
+    }
+
     const newAiPlayer = {
       level,
       sublevel,
       aiPlayerName,
-      selectedCards: selectedItems,
+      selectedCards: aiDeck,
     };
 
     await dispatch(addAiPlayer({ newAiPlayer }));
     dispatch(getAiPlayerList({ from: pageFrom, limit: playerPerPage }));
-    setModalShow(false);
+    setAddModalShow(false);
+  };
+
+  const handleShowEditModal = (aiPlayer) => {
+    setAddModalShow(true);
+
+    setLevel(aiPlayer.quest_level);
+    setSublevel(aiPlayer.quest_sublevel);
+    setAiPlayerName(aiPlayer.ai_name);
+
+    const deckCards = aiPlayer.ai_deck.split(",");
+    const selectedCards = [];
+    const metadatas = Object.values(cardsMetadata);
+    deckCards.forEach((card) => {
+      const cardId = parseInt(card);
+      const cardData = metadatas.find(
+        (md) => cardId === md.properties.id?.value
+      );
+      if (cardData != null) {
+        // Check if the card is already in selectedCards
+        const existingCard = selectedCards.find(
+          (sc) => sc.properties.id?.value === cardId
+        );
+        if (existingCard) {
+          // If exists, increment the count
+          existingCard.count += 1;
+        } else {
+          // If not, add the card with a count of 1
+          selectedCards.push({ ...cardData, count: 1 });
+        }
+      }
+    });
+
+    setIsEditing(true);
+    setEditingPlayerId(aiPlayer.id);
+    setSelectedCards(selectedCards);
   };
 
   const handleShowConfirmModal = (aiPlayer) => {
@@ -143,7 +207,7 @@ export default function AI() {
         availableCardDetails.push(cardData);
       }
     });
-    setAvailableItems(availableCardDetails);
+    setAvailableCards(availableCardDetails);
   }, [cardsInfo]);
 
   return (
@@ -160,7 +224,10 @@ export default function AI() {
               <div className="input-group">
                 <div className="dataTables-title">AI Players</div>
               </div>
-              <Button className="dataTable-header-button" onClick={handleShow}>
+              <Button
+                className="dataTable-header-button"
+                onClick={handleAddModalShow}
+              >
                 Add
               </Button>
             </div>
@@ -188,11 +255,18 @@ export default function AI() {
                           <td>{aiPlayer.quest_level}</td>
                           <td>{aiPlayer.quest_sublevel}</td>
                           <td>{aiPlayer.ai_name}</td>
-                          <td>{aiPlayer.ai_deck}</td>
+                          <td>
+                            <div className="ellipsis-text">
+                              {aiPlayer.ai_deck}
+                            </div>
+                          </td>
                           <td>
                             <ButtonGroup className="mb-2">
                               <Button>
-                                <em className="fas fa-edit"></em>
+                                <em
+                                  className="fas fa-edit"
+                                  onClick={() => handleShowEditModal(aiPlayer)}
+                                ></em>
                               </Button>
                               <Button
                                 className="btn-danger"
@@ -232,9 +306,11 @@ export default function AI() {
         </div>
       </section>
 
-      <Modal show={modalShow} onHide={handleClose}>
+      <Modal show={addModalShow} onHide={handleAddClose}>
         <Modal.Header>
-          <Modal.Title>Add AI Player</Modal.Title>
+          <Modal.Title>
+            {isEditing ? "Edit AI Player" : "Add AI Player"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form className="form">
@@ -249,6 +325,7 @@ export default function AI() {
                   setLevelError("");
                 }}
                 isInvalid={!!levelError}
+                disabled={isEditing}
               />
             </Form.Group>
 
@@ -263,6 +340,7 @@ export default function AI() {
                   setSublevelError("");
                 }}
                 isInvalid={!!sublevelError}
+                disabled={isEditing}
               />
             </Form.Group>
 
@@ -284,16 +362,17 @@ export default function AI() {
               <Form.Label>Select Options</Form.Label>
               <ShuttleList
                 className="small"
-                available={availableItems}
+                available={availableCards}
+                selected={selectedCards}
                 availableTitle="Available"
                 selectedTitle="Selected"
-                onSelectionChange={setSelectedItems}
+                onSelectionChange={setAiDeck}
               />
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleAddClose}>
             Close
           </Button>
           <Button variant="primary" onClick={handleAddAiPlayer}>

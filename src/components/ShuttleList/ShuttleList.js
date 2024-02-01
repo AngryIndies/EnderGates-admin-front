@@ -9,7 +9,7 @@ function ShuttleList({
   selectedTitle,
   className,
 }) {
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState(selected);
   const [availableItems, setAvailableItems] = useState(available);
 
   const handleAddItemClick = (item) => {
@@ -62,19 +62,26 @@ function ShuttleList({
     <div className={"shuttle-list-container " + className}>
       <ul className="shuttle-list shuttle-list-available">
         <li className="shuttle-list-header">{availableTitle}</li>
-        {availableItems.map((item) => (
-          <li
-            key={item.properties.name.value}
-            onClick={() => handleAddItemClick(item)}
-          >
-            <div className="shuttle-item-name">
-              {item.properties.id
-                ? item.properties.id.value + ": "
-                : "Avatar: "}
-              {item.name}
-            </div>
-          </li>
-        ))}
+        {availableItems.map((item) =>
+          selectedItems.findIndex(
+            (selectedItem, index) =>
+              selectedItem.properties.id.value == item.properties.id.value
+          ) == -1 ? (
+            <li
+              key={item.properties.name.value}
+              onClick={() => handleAddItemClick(item)}
+            >
+              <div className="shuttle-item-name">
+                {item.properties.id
+                  ? item.properties.id.value + ": "
+                  : "Avatar: "}
+                {item.name}
+              </div>
+            </li>
+          ) : (
+            ""
+          )
+        )}
       </ul>
       <ul className="shuttle-list shuttle-list-selected">
         <li className="shuttle-list-header">{selectedTitle}</li>
