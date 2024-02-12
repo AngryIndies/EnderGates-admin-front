@@ -7,22 +7,22 @@ import {
   editAiPlayer,
   getAiPlayerList,
   removeAiPlayer,
-} from "../../reducers/ai.slice";
-import { getCardsInfo, getMetadata } from "../../reducers/card.slice";
+} from "../../../reducers/quest.slice";
+import { getCardsInfo, getMetadata } from "../../../reducers/card.slice";
 
-import Header from "../layout/header";
-import Sidebar from "../layout/sidebar";
+import Header from "../../layout/header";
+import Sidebar from "../../layout/sidebar";
 
-import ConfirmModal from "../../components/ConfirmModal/ConfirmModal";
-import ShuttleList from "../../components/ShuttleList/ShuttleList";
+import ConfirmModal from "../../../components/ConfirmModal/ConfirmModal";
+import ShuttleList from "../../../components/ShuttleList/ShuttleList";
 
-import "./ai.scss";
+import "./missions.scss";
 
-export default function AI() {
+export default function Missions() {
   const dispatch = useDispatch();
 
   const { totalAIPlayerCount, aiPlayersList } = useSelector(
-    (state) => state.ai
+    (state) => state.quest
   );
   const { cardsInfo, cardsMetadata } = useSelector((state) => state.card);
 
@@ -240,8 +240,8 @@ export default function AI() {
                   <thead>
                     <tr className="text-center">
                       <th>ID</th>
-                      <th>Level</th>
-                      <th>Sublevel</th>
+                      <th>Location</th>
+                      <th>Mission</th>
                       <th>AI Player name</th>
                       <th>AI Player Deck</th>
                       <th>Action</th>
@@ -309,16 +309,16 @@ export default function AI() {
       <Modal show={addModalShow} onHide={handleAddClose}>
         <Modal.Header>
           <Modal.Title>
-            {isEditing ? "Edit AI Player" : "Add AI Player"}
+            {isEditing ? "Edit Quest Mission" : "Add Quest Mission"}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form className="form">
             <Form.Group controlId="formLevel">
-              <Form.Label>Level</Form.Label>
+              <Form.Label>Location</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Enter Level"
+                placeholder="Enter Location"
                 value={level}
                 onChange={(e) => {
                   setLevel(e.target.value);
@@ -330,10 +330,10 @@ export default function AI() {
             </Form.Group>
 
             <Form.Group controlId="formSublevel">
-              <Form.Label>Sublevel</Form.Label>
+              <Form.Label>Mission Name</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Enter Sublevel"
+                placeholder="Enter Mission Name"
                 value={sublevel}
                 onChange={(e) => {
                   setSublevel(e.target.value);

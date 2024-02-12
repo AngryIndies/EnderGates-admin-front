@@ -5,6 +5,7 @@ const DECKS = "decks";
 const CONFIG = "config";
 const CARDS = "cards";
 const AI = "ai";
+const QUEST = "quest";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
@@ -15,4 +16,5 @@ export default {
   CONFIG,
   CARDS,
   AI,
+  QUEST,
 };

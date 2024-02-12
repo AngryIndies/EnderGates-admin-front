@@ -48,8 +48,8 @@ export const removeAiPlayer = createAsyncThunk(
   }
 );
 
-const aiSlice = createSlice({
-  name: "ai",
+const questSlice = createSlice({
+  name: "quest",
   initialState: initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -80,6 +80,6 @@ const aiSlice = createSlice({
   },
 });
 
-export const {} = aiSlice.actions;
+export const {} = questSlice.actions;
 
-export default aiSlice.reducer;
+export default questSlice.reducer;

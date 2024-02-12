@@ -147,14 +147,41 @@ const Sidebar = ({ onSetSidebarTag }) => {
               </Link>
             </li>
 
-            <li
-              className={location.pathname === "/ai" ? "active" : ""}
-              onClick={() => setSidebarTag(SIDEBAR_TAG_CONFIG, GLOBAL.AI_DECK)}
-            >
-              <Link to="/ai" title="Configure">
+            <li className=" ">
+              <a
+                href="#quest"
+                title="Quests"
+                data-toggle="collapse"
+                className="collapsed"
+                aria-expanded="false"
+              >
                 <em className="fas fa-robot"></em>
-                <span>AI Player</span>
-              </Link>
+                <span>Quest Mode</span>
+              </a>
+              <ul
+                className="sidebar-nav sidebar-subnav collapse show"
+                id="quest"
+              >
+                <li className="sidebar-subnav-header">Quest Mode</li>
+                <li
+                  className={
+                    location.pathname === "/quest/locations" ? "active" : ""
+                  }
+                >
+                  <Link to={"/quest/locations"}>
+                    <span>Locations</span>
+                  </Link>
+                </li>
+                <li
+                  className={
+                    location.pathname === "/quest/missions" ? "active" : ""
+                  }
+                >
+                  <Link to={"/quest/missions"}>
+                    <span>Missions</span>
+                  </Link>
+                </li>
+              </ul>
             </li>
           </ul>
         </nav>
