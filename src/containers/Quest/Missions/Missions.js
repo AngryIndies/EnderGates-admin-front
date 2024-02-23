@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { Button, ButtonGroup, Form, Modal } from "react-bootstrap";
+import { Button, ButtonGroup, Modal } from "react-bootstrap";
+
+import Form from "react-bootstrap/Form";
+
 import Paginator from "react-hooks-paginator";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addAiPlayer,
   editAiPlayer,
   getAiPlayerList,
+  getLocations,
   removeAiPlayer,
 } from "../../../reducers/quest.slice";
 import { getCardsInfo, getMetadata } from "../../../reducers/card.slice";
@@ -21,7 +25,7 @@ import "./missions.scss";
 export default function Missions() {
   const dispatch = useDispatch();
 
-  const { totalAIPlayerCount, aiPlayersList } = useSelector(
+  const { totalAIPlayerCount, aiPlayersList, locations } = useSelector(
     (state) => state.quest
   );
   const { cardsInfo, cardsMetadata } = useSelector((state) => state.card);
@@ -34,7 +38,7 @@ export default function Missions() {
   const [confirmModalShow, setConfirmModalShow] = useState(false);
   const [aiPlayerToRemove, setAiPlayerToRemove] = useState(null);
 
-  const [level, setLevel] = useState("");
+  const [level, setLevel] = useState(-1);
   const [sublevel, setSublevel] = useState("");
   const [aiPlayerName, setAiPlayerName] = useState("");
 
@@ -54,8 +58,12 @@ export default function Missions() {
     setLevel("");
     setSublevel("");
     setAiPlayerName("");
-    setSelectedCards([]);
 
+    setLevelError("");
+    setSublevelError("");
+    setAiPlayerNameError("");
+
+    setSelectedCards([]);
     setAddModalShow(true);
   };
   const handleAddClose = () => {
@@ -69,7 +77,7 @@ export default function Missions() {
 
   // Validation functions
   const validateLevel = () => {
-    if (!level) {
+    if (!level || level < 0) {
       setLevelError("Level is required");
       return false;
     }
@@ -95,7 +103,7 @@ export default function Missions() {
     return true;
   };
 
-  const handleAddAiPlayer = async () => {
+  const handleAddMission = async () => {
     const isLevelValid = validateLevel();
     const isSublevelValid = validateSublevel();
     const isAiPlayerNameValid = validateAiPlayerName();
@@ -181,6 +189,7 @@ export default function Missions() {
   };
 
   useEffect(() => {
+    dispatch(getLocations());
     dispatch(getAiPlayerList({ from: pageFrom, limit: playerPerPage }));
     const getCardsDetail = async () => {
       await dispatch(getMetadata());
@@ -252,7 +261,13 @@ export default function Missions() {
                       return (
                         <tr key={index}>
                           <td>{aiPlayer.id}</td>
-                          <td>{aiPlayer.quest_level}</td>
+                          <td>
+                            {
+                              locations.find((location, index) => {
+                                return location.id == aiPlayer.quest_level;
+                              }).location_name
+                            }
+                          </td>
                           <td>{aiPlayer.quest_sublevel}</td>
                           <td>{aiPlayer.ai_name}</td>
                           <td>
@@ -316,24 +331,30 @@ export default function Missions() {
           <Form className="form">
             <Form.Group controlId="formLevel">
               <Form.Label>Location</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Enter Location"
+              <Form.Select
                 value={level}
                 onChange={(e) => {
                   setLevel(e.target.value);
-                  setLevelError("");
                 }}
                 isInvalid={!!levelError}
                 disabled={isEditing}
-              />
+                className="form-control"
+              >
+                <option value={-1}>Please Select Location</option>
+
+                {locations.map((location, index) => (
+                  <option key={index} value={parseInt(location.id)}>
+                    {location.location_name}
+                  </option>
+                ))}
+              </Form.Select>
             </Form.Group>
 
             <Form.Group controlId="formSublevel">
-              <Form.Label>Mission Name</Form.Label>
+              <Form.Label>Quest Level</Form.Label>
               <Form.Control
                 type="number"
-                placeholder="Enter Mission Name"
+                placeholder="Enter Quest Level"
                 value={sublevel}
                 onChange={(e) => {
                   setSublevel(e.target.value);
@@ -375,7 +396,7 @@ export default function Missions() {
           <Button variant="secondary" onClick={handleAddClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleAddAiPlayer}>
+          <Button variant="primary" onClick={handleAddMission}>
             Save Changes
           </Button>
         </Modal.Footer>
