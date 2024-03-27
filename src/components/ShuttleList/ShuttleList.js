@@ -65,7 +65,7 @@ function ShuttleList({
         {availableItems.map((item) =>
           selectedItems.findIndex(
             (selectedItem, index) =>
-              selectedItem.properties.id.value == item.properties.id.value
+              selectedItem.properties.id?.value == item.properties.id?.value
           ) == -1 ? (
             <li
               key={item.properties.name.value}
